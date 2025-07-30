@@ -31,11 +31,14 @@
                 "key": "lightmapping.autoUnwrapLightmapUV",
                 "value": "{\"m_Value\":true}"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ShapeComponent.ResetSettings",
                 "value": "{\"m_Value\":false}"
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
             }
