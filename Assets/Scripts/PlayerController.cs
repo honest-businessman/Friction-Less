@@ -11,17 +11,21 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 5f; // Maximum speed the player can reach
     public float driftSpeed = 5f;
     public float defaultDrag = 8f;
-    public float rotationSpeed = 15f; // Rotation speed
+    public float turnSpeed = 20f; // Rotation speed
+    public float driftTurnSpeed = 20f;
     private float moveSpeedMultiplier = 100f; // Adjusted multiplier for movement speed
     public float treadOffset = 0.2f; // Offset for the rotation pivot point
     public float chargePerSecond = 60f;
     public float dischargePerSecond = 70f;
-    public float chargeFadeDelay = 2f; // Delay before charge starts fading
+    public float chargeFadeDelay = 1.5f; // Delay before charge starts fading
     public float chargeAngle = 45f; // degrees
     public float minChargeMoveSpeed= 3f; // degrees
-    private float rotationSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
-    public float driveCharge = 0f;
+    private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
+    
+    [HideInInspector] public float driveCharge = 0f;
+    [HideInInspector] public bool driftPressed;
 
+    public GameObject turret;
     private enum MoveState
     {
         Idle,
@@ -30,9 +34,9 @@ public class PlayerController : MonoBehaviour
     }
     private MoveState currentState = MoveState.Idle;
     private Vector2 playerInput;
-    public bool driftPressed;
     private Rigidbody rb;
     private float timeLastCharge;
+    private Vector3 aimInput;
 
     void Awake()
     {
@@ -60,7 +64,10 @@ public class PlayerController : MonoBehaviour
         else
             currentState = MoveState.Idle;
     }
-
+    private void Update()
+    {
+        TurretRotate();
+    }
     void FixedUpdate()
     {
         if (currentState == MoveState.Drifting)
@@ -103,7 +110,13 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerRotate()
     {
-        Vector3 rotationPoint = transform.position; // Point to rotate around
+        float rotateSpeed;
+        if (currentState == MoveState.Drifting)
+            rotateSpeed = driftTurnSpeed;
+        else
+            rotateSpeed = turnSpeed;
+
+            Vector3 rotationPoint = transform.position; // Point to rotate around
         Vector3 debugPoint = transform.position; // Point to draw debug line to
         if (Mathf.Abs(playerInput.y) > 0.1)
         {
@@ -116,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 rotationPoint += transform.right * treadOffset;
             }
         }
-        transform.RotateAround(rotationPoint, transform.forward, -playerInput.x * rotationSpeed * rotationSpeedMultiplier * Time.deltaTime);
+        transform.RotateAround(rotationPoint, transform.forward, -playerInput.x * rotateSpeed * turnSpeedMultiplier * Time.deltaTime);
     }
 
     private void ChargeDrive()
@@ -151,4 +164,23 @@ public class PlayerController : MonoBehaviour
             driveCharge = Mathf.Max(driveCharge, 0f); // Ensure charge doesn't go below 0
     }
 
+    void OnAim(InputValue value)
+    {
+        aimInput = value.Get<Vector2>();
+    }
+
+    void TurretRotate()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f; // Ensure z = 0 in 2D
+
+        // Step 2: Calculate direction from turret to mouse
+        Vector3 direction = mousePos - transform.position;
+
+        // Step 3: Calculate angle in degrees
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Step 4: Apply rotation (z-axis for 2D)
+        turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+    }
 }
