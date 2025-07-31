@@ -7,6 +7,7 @@ using UnityEngine.XR;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
+    public bool mouseAiming = false;
     public float moveSpeed = 25f; // Movement speed
     public float maxSpeed = 5f; // Maximum speed the player can reach
     public float driftSpeed = 5f;
@@ -16,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private float moveSpeedMultiplier = 100f; // Adjusted multiplier for movement speed
     public float treadOffset = 0.2f; // Offset for the rotation pivot point
     public float chargePerSecond = 60f;
-    public float dischargePerSecond = 70f;
-    public float chargeFadeDelay = 1.5f; // Delay before charge starts fading
+    public float dischargePerSecond = 100f;
+    public float chargeFadeDelay = 1f; // Delay before charge starts fading
     public float chargeAngle = 45f; // degrees
     public float minChargeMoveSpeed= 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
@@ -171,16 +172,22 @@ public class PlayerController : MonoBehaviour
 
     void TurretRotate()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f; // Ensure z = 0 in 2D
-
-        // Step 2: Calculate direction from turret to mouse
-        Vector3 direction = mousePos - transform.position;
-
-        // Step 3: Calculate angle in degrees
+        Vector3 direction;
+        if (mouseAiming)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f; // Ensure z = 0 in 2D
+            direction = mousePos - transform.position;
+        }
+        else
+        {
+            if (aimInput.magnitude < 0.1f)
+                direction = transform.up;
+            else
+                direction = new Vector3(aimInput.x, aimInput.y, 0f);
+        }
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Step 4: Apply rotation (z-axis for 2D)
         turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
     }
 }
