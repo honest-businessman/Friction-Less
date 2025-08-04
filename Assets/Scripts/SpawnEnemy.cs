@@ -3,9 +3,8 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject enemy;
-    private int num = 0;
-    private int x;
-    private int z;
+    private int frameCount = 0;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,13 +15,34 @@ public class SpawnEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x = Random.Range(1, 10);
-        z = Random.Range(1, 10);
-        num++;
+        
+        frameCount++;
 
-        if(num % 200 == 0)
+        if(frameCount % 200 == 0)
         {
-            Instantiate(enemy, new Vector3(x, 1, z), Quaternion.identity);
+            int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            if(currentEnemyCount < 10)
+            {
+                Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+                Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+                SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                float enemyWidth = sr.bounds.size.x;
+                float enemyHeight = sr.bounds.size.y;
+
+                float minX = bottomLeft.x + enemyWidth / 2f;
+                float maxX = topRight.x - enemyWidth / 2f;
+                float minY = bottomLeft.y + enemyHeight / 2f;
+                float maxY = topRight.y - enemyHeight / 2f;
+
+                float x = Random.Range(minX, maxX);
+                float y = Random.Range(minY, maxY);
+
+                Vector3 spawnPosition = new Vector3(x, y, 0);
+                Instantiate(enemy, spawnPosition, Quaternion.identity);
+
+            }
+            
         }
     }
 }
