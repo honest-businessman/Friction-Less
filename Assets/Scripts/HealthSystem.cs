@@ -15,9 +15,9 @@ public class HealthSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Minus))
+        if (Input.GetKeyDown(KeyCode.Minus))
             TakeDamage(1);
-        if (Input.GetKey(KeyCode.Equals))
+        if (Input.GetKeyDown(KeyCode.Equals))
             GainHealth(1);
     }
 
@@ -43,6 +43,6 @@ public class HealthSystem : MonoBehaviour
 
     private void Die()
     {
-
+        Destroy(this);
     }
 }
