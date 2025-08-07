@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - UI Drive Charge
+  - Turret
   layers:
   - Default
   - TransparentFX

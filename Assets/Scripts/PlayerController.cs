@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -7,6 +8,8 @@ using UnityEngine.XR;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
+    [SerializeField]
+    private InputHandler inputHandler;
     public float moveSpeed = 25f; // Movement speed
     public float maxSpeed = 5f; // Maximum speed the player can reach
     public float driftSpeed = 5f;
@@ -45,13 +48,25 @@ public class PlayerController : MonoBehaviour
         defaultDrag = rb.linearDamping;
     }
 
-    private void OnMove(InputValue value)
+    private void OnEnable()
+    {
+        inputHandler.OnInputMove.AddListener(ProcessMove);
+        inputHandler.OnInputDrift.AddListener(ProcessDrift);
+
+    }
+    private void OnDisable()
+    {
+        inputHandler.OnInputMove.RemoveListener(ProcessMove);
+        inputHandler.OnInputDrift.RemoveListener(ProcessDrift);
+    }
+
+    private void ProcessMove(InputValue value)
     {
         playerInput = value.Get<Vector2>();
         
     }
 
-    private void OnDrift(InputValue value)
+    private void ProcessDrift(InputValue value)
     {
         driftPressed = value.isPressed;
     }
