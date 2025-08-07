@@ -5,14 +5,14 @@ public class HealthSystem : MonoBehaviour
     public int health = 2;
     public int maxHealth = 2;
     public bool vulnerable = true;
+    public delegate void DieAction();
+    public static event DieAction OnDie;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Minus))
@@ -43,6 +43,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Die()
     {
-        Destroy(this);
+        OnDie?.Invoke();
+        Destroy(gameObject);
     }
 }
