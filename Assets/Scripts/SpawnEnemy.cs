@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    public GameObject enemy;
+    public GameObject enemy1;
     private int frameCount = 0;
     
 
@@ -20,13 +20,13 @@ public class SpawnEnemy : MonoBehaviour
 
         if(frameCount % 200 == 0)
         {
-            int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy2").Length;
             if(currentEnemyCount < 10)
             {
                 Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
                 Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
 
-                SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                SpriteRenderer sr = enemy1.GetComponent<SpriteRenderer>();
                 float enemyWidth = sr.bounds.size.x;
                 float enemyHeight = sr.bounds.size.y;
 
@@ -39,7 +39,7 @@ public class SpawnEnemy : MonoBehaviour
                 float y = Random.Range(minY, maxY);
 
                 Vector3 spawnPosition = new Vector3(x, y, 0);
-                Instantiate(enemy, spawnPosition, Quaternion.identity);
+                Instantiate(enemy1, spawnPosition, Quaternion.identity);
 
             }
             

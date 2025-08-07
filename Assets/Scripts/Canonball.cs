@@ -15,7 +15,7 @@ public class Canonball : MonoBehaviour
     void Update()
     {
         transform.Translate(direction * canonSpeed * Time.deltaTime);
-        
+        Destroy(gameObject, 3f);
     }
     public void SetDirection(Vector2 dir)
     {

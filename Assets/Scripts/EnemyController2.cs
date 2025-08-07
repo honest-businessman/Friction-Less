@@ -1,7 +1,7 @@
 using Pathfinding;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController2 : MonoBehaviour
 {
     public Transform player;
     private AIPath aiPath;
