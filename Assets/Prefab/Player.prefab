@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3924909325969936711}
   - component: {fileID: 6797362608101291916}
+  - component: {fileID: 4708020509771491937}
   - component: {fileID: 5172767251234404799}
   - component: {fileID: 7282454355218311327}
   - component: {fileID: 7705520504310172337}
@@ -17,7 +18,7 @@ GameObject:
   - component: {fileID: 7356961255664485176}
   - component: {fileID: 6632548965348768541}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,6 +95,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!136 &4708020509771491937
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098565714445436324}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.19
+  m_Height: 0.68
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5172767251234404799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -247,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b3e209b6db62b4488d048ea39c46ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseAiming: 0
   inputHandler: {fileID: 7705520504310172337}
   moveSpeed: 25
   maxSpeed: 5
