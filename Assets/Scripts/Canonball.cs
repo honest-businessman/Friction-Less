@@ -3,20 +3,22 @@ using UnityEngine;
 public class Canonball : MonoBehaviour
 {
     [SerializeField]
-    private float canonSpeed = 1f;
-    private GameObject player;
+    public float canonSpeed = 5f;
+    private Vector2 direction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.Find("Player");
-        transform.LookAt(player.transform);
-        Destroy(gameObject, 10);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * canonSpeed * Time.deltaTime);
-        
+        transform.Translate(direction * canonSpeed * Time.deltaTime);
+        Destroy(gameObject, 3f);
+    }
+    public void SetDirection(Vector2 dir)
+    {
+        direction = dir.normalized;
     }
 }
