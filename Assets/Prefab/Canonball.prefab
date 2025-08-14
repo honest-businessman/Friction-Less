@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 2526398727477364102}
   - component: {fileID: 3544490189727291426}
   - component: {fileID: 1427454611697865762}
+  - component: {fileID: -8962951738099993822}
   m_Layer: 0
   m_Name: Canonball
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +148,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -166,3 +167,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canonSpeed: 8
+--- !u!114 &-8962951738099993822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117836978507076467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e4ea771ab3b5f499ccf2bf453b22a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 1

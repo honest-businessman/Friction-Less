@@ -38,14 +38,14 @@ public class PlayerController : MonoBehaviour
     }
     private MoveState currentState = MoveState.Idle;
     private Vector2 playerInput;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private float timeLastCharge;
-    private Vector3 aimInput;
+    private Vector2 aimInput;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         defaultDrag = rb.linearDamping;
     }
 
@@ -104,12 +104,12 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.up * 2, Color.green); // Draw ray pointing up from the player
         if (currentState == MoveState.Moving)
         {
-            rb.AddForce(transform.up * playerInput.y * (1.5f - Mathf.Abs(playerInput.x)) * moveSpeed * moveSpeedMultiplier * Time.deltaTime, ForceMode.Force);
+            rb.AddForce(transform.up * playerInput.y * (1.5f - Mathf.Abs(playerInput.x)) * moveSpeed * moveSpeedMultiplier * Time.deltaTime, ForceMode2D.Force);
             FadeDrive();
         }
         else if (currentState == MoveState.Drifting)
         {
-            rb.AddForce(transform.up * playerInput.y * driftSpeed * moveSpeedMultiplier * Time.deltaTime, ForceMode.Force);
+            rb.AddForce(transform.up * playerInput.y * driftSpeed * moveSpeedMultiplier * Time.deltaTime, ForceMode2D.Force);
             ChargeDrive();
         }
         else if (currentState == MoveState.Idle)
@@ -132,33 +132,34 @@ public class PlayerController : MonoBehaviour
         else
             rotateSpeed = turnSpeed;
 
-            Vector3 rotationPoint = transform.position; // Point to rotate around
-        Vector3 debugPoint = transform.position; // Point to draw debug line to
+        Vector2 rotationPoint = transform.position; // Point to rotate around
+        Vector2 debugPoint = transform.position; // Point to draw debug line to
         if (Mathf.Abs(playerInput.y) > 0.1)
         {
             if (playerInput.x < 0)
             {
-                rotationPoint += -transform.right * treadOffset;
+                rotationPoint += (Vector2)(-transform.right * treadOffset);
             }
             else if (playerInput.x > 0)
             {
-                rotationPoint += transform.right * treadOffset;
+                rotationPoint += (Vector2)transform.right * treadOffset;
             }
         }
         transform.RotateAround(rotationPoint, transform.forward, -playerInput.x * rotateSpeed * turnSpeedMultiplier * Time.deltaTime);
+        rb.angularVelocity = 0f;
     }
 
     private void ChargeDrive()
     {
         
-        Vector3 velocity = rb.linearVelocity;
+        Vector2 velocity = rb.linearVelocity;
         float mag = velocity.magnitude;
-        Vector3 up = transform.up;
+        Vector2 up = transform.up;
 
         if (mag > minChargeMoveSpeed)
         {
-            float fAngle = Vector3.Angle(up, velocity);
-            float bAngle = Vector3.Angle(-up, velocity);
+            float fAngle = Vector2.Angle(up, velocity);
+            float bAngle = Vector2.Angle(-up, velocity);
             
             Debug.DrawRay(transform.position, velocity * 2, Color.red);
             if (fAngle > chargeAngle && bAngle > chargeAngle)
@@ -187,19 +188,18 @@ public class PlayerController : MonoBehaviour
 
     void TurretRotate()
     {
-        Vector3 direction;
+        Vector2 direction;
         if (mouseAiming)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f; // Ensure z = 0 in 2D
-            direction = mousePos - transform.position;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            direction = mousePos - (Vector2)transform.position;
         }
         else
         {
             if (aimInput.magnitude < 0.1f)
                 direction = transform.up;
             else
-                direction = new Vector3(aimInput.x, aimInput.y, 0f);
+                direction = new Vector2(aimInput.x, aimInput.y);
         }
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
