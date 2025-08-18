@@ -39,5 +39,7 @@ public class EnemyController1 : MonoBehaviour
         {
             aiPath.canMove = false;
         }
+
+       
     }
 }
