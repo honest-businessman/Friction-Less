@@ -25,6 +25,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (vulnerable)
         {
+            Debug.Log($"{gameObject.name} taken {damage} damage!");
             health -= damage;
 
             if(health <= 0)

@@ -6,15 +6,18 @@ public class FiringSystem : MonoBehaviour
 {
     [SerializeField]
     private InputHandler inputHandler;
+    [SerializeField]
 
     private float firingTimer = 0f;
     private GameObject turret;
     private TurretParameters turretParameters;
     private Vector2 firePosition;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
+    private FactionController fc;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
+        fc = GetComponent<FactionController>();
         foreach (Transform childTransform in transform)
         {
             // Check if the child's GameObject has the specified tag
@@ -46,9 +49,9 @@ public class FiringSystem : MonoBehaviour
             firingTimer = Time.time;
             firePosition = turret.transform.position + (turret.transform.up * turretParameters.spawnOffset);
             GameObject shell = Instantiate(turretParameters.shellPrefab, firePosition, turret.transform.rotation);
-            shell.GetComponent<ShellController>().Initialize(turretParameters.shellBounces, turretParameters.shellLifetime);
-            shell.transform.localScale = new Vector3(turretParameters.shellSize, turretParameters.shellSize, turretParameters.shellSize);
-            shell.GetComponent<Rigidbody>().linearVelocity = shell.transform.up * turretParameters.shellSpeed;
+            shell.GetComponent<ShellController>().Initialize(turretParameters.shellBounces,turretParameters.shellDamage, turretParameters.shellLifetime, fc.Faction);
+            shell.transform.localScale = new Vector2(turretParameters.shellSize, turretParameters.shellSize);
+            shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretParameters.shellSpeed;
         }
     }
 

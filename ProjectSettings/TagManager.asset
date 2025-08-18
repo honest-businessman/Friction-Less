@@ -8,6 +8,7 @@ TagManager:
   - UI Drive Charge
   - Enemy2
   - Turret
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 4588632712980192789}
   - component: {fileID: 3743212224936337220}
   - component: {fileID: 7319075201920726479}
+  - component: {fileID: 1615537464735271629}
+  - component: {fileID: -1027802973683383154}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -179,14 +181,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5887338319710954844}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -298,3 +300,31 @@ MonoBehaviour:
   canonball: {fileID: 2117836978507076467, guid: aa525d4297c6e8f448bc83ea8ac7f821, type: 3}
   firePoint: {fileID: 2057561304949331913}
   fireInterval: 2
+--- !u!114 &1615537464735271629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887338319710954844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  maxHealth: 1
+  vulnerable: 1
+--- !u!114 &-1027802973683383154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887338319710954844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e4ea771ab3b5f499ccf2bf453b22a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 1
