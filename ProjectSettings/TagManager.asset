@@ -9,6 +9,7 @@ TagManager:
   - Enemy2
   - Turret
   - Projectile
+  - HitscanTrail
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Test Layer
   - 
   - 
   - 

@@ -181,6 +181,11 @@ public class PlayerController : MonoBehaviour
             driveCharge = Mathf.Max(driveCharge, 0f); // Ensure charge doesn't go below 0
     }
 
+    public void DrainDrive()
+    {
+        driveCharge = 0;
+    }
+
     void OnAim(InputValue value)
     {
         aimInput = value.Get<Vector2>();

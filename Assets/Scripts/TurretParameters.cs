@@ -6,6 +6,10 @@ public class TurretParameters : MonoBehaviour
     public float shellSize = 0.3f;
     public int shellBounces = 1;
     public int shellDamage = 1;
+    public float chargedSize = 1f;
+    public int chargedBounces = 1;
+    public int chargedDamage = 1;
+    public int chargedRange = 100;
     public float fireRate = 2; // How many shells per second
     public float shellLifetime = 10f;
     public float spawnOffset = 1;

@@ -1778,14 +1778,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7356961255664485176, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-      propertyPath: driftSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7356961255664485176, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-      propertyPath: driftTurnSpeed
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

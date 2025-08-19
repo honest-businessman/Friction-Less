@@ -290,7 +290,7 @@ MonoBehaviour:
   inputHandler: {fileID: 7705520504310172337}
   moveSpeed: 25
   maxSpeed: 5
-  driftSpeed: 5
+  driftSpeed: 4.5
   defaultDrag: 8
   turnSpeed: 20
   driftTurnSpeed: 20
@@ -316,7 +316,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 7705520504310172337}
-  firingTimer: 0
+  chargedHitList:
+    serializedVersion: 2
+    m_Bits: 1
+  hiscanTrailPrefab: {fileID: 4426810399315598589, guid: c9c829268ecd94d49a34a658782cd962, type: 3}
 --- !u!114 &4068475961814273220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +344,14 @@ PrefabInstance:
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: shellPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: chargedRange
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6766343977067499528, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_LocalPosition.x
