@@ -77,7 +77,7 @@ public class FiringSystem : MonoBehaviour
             firePosition = turret.transform.position + (turret.transform.up * turretParameters.spawnOffset);
             if (canCharge)
             {
-                if(pc.driveCharge >= 1f) 
+                if(pc.driveCharge >= 100f) 
                 {
                     Debug.Log("Fire Charged!");
                     FireCharged();
@@ -100,23 +100,21 @@ public class FiringSystem : MonoBehaviour
     {
         HealthSystem otherHealthSystem;
         RaycastHit2D hit = Physics2D.Raycast(firePosition, turret.transform.up, turretParameters.chargedRange, chargedHitList);
-        Debug.Log($"Hit {hit.transform.gameObject}");
         GameObject trail = Instantiate(hiscanTrailPrefab, firePosition, turret.transform.rotation);
         TrailRenderer tr = trail.GetComponent<TrailRenderer>();
-        if (hit.collider == null || hit == null)
+        if (hit.collider == null)
         {
             StartCoroutine(MoveTrail(tr, firePosition + (Vector2)turret.transform.up * turretParameters.chargedRange));
         }
         else
         {
+            Debug.Log("Hit: " + hit.transform.name);
             StartCoroutine(MoveTrail(tr, hit.point));
+            if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out otherHealthSystem))
+            {
+                otherHealthSystem.TakeDamage(turretParameters.chargedDamage);
+            }
         }
-        Destroy(trail, tr.time);
-        if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out otherHealthSystem))
-        {
-            otherHealthSystem.TakeDamage(turretParameters.chargedDamage);
-        }
-
     }
 
     System.Collections.IEnumerator MoveTrail(TrailRenderer tr, Vector3 targetPosition)

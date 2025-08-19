@@ -3,29 +3,45 @@ using UnityEngine;
 
 public class TrailFader : MonoBehaviour
 {
-    [SerializeField]
+    public float delay = 0.1f;
+
+    private TrailRenderer tr;
     private Material mat;
+    private Color initialColor;
+    private float elapsedTime = 0f;
+    private float fadeDuration = 2f;
+    private bool isFading = false;
 
-    TrailRenderer tr;
-    float timer = 0;
-    float startAlpha = 1f;
-    float endAlpha = 0f;
-
-
-    private void Awake()
+    void Awake()
     {
         tr = GetComponent<TrailRenderer>();
-        timer = Time.time;
+        mat = tr.material;
+        initialColor = mat.color;
+        fadeDuration = tr.time - delay;
     }
 
-
-    void Update()
+    void OnEnable()
     {
-        timer += Time.deltaTime;
-        float t = timer / tr.time;
-        t = Mathf.Clamp01(t);
-        float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, t);
-        Color editedColor = tr.material.color;
-        editedColor.a = currentAlpha;
+        StartCoroutine(FadeTrail());
+    }
+
+    private System.Collections.IEnumerator FadeTrail()
+    {
+        yield return new WaitForSeconds(delay);
+
+        isFading = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+            Color fadedColor = initialColor;
+            fadedColor.a = alpha;
+            mat.color = fadedColor;
+
+            yield return null;
+        }
+        Destroy(gameObject);  // Clean up the trail after fade
     }
 }

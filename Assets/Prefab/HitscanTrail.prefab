@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9166843692031888722}
   - component: {fileID: 2028181395683699734}
+  - component: {fileID: -278387358654441294}
   m_Layer: 0
   m_Name: HitscanTrail
   m_TagString: HitscanTrail
@@ -77,7 +78,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2
+  m_Time: 0.8
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -100,7 +101,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -139,3 +140,16 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-278387358654441294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4426810399315598589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea997e56f0de2b4d845b133dc410d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.1
