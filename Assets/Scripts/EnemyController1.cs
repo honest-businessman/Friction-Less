@@ -1,5 +1,8 @@
+using NUnit.Framework;
 using Pathfinding;
 using UnityEngine;
+
+using System.Collections.Generic;
 
 public class EnemyController1 : MonoBehaviour
 {
@@ -7,6 +10,10 @@ public class EnemyController1 : MonoBehaviour
     public float preferredDistance = 8f;
     public float tolerance = 1f;
 
+    public float minSeparation = 1.0f;
+    public float separationForce = 1.5f;
+
+    private static List<EnemyController1> allEnemies = new List<EnemyController1>();
     private AIPath aiPath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +47,27 @@ public class EnemyController1 : MonoBehaviour
             aiPath.canMove = false;
         }
 
+        Vector3 target = player.position;
+
+        foreach (var other in allEnemies)
+        {
+            if (other == this || other == null) continue;
+
+            //float dist = Vector2.Distance(transform.position - other.transform.position).normalized;
+            
+            
+        }
+
        
+    }
+
+
+    private void Awake()
+    {
+        allEnemies.Add(this);
+    }
+    void OnDestory()
+    {
+        allEnemies.Remove(this);
     }
 }

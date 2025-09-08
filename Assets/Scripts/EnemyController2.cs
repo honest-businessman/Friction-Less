@@ -18,6 +18,7 @@ public class EnemyController2 : MonoBehaviour
             aiPath.destination = player.position;
             aiPath.canSearch = true;
             aiPath.canMove = true;
+            
         }
     }
     
