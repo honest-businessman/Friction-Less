@@ -16,7 +16,11 @@ GameObject:
   - component: {fileID: 1743028289435982376}
   - component: {fileID: 4552120653702256818}
   - component: {fileID: 6370034616372836087}
+<<<<<<< HEAD
   - component: {fileID: 6215609724857168517}
+=======
+  - component: {fileID: -273686794742457925}
+>>>>>>> 435c9d9d9418d2057f19ae3f3173e07128a856cf
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy2
@@ -265,7 +269,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+<<<<<<< HEAD
 --- !u!114 &6215609724857168517
+=======
+--- !u!114 &-273686794742457925
+>>>>>>> 435c9d9d9418d2057f19ae3f3173e07128a856cf
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
