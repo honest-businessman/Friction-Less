@@ -19,6 +19,7 @@ GameObject:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - component: {fileID: 6215609724857168517}
 =======
   - component: {fileID: -273686794742457925}
@@ -27,6 +28,8 @@ GameObject:
 >>>>>>> parent of 435c9d9 (Gave map collision)
 =======
 >>>>>>> parent of 435c9d9 (Gave map collision)
+=======
+>>>>>>> parent of 63e3a08 (enemy)
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy2
@@ -278,6 +281,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &6215609724857168517
 =======
 --- !u!114 &-273686794742457925
@@ -298,3 +302,5 @@ MonoBehaviour:
 >>>>>>> parent of 435c9d9 (Gave map collision)
 =======
 >>>>>>> parent of 435c9d9 (Gave map collision)
+=======
+>>>>>>> parent of 63e3a08 (enemy)

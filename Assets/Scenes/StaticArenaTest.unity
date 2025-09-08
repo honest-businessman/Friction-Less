@@ -121,6 +121,7 @@ NavMeshSettings:
   m_NavMeshData: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &348817641
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +168,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 63e3a08 (enemy)
 --- !u!1 &393867733
 =======
 --- !u!1 &397918380
@@ -6344,6 +6347,7 @@ SceneRoots:
   - {fileID: 518832071}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 348817643}
 =======
   - {fileID: 1449940994}
@@ -6352,3 +6356,5 @@ SceneRoots:
 >>>>>>> 435c9d9d9418d2057f19ae3f3173e07128a856cf
 =======
 >>>>>>> parent of 435c9d9 (Gave map collision)
+=======
+>>>>>>> parent of 63e3a08 (enemy)
