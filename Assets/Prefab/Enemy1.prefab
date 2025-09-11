@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 7319075201920726479}
   - component: {fileID: 1615537464735271629}
   - component: {fileID: -1027802973683383154}
+  - component: {fileID: -2128539406080635501}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -328,3 +329,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+--- !u!114 &-2128539406080635501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887338319710954844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  maxHealth: 1
+  vulnerable: 1
