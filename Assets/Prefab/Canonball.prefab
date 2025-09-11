@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 3544490189727291426}
   - component: {fileID: 1427454611697865762}
   - component: {fileID: -8962951738099993822}
-  m_Layer: 2
+  - component: {fileID: -5380164772272986124}
+  m_Layer: 9
   m_Name: Canonball
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -180,3 +181,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+--- !u!114 &-5380164772272986124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117836978507076467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  maxHealth: 2
+  vulnerable: 1

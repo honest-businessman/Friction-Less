@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7356961255664485176}
   - component: {fileID: 6632548965348768541}
   - component: {fileID: 4068475961814273220}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -344,6 +344,10 @@ PrefabInstance:
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: shellPrefab

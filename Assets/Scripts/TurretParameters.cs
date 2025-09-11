@@ -4,7 +4,7 @@ public class TurretParameters : MonoBehaviour
 {
     public float shellSpeed = 9f;
     public float shellSize = 0.3f;
-    public int shellBounces = 1;
+    public int shellBounces = 3;
     public int shellDamage = 1;
     public float chargedSize = 1f;
     public int chargedBounces = 1;

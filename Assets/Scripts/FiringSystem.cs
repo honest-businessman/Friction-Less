@@ -92,7 +92,7 @@ public class FiringSystem : MonoBehaviour
     void FireNormal()
     {
         GameObject shell = Instantiate(turretParameters.shellPrefab, firePosition, turret.transform.rotation);
-        shell.GetComponent<ShellController>().Initialize(turretParameters.shellBounces, turretParameters.shellDamage, turretParameters.shellLifetime, fc.Faction);
+        shell.GetComponent<ProjectileController>().Initialize(turretParameters.shellBounces, turretParameters.shellDamage, turretParameters.shellLifetime, fc.Faction);
         shell.transform.localScale = new Vector2(turretParameters.shellSize, turretParameters.shellSize);
         shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretParameters.shellSpeed;
     }
