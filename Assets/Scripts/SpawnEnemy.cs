@@ -25,7 +25,7 @@ public class SpawnEnemy : MonoBehaviour
             int currentEnemy1Count = GameObject.FindGameObjectsWithTag("Enemy").Length;
             int currentEnemy2Count = GameObject.FindGameObjectsWithTag("Enemy2").Length;
 
-            if (currentEnemy1Count < 5)
+            if (currentEnemy1Count < 3)
             {
                 Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
                 Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
@@ -47,7 +47,7 @@ public class SpawnEnemy : MonoBehaviour
 
             }
 
-            if (currentEnemy2Count < 5)
+            if (currentEnemy2Count < 3)
             {
                 Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
                 Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
