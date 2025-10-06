@@ -28,6 +28,7 @@ public class FiringSystem : MonoBehaviour
     private PlayerController pc;
     public delegate void ImpactAction();
     public static event ImpactAction OnImpact;
+    private TrailRenderer tr;
 
     private void Awake()
     {
@@ -97,40 +98,104 @@ public class FiringSystem : MonoBehaviour
 
     void FireNormal()
     {
+        if (turretParameters.normalHitscan)
+            FireHitscan(firePosition + (Vector2)turret.transform.up * turretParameters.hitscanRange, firePosition, Vector2.zero, 0);
+        else
+            FireShell();
+    }
+    void FireCharged()
+    {
+        if (turretParameters.chargedHitscan)
+            StartCoroutine(FireHitscan(firePosition + (Vector2)turret.transform.up * turretParameters.hitscanRange, firePosition, Vector2.zero, 0));
+        else
+            FireShell();
+    }
+
+    void FireShell()
+    {
         GameObject shell = Instantiate(turretParameters.shellPrefab, firePosition, turret.transform.rotation);
         shell.GetComponent<ProjectileController>().Initialize(turretParameters.shellBounces, turretParameters.shellDamage, turretParameters.shellLifetime, fc.Faction);
         shell.transform.localScale = new Vector2(turretParameters.shellSize, turretParameters.shellSize);
         shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretParameters.shellSpeed;
     }
-    void FireCharged()
+
+    System.Collections.IEnumerator FireHitscan(Vector3 targetPosition, Vector3 oldStartPosition, Vector2 hitNormal, int currentBounces)
     {
-        HealthSystem otherHealthSystem;
+        Debug.Log("DEBUG1");
+        Vector2 rayOrigin;
+        Vector3 rayDirection;
+        Quaternion trailRotation;
+        int maxBounces = turretParameters.hitscanBounces;
+
+        if (currentBounces == 0) // Ready raycast for first shot
+        {
+            Debug.Log("DEBUG2");
+            rayOrigin = firePosition;
+            rayDirection = turret.transform.up;
+            trailRotation = turret.transform.rotation;
+        }
+        else // Ready next raycast for bounce
+        {
+            Debug.Log("DEBUG3");
+            yield return new WaitForSeconds(bounceDelay);
+            Vector3 startPosition2 = oldStartPosition;
+            Vector3 direction = (targetPosition - startPosition2).normalized;
+            rayDirection = Vector2.Reflect(direction, Vector2.zero);
+            rayOrigin = targetPosition + rayDirection * 0.01f; // Small offset for following raycast
+            targetPosition = targetPosition + (rayDirection * turretParameters.hitscanRange); // Set new target position for next bounce
+            // Calculate the angle from the bounce direction
+            float angle = Mathf.Atan2(rayDirection.y, rayDirection.x) * Mathf.Rad2Deg;
+            // Create a rotation that points the trail along the bounce direction
+            trailRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+        }
 
         // Visualize the bounce ray in the editor
-        Debug.DrawLine(firePosition, turret.transform.up * turretParameters.chargedRange, Color.red, 2f);
-        RaycastHit2D hit = Physics2D.Raycast(firePosition, turret.transform.up, turretParameters.chargedRange, chargedHitList);
-        GameObject trail = Instantiate(hitscanTrailPrefab, firePosition, turret.transform.rotation);
-        TrailRenderer tr = trail.GetComponent<TrailRenderer>();
+        //Debug.DrawLine(firePosition, turret.transform.up * turretParameters.hitscanRange, Color.red, 2f);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, turretParameters.hitscanRange, chargedHitList);
+
+
         if (hit.collider != null)
         {
+            // Trail spawn and movement
+            GameObject trail = Instantiate(hitscanTrailPrefab, rayOrigin, trailRotation);
+            tr = trail.GetComponent<TrailRenderer>();
+            Vector3 startPosition = tr.transform.position;
+            float startingDistance = Vector3.Distance(startPosition, hit.point);
+            float distance = startingDistance;
+            while (distance > 0)
+            {
+                tr.transform.position = Vector3.Lerp(startPosition, hit.point, 1 - (distance / startingDistance));
+                distance -= Time.deltaTime * trailSpeed;
+
+                yield return null;
+            }
+            tr.transform.position = hit.point;
+
+            OnImpact?.Invoke();
+            HealthSystem otherHealthSystem;
             Debug.Log("Hit: " + hit.transform.name);
-            StartCoroutine(SpawnTrail(tr, hit.point, hit.normal, 0, true));
+
             if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out otherHealthSystem))
             {
-                otherHealthSystem.TakeDamage(turretParameters.chargedDamage);
+                otherHealthSystem.TakeDamage(turretParameters.hitscanDamage);
             }
-        }
-        else
-        {
-            StartCoroutine(SpawnTrail(tr, firePosition + (Vector2)turret.transform.up * turretParameters.chargedRange, Vector2.zero, 0, false));
+
+            if (maxBounces > currentBounces)
+            {
+                Debug.Log("DEBUG4");
+                yield return new WaitForSeconds(bounceDelay);
+                yield return StartCoroutine(FireHitscan(hit.point, rayOrigin, hit.normal, currentBounces + 1));
+            }
         }
     }
 
-    System.Collections.IEnumerator SpawnTrail(TrailRenderer tr, Vector3 targetPosition, Vector2 hitNormal, int currentBounces, bool impacted)
+
+
+    /*System.Collections.IEnumerator SpawnTrail(TrailRenderer tr, Vector3 targetPosition, Vector2 hitNormal, int currentBounces, bool impacted)
     {
         Vector3 startPosition = tr.transform.position;
-        Vector3 direction = (targetPosition - startPosition).normalized; 
-        
+        Vector3 direction = (targetPosition - startPosition).normalized;
+
         float startingDistance = Vector3.Distance(startPosition, targetPosition);
         float distance = startingDistance;
 
@@ -157,7 +222,7 @@ public class FiringSystem : MonoBehaviour
                 Debug.DrawLine(targetPosition, targetPosition + bounceDirection * turretParameters.chargedRange, Color.red, 2f);
                 Vector2 bounceOrigin = targetPosition + bounceDirection * 0.01f; // Small offset for following raycast
                 RaycastHit2D hit = Physics2D.Raycast(bounceOrigin, bounceDirection, turretParameters.chargedRange, chargedHitList);
-                
+
                 // Calculate the angle from the bounce direction
                 float angle = Mathf.Atan2(bounceDirection.y, bounceDirection.x) * Mathf.Rad2Deg;
                 // Create a rotation that points the trail along the bounce direction
@@ -182,6 +247,6 @@ public class FiringSystem : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 }
