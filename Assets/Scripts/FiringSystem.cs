@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
 
 public class FiringSystem : MonoBehaviour
 {
@@ -99,18 +98,19 @@ public class FiringSystem : MonoBehaviour
     void FireNormal()
     {
         if (turretParameters.normalHitscan)
-            FireHitscan(firePosition + (Vector2)turret.transform.up * turretParameters.hitscanRange, firePosition, Vector2.zero, 0);
+            StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));
         else
             FireShell();
     }
     void FireCharged()
     {
         if (turretParameters.chargedHitscan)
-            StartCoroutine(FireHitscan(firePosition + (Vector2)turret.transform.up * turretParameters.hitscanRange, firePosition, Vector2.zero, 0));
+            StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));
         else
             FireShell();
     }
 
+    // Fires a physical projectile that can bounce.
     void FireShell()
     {
         GameObject shell = Instantiate(turretParameters.shellPrefab, firePosition, turret.transform.rotation);
@@ -119,43 +119,65 @@ public class FiringSystem : MonoBehaviour
         shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretParameters.shellSpeed;
     }
 
-    System.Collections.IEnumerator FireHitscan(Vector3 targetPosition, Vector3 oldStartPosition, Vector2 hitNormal, int currentBounces)
+    // A recursive coroutine that handles hitscan firing, penetration, and bouncing.
+    System.Collections.IEnumerator FireHitscan(Vector3 oldOrigin, Vector3 targetPosition, Vector2 hitNormal, int shotType, int currentBounces, int currentPens)
     {
+        // Shot types: 0 - First shot, 1 - Penetration, 2 - Bounce
         Debug.Log("DEBUG1");
         Vector2 rayOrigin;
         Vector3 rayDirection;
         Quaternion trailRotation;
         int maxBounces = turretParameters.hitscanBounces;
 
-        if (currentBounces == 0) // Ready raycast for first shot
+        if (shotType == 0) // Ready raycast for first shot
         {
-            Debug.Log("DEBUG2");
+            Debug.Log("FIRST SHOT");
             rayOrigin = firePosition;
             rayDirection = turret.transform.up;
             trailRotation = turret.transform.rotation;
+            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * turretParameters.hitscanRange;
+            Debug.DrawLine(rayOrigin, debugRayEndpoint, Color.green, 3f);
+        }
+        else if (shotType == 1) // Ready next raycast for penetration
+        {
+            Debug.Log("PENETRATION");
+            rayDirection = (targetPosition - oldOrigin).normalized; // Use previous ray direction, unsure how this works.
+            rayOrigin = oldOrigin; // Start from previous hit point
+
+            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * turretParameters.hitscanRange;
+            Debug.DrawLine(rayOrigin, debugRayEndpoint, Color.yellow, 3f);
+            trailRotation = Quaternion.FromToRotation(Vector3.up, rayDirection); // Keep same rotation as previous trail, unsure how necessary this is
         }
         else // Ready next raycast for bounce
         {
-            Debug.Log("DEBUG3");
+            Debug.Log("BOUNCE");
             yield return new WaitForSeconds(bounceDelay);
-            Vector3 startPosition2 = oldStartPosition;
-            Vector3 direction = (targetPosition - startPosition2).normalized;
-            rayDirection = Vector2.Reflect(direction, Vector2.zero);
-            rayOrigin = targetPosition + rayDirection * 0.01f; // Small offset for following raycast
-            targetPosition = targetPosition + (rayDirection * turretParameters.hitscanRange); // Set new target position for next bounce
+
+            // Use previous hit point and normal to calculate bounce direction
+            Vector2 incomingDirection = (targetPosition - oldOrigin).normalized;
+            Vector2 bounceDirection = Vector2.Reflect(incomingDirection, hitNormal);
+
+            // Offset origin slightly to avoid starting inside collider
+            Vector2 bounceOrigin = (Vector2)targetPosition + bounceDirection * 0.01f;
+
+            // Visualize the bounce ray in the editor (full range)
+            Debug.DrawLine(bounceOrigin, bounceOrigin + bounceDirection * turretParameters.hitscanRange, Color.red, 3f);
+
+            rayOrigin = bounceOrigin;
+            rayDirection = bounceDirection;
+
             // Calculate the angle from the bounce direction
-            float angle = Mathf.Atan2(rayDirection.y, rayDirection.x) * Mathf.Rad2Deg;
-            // Create a rotation that points the trail along the bounce direction
+            float angle = Mathf.Atan2(bounceDirection.y, bounceDirection.x) * Mathf.Rad2Deg;
             trailRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         }
 
-        // Visualize the bounce ray in the editor
-        //Debug.DrawLine(firePosition, turret.transform.up * turretParameters.hitscanRange, Color.red, 2f);
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, turretParameters.hitscanRange, chargedHitList);
 
 
         if (hit.collider != null)
         {
+            Debug.Log("Hit: " + hit.transform.name);
+
             // Trail spawn and movement
             GameObject trail = Instantiate(hitscanTrailPrefab, rayOrigin, trailRotation);
             tr = trail.GetComponent<TrailRenderer>();
@@ -170,83 +192,30 @@ public class FiringSystem : MonoBehaviour
                 yield return null;
             }
             tr.transform.position = hit.point;
+            OnImpact?.Invoke(); // Should activate a particle effect through this event
 
-            OnImpact?.Invoke();
-            HealthSystem otherHealthSystem;
-            Debug.Log("Hit: " + hit.transform.name);
-
-            if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out otherHealthSystem))
+            if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out HealthSystem otherHealthSystem))
             {
                 otherHealthSystem.TakeDamage(turretParameters.hitscanDamage);
-            }
-
-            if (maxBounces > currentBounces)
-            {
-                Debug.Log("DEBUG4");
-                yield return new WaitForSeconds(bounceDelay);
-                yield return StartCoroutine(FireHitscan(hit.point, rayOrigin, hit.normal, currentBounces + 1));
-            }
-        }
-    }
-
-
-
-    /*System.Collections.IEnumerator SpawnTrail(TrailRenderer tr, Vector3 targetPosition, Vector2 hitNormal, int currentBounces, bool impacted)
-    {
-        Vector3 startPosition = tr.transform.position;
-        Vector3 direction = (targetPosition - startPosition).normalized;
-
-        float startingDistance = Vector3.Distance(startPosition, targetPosition);
-        float distance = startingDistance;
-
-        while (distance > 0)
-        {
-            tr.transform.position = Vector3.Lerp(startPosition, targetPosition, 1 - (distance / startingDistance));
-            distance -= Time.deltaTime * trailSpeed;
-
-            yield return null;
-        }
-        tr.transform.position = targetPosition;
-
-        if (impacted)
-        {
-            OnImpact?.Invoke();
-            yield return new WaitForSeconds(bounceDelay);
-
-            int maxBounces = turretParameters.chargedBounces;
-            if (maxBounces >= currentBounces)
-            {
-                Vector3 bounceDirection = Vector2.Reflect(direction, hitNormal);
-
-                // Visualize the bounce ray in the editor
-                Debug.DrawLine(targetPosition, targetPosition + bounceDirection * turretParameters.chargedRange, Color.red, 2f);
-                Vector2 bounceOrigin = targetPosition + bounceDirection * 0.01f; // Small offset for following raycast
-                RaycastHit2D hit = Physics2D.Raycast(bounceOrigin, bounceDirection, turretParameters.chargedRange, chargedHitList);
-
-                // Calculate the angle from the bounce direction
-                float angle = Mathf.Atan2(bounceDirection.y, bounceDirection.x) * Mathf.Rad2Deg;
-                // Create a rotation that points the trail along the bounce direction
-                Quaternion bounceRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
-                GameObject trail = Instantiate(hitscanTrailPrefab, targetPosition, bounceRotation);
-
-                tr = trail.GetComponent<TrailRenderer>();
-                if (hit.collider != null)
+                if (currentPens < turretParameters.hitscanPenetration) // Penetrate enemy hit, may not work for enemies that do not die in a single hitscan.
                 {
-                    HealthSystem otherHealthSystem;
-                    Debug.Log("Hit: " + hit.transform.name);
-
-                    yield return StartCoroutine(SpawnTrail(tr, hit.point, hit.normal, currentBounces + 1, true));
-                    if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out otherHealthSystem))
-                    {
-                        otherHealthSystem.TakeDamage(turretParameters.chargedDamage);
-                    }
+                    Vector2 penetrationOrigin = (Vector2)hit.point + (Vector2)rayDirection * 0.01f;
+                    Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * turretParameters.hitscanRange;
+                    yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, 1, currentBounces, currentPens + 1));
+                    yield break;
                 }
                 else
                 {
-                    yield return StartCoroutine(SpawnTrail(tr, targetPosition + (bounceDirection * turretParameters.chargedRange), Vector2.zero, currentBounces + 1, false));
+                    yield break;
                 }
             }
-        }
-    }*/
 
+            if (maxBounces > currentBounces) // Start new hitscan for bounce
+            {
+                Debug.Log("DEBUG4");
+                yield return new WaitForSeconds(bounceDelay);
+                yield return StartCoroutine(FireHitscan(rayOrigin, hit.point, hit.normal, 2, currentBounces + 1, currentPens));
+            }
+        }
+    }
 }

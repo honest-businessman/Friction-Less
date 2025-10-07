@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3715376961434917845, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
+      propertyPath: hitscanPenetration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3924909325969936711, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.493
@@ -296,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6632548965348768541, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
       propertyPath: bounceDelay
-      value: 1
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6632548965348768541, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
       propertyPath: hitscanTrailPrefab
@@ -5366,7 +5370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &998321829
 MonoBehaviour:
   m_ObjectHideFlags: 0

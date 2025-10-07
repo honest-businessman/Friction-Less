@@ -10,6 +10,7 @@ public class TurretParameters : MonoBehaviour
     public bool chargedHitscan = true;
     public float hitscanSize = 1f;
     public int hitscanBounces = 1;
+    public int hitscanPenetration = 0;
     public int hitscanDamage = 1;
     public int hitscanRange = 100;
     public float fireRate = 2; // How many shells per second
