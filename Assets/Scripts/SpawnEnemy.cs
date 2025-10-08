@@ -27,48 +27,37 @@ public class SpawnEnemy : MonoBehaviour
 
             if (currentEnemy1Count < 3)
             {
-                Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-                Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
-
-                SpriteRenderer sr = enemy1.GetComponent<SpriteRenderer>();
-                float enemyWidth = sr.bounds.size.x;
-                float enemyHeight = sr.bounds.size.y;
-
-                float minX = bottomLeft.x + enemyWidth / 2f;
-                float maxX = topRight.x - enemyWidth / 2f;
-                float minY = bottomLeft.y + enemyHeight / 2f;
-                float maxY = topRight.y - enemyHeight / 2f;
-
-                float x = Random.Range(minX, maxX);
-                float y = Random.Range(minY, maxY);
-
-                Vector3 spawnPosition = new Vector3(x, y, 0);
-                Instantiate(enemy1, spawnPosition, Quaternion.identity);
+                SpawnAtCorner(enemy1);
 
             }
 
             if (currentEnemy2Count < 3)
             {
-                Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-                Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
-
-                SpriteRenderer sr = enemy2.GetComponent<SpriteRenderer>();
-                float enemyWidth = sr.bounds.size.x;
-                float enemyHeight = sr.bounds.size.y;
-
-                float minX = bottomLeft.x + enemyWidth / 2f;
-                float maxX = topRight.x - enemyWidth / 2f;
-                float minY = bottomLeft.y + enemyHeight / 2f;
-                float maxY = topRight.y - enemyHeight / 2f;
-
-                float x = Random.Range(minX, maxX);
-                float y = Random.Range(minY, maxY);
-
-                Vector3 spawnPosition = new Vector3(x, y, 0);
-                Instantiate(enemy2, spawnPosition, Quaternion.identity);
-
+                SpawnAtCorner(enemy2);
             }
 
         }
+    }
+
+    void SpawnAtCorner(GameObject enemyPrefab)
+    {
+        Vector3 bottomLeft  = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        SpriteRenderer sr = enemyPrefab.GetComponent<SpriteRenderer>();
+        float enemyWidth = sr.bounds.size.x;
+        float enemyHeight = sr.bounds.size.y;
+
+        float offsetX = enemyWidth / 2f;
+        float offsetY = enemyHeight / 2f;
+
+        Vector3[] corners = new Vector3[4];
+        corners[0] = new Vector3(bottomLeft.x + offsetX, bottomLeft.y + offsetY, 0);
+        corners[1] = new Vector3(topRight.x - offsetX, bottomLeft.y = offsetY, 0);
+        corners[2] = new Vector3(bottomLeft.x + offsetX, topRight.y - offsetY,0);
+        corners[3] = new Vector3(topRight.x - offsetX, topRight.y - offsetY, 0);
+
+        Vector3 spawnPosition = corners[Random.Range(0, corners.Length)];
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }

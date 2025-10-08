@@ -2458,7 +2458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy1: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
-  enemy2: {fileID: 1106549739165163026, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  enemy2: {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
 --- !u!4 &1415773136
 Transform:
   m_ObjectHideFlags: 0
@@ -2635,6 +2635,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b3e209b6db62b4488d048ea39c46ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  driveCharge: 0
+  mouseAiming: 0
+  inputHandler: {fileID: 0}
   moveSpeed: 25
   maxSpeed: 5
   driftSpeed: 5
@@ -2647,7 +2650,6 @@ MonoBehaviour:
   chargeFadeDelay: 2
   chargeAngle: 45
   minChargeMoveSpeed: 3
-  driveCharge: 0
   driftPressed: 0
   turret: {fileID: 213634295}
 --- !u!114 &1804601362
