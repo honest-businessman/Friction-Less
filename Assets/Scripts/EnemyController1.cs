@@ -1,17 +1,18 @@
+using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 
-public class EnemyController1 : MonoBehaviour
+public class EnemyController1 : CharacterBase
 {
     public Transform player;
     public float preferredDistance = 8f;
     public float tolerance = 1f;
-
     private AIPath aiPath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        DriveCharge = 0f;
         player = GameObject.Find("Player").transform;
         aiPath = GetComponent<AIPath>();
 
@@ -39,7 +40,5 @@ public class EnemyController1 : MonoBehaviour
         {
             aiPath.canMove = false;
         }
-
-       
     }
 }

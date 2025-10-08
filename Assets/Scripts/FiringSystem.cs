@@ -18,20 +18,24 @@ public class FiringSystem : MonoBehaviour
     private float bounceDelay = 0.5f;
 
     private float firingTimer = 0f;
+    private bool isPlayer = false;
     private bool canCharge = false;
     private GameObject turret;
     private TurretParameters turretParameters;
     private Vector2 firePosition;
     private Rigidbody2D rb;
     private FactionController fc;
-    private PlayerController pc;
+    private CharacterBase cb;
     public delegate void ImpactAction();
     public static event ImpactAction OnImpact;
     private TrailRenderer tr;
 
     private void Awake()
     {
-        foreach (Transform childTransform in transform)
+        cb = GetComponent<CharacterBase>();
+        if (hitscanTrailPrefab == null) { Debug.Log("No Hitscan Prefab found."); }
+
+        foreach (Transform childTransform in transform) // To do: Check if for loop is nessecary
         {
             turret = FindTagInChildren("Turret").gameObject; // Return the GameObject if tag matches
             turretParameters = turret.GetComponent<TurretParameters>();
@@ -41,16 +45,13 @@ public class FiringSystem : MonoBehaviour
         {
             Debug.LogError("No Turret found on " + gameObject);
         }
-        if (gameObject.CompareTag("Player")) 
+        if (gameObject.CompareTag("Player")) // checks if parent GameObject is the player object
         {
-            canCharge = true;
-            pc = GetComponent<PlayerController>();
-            if(hitscanTrailPrefab == null) { Debug.Log("No Hitscan Prefab found."); }
+            isPlayer = true;
         }
+
         rb = GetComponent<Rigidbody2D>();
         fc = GetComponent<FactionController>();
-        
-
     }
 
     private Transform FindTagInChildren(string tag)
@@ -68,41 +69,51 @@ public class FiringSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        inputHandler.OnInputFire.AddListener(Fire);
+        if(isPlayer)
+            inputHandler.OnInputFire.AddListener(FireCommand);
     }
     private void OnDisable()
     {
-        inputHandler.OnInputFire.RemoveListener(Fire);
+        if(isPlayer)
+            inputHandler.OnInputFire.RemoveListener(FireCommand);
     }
 
-    void Fire(InputValue value)
+    // For AI or non-input based firing
+    public void FireCommand() { TryFire(); }
+
+    // For player input system
+    public void FireCommand(InputValue value) { TryFire(); }
+
+    // Attempts to fire a shot if the fire rate cooldown has elapsed.
+    // Will fire a charged shot if drive is fully charged.
+    void TryFire()
     {
-        if(Time.time - firingTimer >= 1 / turretParameters.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
+        if (Time.time - firingTimer >= 1 / turretParameters.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
         {
             firingTimer = Time.time;
             firePosition = turret.transform.position + (turret.transform.up * turretParameters.spawnOffset);
-            if (canCharge)
+            if (cb.DriveCharge >= 100f)
             {
-                if(pc.driveCharge >= 100f) 
-                {
-                    Debug.Log("Fire Charged!");
-                    FireCharged();
-                    pc.DrainDrive();
-                    return;
-                }
+                Debug.Log("Fire Charged!");
+                FireCharged();
+                cb.DrainDrive();
+                return;
             }
             FireNormal();
         }
     }
 
-    void FireNormal()
+    // Fires a normal shot
+    public void FireNormal()
     {
         if (turretParameters.normalHitscan)
             StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));
         else
             FireShell();
     }
-    void FireCharged()
+
+    // Fires a charged shot
+    public void FireCharged()
     {
         if (turretParameters.chargedHitscan)
             StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));

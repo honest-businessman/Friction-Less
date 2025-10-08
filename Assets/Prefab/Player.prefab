@@ -318,8 +318,10 @@ MonoBehaviour:
   inputHandler: {fileID: 7705520504310172337}
   chargedHitList:
     serializedVersion: 2
-    m_Bits: 1
-  hiscanTrailPrefab: {fileID: 4426810399315598589, guid: c9c829268ecd94d49a34a658782cd962, type: 3}
+    m_Bits: 2305
+  hitscanTrailPrefab: {fileID: 0}
+  trailSpeed: 300
+  bounceDelay: 0.5
 --- !u!114 &4068475961814273220
 MonoBehaviour:
   m_ObjectHideFlags: 0

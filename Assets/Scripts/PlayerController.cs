@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterBase
 {
     private CharacterController controller;
     public bool mouseAiming = false;
@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     public float minChargeMoveSpeed= 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
     
-    [HideInInspector] public float driveCharge = 0f;
     [HideInInspector] public bool driftPressed;
 
     public GameObject turret;
@@ -44,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        DriveCharge = 0f;
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
         defaultDrag = rb.linearDamping;
@@ -164,10 +164,10 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, velocity * 2, Color.red);
             if (fAngle > chargeAngle && bAngle > chargeAngle)
             {
-                if (driveCharge >= 100f)
-                    driveCharge = 100f; // Cap the charge at 100%
+                if (DriveCharge >= 100f)
+                    DriveCharge = 100f; // Cap the charge at 100%
                 else
-                    driveCharge += (chargePerSecond * Time.deltaTime) * (mag/maxSpeed) * Mathf.Abs(playerInput.y);
+                    DriveCharge += (chargePerSecond * Time.deltaTime) * (mag/maxSpeed) * Mathf.Abs(playerInput.y);
                 timeLastCharge = Time.time; // Reset the charge fade timer
             }
         }
@@ -175,15 +175,10 @@ public class PlayerController : MonoBehaviour
 
     private void FadeDrive()
     {
-        if (Time.time - timeLastCharge > chargeFadeDelay && driveCharge > 0f)
-            driveCharge -= (dischargePerSecond * Time.deltaTime) * Mathf.Clamp01((Time.time - timeLastCharge) / chargeFadeDelay);
+        if (Time.time - timeLastCharge > chargeFadeDelay && DriveCharge > 0f)
+            DriveCharge -= (dischargePerSecond * Time.deltaTime) * Mathf.Clamp01((Time.time - timeLastCharge) / chargeFadeDelay);
         else
-            driveCharge = Mathf.Max(driveCharge, 0f); // Ensure charge doesn't go below 0
-    }
-
-    public void DrainDrive()
-    {
-        driveCharge = 0;
+            DriveCharge = Mathf.Max(DriveCharge, 0f); // Ensure charge doesn't go below 0
     }
 
     void OnAim(InputValue value)

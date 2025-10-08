@@ -20,6 +20,6 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayCharge()
     {
-        meterText.text = ($"Friction Charge: {playerController.driveCharge:0}%");
+        meterText.text = ($"Friction Charge: {playerController.DriveCharge:0}%");
     }
 }
