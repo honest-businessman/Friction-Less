@@ -10,6 +10,7 @@ TagManager:
   - Turret
   - Projectile
   - HitscanTrail
+  - Enemy3
   layers:
   - Default
   - TransparentFX
