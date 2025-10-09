@@ -1,20 +1,26 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using System.Threading.Tasks;
 
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject enemy1;
     public GameObject enemy2;
+    public int spawnPointCooldown = 5000;
+
+    public List<GameObject> spawnPoints;
 
     private int frameCount = 0;
     
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -27,37 +33,36 @@ public class SpawnEnemy : MonoBehaviour
 
             if (currentEnemy1Count < 3)
             {
-                SpawnAtCorner(enemy1);
+                SpawnAtRandomSpawnPoint(enemy1);
 
             }
 
             if (currentEnemy2Count < 3)
             {
-                SpawnAtCorner(enemy2);
+                SpawnAtRandomSpawnPoint(enemy2);
             }
 
         }
     }
 
-    void SpawnAtCorner(GameObject enemyPrefab)
+    void SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
     {
-        Vector3 bottomLeft  = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
-
-        SpriteRenderer sr = enemyPrefab.GetComponent<SpriteRenderer>();
-        float enemyWidth = sr.bounds.size.x;
-        float enemyHeight = sr.bounds.size.y;
-
-        float offsetX = enemyWidth / 2f;
-        float offsetY = enemyHeight / 2f;
-
-        Vector3[] corners = new Vector3[4];
-        corners[0] = new Vector3(bottomLeft.x + offsetX, bottomLeft.y + offsetY, 0);
-        corners[1] = new Vector3(topRight.x - offsetX, bottomLeft.y = offsetY, 0);
-        corners[2] = new Vector3(bottomLeft.x + offsetX, topRight.y - offsetY,0);
-        corners[3] = new Vector3(topRight.x - offsetX, topRight.y - offsetY, 0);
-
-        Vector3 spawnPosition = corners[Random.Range(0, corners.Length)];
+        List<GameObject> activeSpawnPoints = spawnPoints.FindAll(sp => sp.activeInHierarchy);
+        GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
+        Vector3 spawnPosition = spawnPoint.transform.position;
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        spawnPoint.SetActive(false);
+        ManagePointPostSpawn(spawnPoint);
+    }
+
+    private async void ManagePointPostSpawn(GameObject spawnPoint)
+    {
+        await SetActiveAfterDelay(spawnPoint);
+    }
+    async Task SetActiveAfterDelay(GameObject spawnPoint)
+    {
+        await Task.Delay(spawnPointCooldown);
+        spawnPoint.SetActive(true);
+        Debug.Log($"Point {spawnPoint.name} Reactivated");
     }
 }

@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2609cf7a158cb046a0904c9a4817930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  driveCharge: 0
   player: {fileID: 0}
   preferredDistance: 5
   tolerance: 1
