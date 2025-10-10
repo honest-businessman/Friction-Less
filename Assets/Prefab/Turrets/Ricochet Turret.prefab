@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6766343977067499528}
   - component: {fileID: 1312509101285848859}
   - component: {fileID: 3503761678754282661}
-  m_Layer: 8
-  m_Name: Basic Turret - Enemy
+  m_Layer: 0
+  m_Name: Ricochet Turret
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2606858850793271264}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.013, z: 0}
-  m_LocalScale: {x: 1.7941, y: 1.2717, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
-  m_Color: {r: 1, g: 0.3915094, b: 0.3915094, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,18 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3368e67cb90f085408022f6b6c0238f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalHitscan: 0
-  shellSpeed: 9
-  shellSize: 0.3
-  shellBounces: 1
-  shellDamage: 1
-  chargedHitscan: 1
-  hitscanSize: 1
-  hitscanBounces: 1
-  hitscanPenetration: 0
-  hitscanDamage: 1
-  hitscanRange: 100
-  fireRate: 0.5
-  shellLifetime: 10
-  spawnOffset: 1
-  shellPrefab: {fileID: 875240488514508923, guid: 798fc81389dc0584eb0698c02c157f7f, type: 3}
+  settings: {fileID: 11400000, guid: a7f289142fa2be641aac566456fd009d, type: 2}

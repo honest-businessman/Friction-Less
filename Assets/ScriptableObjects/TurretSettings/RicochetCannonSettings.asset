@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5416c44f1673c54f870a8d5e3a77807, type: 3}
+  m_Name: RicochetCannonSettings
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
+  spriteColor: {r: 1, g: 1, b: 1, a: 1}
+  isNormalHitscan: 0
+  shellSpeed: 9
+  shellSize: 0.3
+  shellBounces: 2
+  shellDamage: 2
+  isChargedHitscan: 1
+  hitscanSize: 1
+  hitscanBounces: 2
+  hitscanPenetrations: 0
+  hitscanDamage: 2
+  hitscanRange: 100
+  fireRate: 2
+  shellLifetime: 10
+  spawnOffset: 1
+  shellPrefab: {fileID: 875240488514508923, guid: 3af224c90a76698439a83f982de9cd37, type: 3}

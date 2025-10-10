@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 
-public class EnemyController1 : CharacterBase
+public class AiTankController : CharacterBase
 {
     public Transform player;
     public float preferredDistance = 8f;

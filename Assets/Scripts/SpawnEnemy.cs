@@ -2,73 +2,40 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 using System.Threading.Tasks;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    public GameObject enemy1;
-    public GameObject enemy2;
-    public GameObject enemy3;
-    public int spawnPointCooldown = 5000;
+    [SerializeField]
+    private List<GameObject> enemyCharacters;
+
+    public float spawnCooldownInSeconds = 3f;
+    public float spawnPointCooldownInSeconds = 5f;
 
     public List<GameObject> spawnPoints;
 
-    private int frameCount = 0;
-
-    [SerializeField] private AudioClip spawnSound;
-    private AudioSource audioSource;
+    private float spawnTimer = 0f;
     
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if(audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
-        audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f;
+
     }
 
     void Update()
     {
-        
-        frameCount++;
-
-        if(frameCount % 200 == 0)
+        if(Time.time - spawnTimer >= spawnCooldownInSeconds)
         {
-            int currentEnemy1Count = GameObject.FindGameObjectsWithTag("Enemy").Length;
-            int currentEnemy2Count = GameObject.FindGameObjectsWithTag("Enemy2").Length;
-            int currentEnemy3Count = GameObject.FindGameObjectsWithTag("Enemy3").Length;
+            spawnTimer = Time.time;
+            // Find total number of enemies in the scene based on tag
+            int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-            if (currentEnemy1Count < 2)
+            if (currentEnemyCount < 5)
             {
-                SpawnAtRandomSpawnPoint(enemy1);
-                if(spawnSound != null)
-                {
-                    audioSource.PlayOneShot(spawnSound);
-                }
+                // Selects a random enemy to spawn
+                int rand = UnityEngine.Random.Range(0, enemyCharacters.Count); 
+                SpawnAtRandomSpawnPoint(enemyCharacters[rand]);
             }
-
-            if (currentEnemy2Count < 2)
-            {
-                SpawnAtRandomSpawnPoint(enemy2);
-                if (spawnSound != null)
-                {
-                    audioSource.PlayOneShot(spawnSound);
-                }
-            }
-
-            if(currentEnemy3Count < 2)
-            {
-                SpawnAtRandomSpawnPoint(enemy3);
-                if (spawnSound != null)
-                {
-                    audioSource.PlayOneShot(spawnSound);
-                }
-            }
-
         }
     }
 
@@ -88,7 +55,7 @@ public class SpawnEnemy : MonoBehaviour
     }
     async Task SetActiveAfterDelay(GameObject spawnPoint)
     {
-        await Task.Delay(spawnPointCooldown);
+        await Task.Delay((int)(spawnPointCooldownInSeconds * 1000)); // Times by 1000 to convert to milliseconds.
         spawnPoint.SetActive(true);
         Debug.Log($"Point {spawnPoint.name} Reactivated");
     }

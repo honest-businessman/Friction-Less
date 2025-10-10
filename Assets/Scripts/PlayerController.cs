@@ -2,8 +2,8 @@ using System;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using UnityEngine.XR;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerController : CharacterBase
 {
@@ -28,7 +28,13 @@ public class PlayerController : CharacterBase
     
     [HideInInspector] public bool driftPressed;
 
+    [SerializeField]
+    private List<TurretSettings> equippedTurrets;
+    private int turretIndex = 0;
     public GameObject turret;
+    private TurretController turretController;
+
+
     private enum MoveState
     {
         Idle,
@@ -53,12 +59,13 @@ public class PlayerController : CharacterBase
     {
         inputHandler.OnInputMove.AddListener(ProcessMove);
         inputHandler.OnInputDrift.AddListener(ProcessDrift);
-
+        inputHandler.OnInputChangeWeapon.AddListener(ChangeTurret);
     }
     private void OnDisable()
     {
         inputHandler.OnInputMove.RemoveListener(ProcessMove);
         inputHandler.OnInputDrift.RemoveListener(ProcessDrift);
+        inputHandler.OnInputChangeWeapon.RemoveListener(ChangeTurret);
     }
 
     private void ProcessMove(InputValue value)
@@ -204,5 +211,36 @@ public class PlayerController : CharacterBase
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+    }
+
+    void ChangeTurret(InputValue value)
+    {
+        if(equippedTurrets.Count <= 1) { return; }
+
+        float input = value.Get<float>();
+        if(input > 0)
+        {
+            Debug.Log("Next Turret!");
+            // Uses modulo operator to get remainder after division. This is to wrap the index within the count.
+            turretIndex = (turretIndex + 1) % equippedTurrets.Count; 
+        }
+        else if(input < 0)
+        {
+            Debug.Log("Previous Turret!");
+            // Adds count to index to prevent negative index result when wrapping with modulo.
+            turretIndex = (turretIndex - 1 + equippedTurrets.Count) % equippedTurrets.Count;
+        }
+
+        TurretSettings newTurretSettings = equippedTurrets[turretIndex];
+        setNewTurret(newTurretSettings);
+    }
+
+    private void setNewTurret(TurretSettings newSettings)
+    {
+        SpriteRenderer sprender = turret.GetComponent<SpriteRenderer>();
+        sprender.sprite = newSettings.sprite;
+        sprender.color = newSettings.spriteColor;
+        TurretController tController = turret.GetComponent<TurretController>();
+        tController.settings = newSettings;
     }
 }

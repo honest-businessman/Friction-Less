@@ -259,6 +259,9 @@ MonoBehaviour:
   OnInputFire:
     m_PersistentCalls:
       m_Calls: []
+  OnInputChangeWeapon:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5935190990124011078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +309,9 @@ MonoBehaviour:
   chargeAngle: 45
   minChargeMoveSpeed: 3
   driftPressed: 0
+  equippedTurrets:
+  - {fileID: 11400000, guid: a7f289142fa2be641aac566456fd009d, type: 2}
+  - {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}
   turret: {fileID: 2827446204254931088}
 --- !u!114 &6632548965348768541
 MonoBehaviour:

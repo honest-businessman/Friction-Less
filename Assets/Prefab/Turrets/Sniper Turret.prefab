@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1312509101285848859}
   - component: {fileID: 3503761678754282661}
   m_Layer: 0
-  m_Name: Basic Turret
+  m_Name: Sniper Turret
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9584457, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,15 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3368e67cb90f085408022f6b6c0238f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shellSpeed: 9
-  shellSize: 0.3
-  shellBounces: 3
-  shellDamage: 1
-  chargedSize: 1
-  chargedBounces: 1
-  chargedDamage: 1
-  chargedRange: 1
-  fireRate: 2
-  shellLifetime: 10
-  spawnOffset: 1
-  shellPrefab: {fileID: 875240488514508923, guid: 3af224c90a76698439a83f982de9cd37, type: 3}
+  settings: {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}

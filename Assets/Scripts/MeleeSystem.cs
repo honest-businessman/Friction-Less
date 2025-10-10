@@ -3,45 +3,37 @@ using UnityEngine;
 public class MeleeSystem : MonoBehaviour
 {
     [SerializeField]
-    private int damage = 1;
+    private MeleeSettings settings;
 
+    private float meleeTimer = 0f;
     private FactionController fc;
-    [SerializeField] AudioClip AttackSound;
-    private AudioSource audioSource;
 
     private void Start()
     {
         fc = GetComponent<FactionController>();
-        audioSource = GetComponent<AudioSource>();
-        if(audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-
-        }
-        audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f;
     }
-    public void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log($"Triggered by: {other.gameObject.name}");
-
-        if (other.TryGetComponent<FactionController>(out FactionController otherFC))
+        if (Time.time - meleeTimer >= 1 / settings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
         {
-            if (fc.IsSameFaction(otherFC))
+            if (other.TryGetComponent<FactionController>(out FactionController otherFC))
             {
-                Debug.Log("Same faction - ignoring.");
-                return;
-            }
-
-            if (other.TryGetComponent<HealthSystem>(out HealthSystem otherHS))
-            {
-                Debug.Log($"Dealing {damage} damage to target.");
-                if(AttackSound != null)
+                Debug.Log($"Triggered by: {other.gameObject.name}");
+                if (!fc.IsSameFaction(otherFC))
                 {
-                    audioSource.PlayOneShot(AttackSound);
+                    if (other.TryGetComponent<HealthSystem>(out HealthSystem otherHS))
+                    {
+                        meleeTimer = Time.time;
+                        Debug.Log($"Dealing {settings.damage} damage to target.");
+                        otherHS.TakeDamage(settings.damage);
+                        if (settings.destroyAfterAttack) { Destroy(gameObject); }
+                    }
                 }
-                otherHS.TakeDamage(damage);
-                //Destroy(gameObject);
+                else
+                {
+                    Debug.Log("Same faction - ignoring.");
+                    return;
+                }
             }
         }
     }
