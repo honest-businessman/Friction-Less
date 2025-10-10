@@ -6,10 +6,20 @@ public class MeleeSystem : MonoBehaviour
     private int damage = 1;
 
     private FactionController fc;
+    [SerializeField] AudioClip AttackSound;
+    private AudioSource audioSource;
 
     private void Start()
     {
         fc = GetComponent<FactionController>();
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -26,6 +36,10 @@ public class MeleeSystem : MonoBehaviour
             if (other.TryGetComponent<HealthSystem>(out HealthSystem otherHS))
             {
                 Debug.Log($"Dealing {damage} damage to target.");
+                if(AttackSound != null)
+                {
+                    audioSource.PlayOneShot(AttackSound);
+                }
                 otherHS.TakeDamage(damage);
                 //Destroy(gameObject);
             }

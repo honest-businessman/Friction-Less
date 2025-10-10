@@ -5388,7 +5388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy1: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
-  enemy2: {fileID: 1106549739165163026, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  enemy2: {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  enemy3: {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
   spawnPointCooldown: 5000
   spawnPoints: []
 --- !u!4 &998321830

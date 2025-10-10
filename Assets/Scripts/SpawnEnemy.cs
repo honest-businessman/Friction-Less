@@ -15,11 +15,20 @@ public class SpawnEnemy : MonoBehaviour
     public List<GameObject> spawnPoints;
 
     private int frameCount = 0;
+
+    [SerializeField] private AudioClip spawnSound;
+    private AudioSource audioSource;
     
 
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
     }
 
     void Update()
@@ -36,17 +45,28 @@ public class SpawnEnemy : MonoBehaviour
             if (currentEnemy1Count < 2)
             {
                 SpawnAtRandomSpawnPoint(enemy1);
-
+                if(spawnSound != null)
+                {
+                    audioSource.PlayOneShot(spawnSound);
+                }
             }
 
             if (currentEnemy2Count < 2)
             {
                 SpawnAtRandomSpawnPoint(enemy2);
+                if (spawnSound != null)
+                {
+                    audioSource.PlayOneShot(spawnSound);
+                }
             }
 
             if(currentEnemy3Count < 2)
             {
                 SpawnAtRandomSpawnPoint(enemy3);
+                if (spawnSound != null)
+                {
+                    audioSource.PlayOneShot(spawnSound);
+                }
             }
 
         }

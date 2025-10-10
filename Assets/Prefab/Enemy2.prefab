@@ -322,3 +322,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  AttackSound: {fileID: 8300000, guid: 9834435444a5f6b4b9fa706b9969a7d2, type: 3}

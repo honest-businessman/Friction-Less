@@ -277,6 +277,7 @@ MonoBehaviour:
   explosionEffectPrefab: {fileID: 1163870137026607657, guid: c72bbef0b9eb5f747a2ae88464bdd042, type: 3}
   explosionSoundEnemy: {fileID: 0}
   explosionSoundPlayer: {fileID: 8300000, guid: b6b6fcf836651a14fa84ff7e17a76479, type: 3}
+  damagePlayerSound: {fileID: 8300000, guid: e5ea4a3984f7efd418618b710759d31f, type: 3}
 --- !u!114 &7356961255664485176
 MonoBehaviour:
   m_ObjectHideFlags: 0

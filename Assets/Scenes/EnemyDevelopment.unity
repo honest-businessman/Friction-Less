@@ -5475,7 +5475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &998321829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5499,6 +5499,7 @@ MonoBehaviour:
   - {fileID: 577563820}
   - {fileID: 1714794900}
   - {fileID: 161439058}
+  spawnSound: {fileID: 8300000, guid: 9610b702756995b49b2cd0c1bc85c501, type: 3}
 --- !u!4 &998321830
 Transform:
   m_ObjectHideFlags: 0

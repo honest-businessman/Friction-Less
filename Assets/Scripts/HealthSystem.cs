@@ -10,6 +10,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] GameObject explosionEffectPrefab;
     [SerializeField] AudioClip explosionSoundEnemy;
     [SerializeField] AudioClip explosionSoundPlayer;
+    [SerializeField] AudioClip damagePlayerSound;
     private AudioSource audioSource;
 
     void Start()
@@ -38,10 +39,17 @@ public class HealthSystem : MonoBehaviour
             Debug.Log($"{gameObject.name} taken {damage} damage!");
             health -= damage;
 
-            if(health <= 0)
+            if (health <= 0)
             {
                 health = 0;
                 Die();
+            }
+            else
+            {
+                if(gameObject.CompareTag("Player") && damagePlayerSound != null)
+                {
+                    audioSource.PlayOneShot(damagePlayerSound);
+                }
             }
         }
     }
