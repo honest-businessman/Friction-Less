@@ -7,10 +7,10 @@ public class HealthSystem : MonoBehaviour
     public bool vulnerable = true;
     public delegate void DieAction();
     public static event DieAction OnDie;
-    [SerializeField] GameObject explosionEffectPrefab;
-    [SerializeField] AudioClip explosionSoundEnemy;
-    [SerializeField] AudioClip explosionSoundPlayer;
-    [SerializeField] AudioClip damagePlayerSound;
+
+    [SerializeField] AudioClip DamageSound;
+    [SerializeField] AudioClip DeathSound;
+    [SerializeField] GameObject DeathVFX;
     private AudioSource audioSource;
 
     void Start()
@@ -26,10 +26,7 @@ public class HealthSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Minus))
-            TakeDamage(1);
-        if (Input.GetKeyDown(KeyCode.Equals))
-            GainHealth(1);
+
     }
 
     public void TakeDamage(int damage)
@@ -46,9 +43,9 @@ public class HealthSystem : MonoBehaviour
             }
             else
             {
-                if(gameObject.CompareTag("Player") && damagePlayerSound != null)
+                if(gameObject.CompareTag("Player") && DamageSound != null)
                 {
-                    audioSource.PlayOneShot(damagePlayerSound);
+                    audioSource.PlayOneShot(DamageSound);
                 }
             }
         }
@@ -64,13 +61,13 @@ public class HealthSystem : MonoBehaviour
     {
         OnDie?.Invoke();
 
-        if (explosionEffectPrefab != null)
+        if (DeathVFX != null)
         {
-            GameObject explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(DeathVFX, transform.position, Quaternion.identity);
             Destroy(explosion, 2f);
         }
 
-        AudioClip clipToPlay = gameObject.CompareTag("Player") ? explosionSoundPlayer : explosionSoundEnemy;
+        AudioClip clipToPlay = DeathSound;
 
         if(clipToPlay != null)
         {

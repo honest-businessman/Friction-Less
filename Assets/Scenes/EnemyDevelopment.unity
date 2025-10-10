@@ -326,14 +326,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935190990124011078, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-      propertyPath: health
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5935190990124011078, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-      propertyPath: maxHealth
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5935190990124011078, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
       propertyPath: explosionEffectPrefab
       value: 
       objectReference: {fileID: 1163870137026607657, guid: c72bbef0b9eb5f747a2ae88464bdd042, type: 3}
@@ -5492,8 +5484,8 @@ MonoBehaviour:
   - {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
   - {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
   - {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-  spawnCooldown: 3000
-  spawnPointCooldown: 5000
+  spawnCooldownInSeconds: 3
+  spawnPointCooldownInSeconds: 5
   spawnPoints:
   - {fileID: 1696127344}
   - {fileID: 559049574}
@@ -5501,7 +5493,6 @@ MonoBehaviour:
   - {fileID: 577563820}
   - {fileID: 1714794900}
   - {fileID: 161439058}
-  spawnSound: {fileID: 8300000, guid: 9610b702756995b49b2cd0c1bc85c501, type: 3}
 --- !u!4 &998321830
 Transform:
   m_ObjectHideFlags: 0
@@ -5517,67 +5508,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1083107662
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2454950032215576623, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_Name
-      value: Enemy3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
 --- !u!1 &1389676963
 GameObject:
   m_ObjectHideFlags: 0

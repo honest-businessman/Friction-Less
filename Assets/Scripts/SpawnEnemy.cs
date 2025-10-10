@@ -15,12 +15,6 @@ public class SpawnEnemy : MonoBehaviour
     public List<GameObject> spawnPoints;
 
     private float spawnTimer = 0f;
-    
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -42,7 +36,7 @@ public class SpawnEnemy : MonoBehaviour
     void SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
     {
         List<GameObject> activeSpawnPoints = spawnPoints.FindAll(sp => sp.activeInHierarchy);
-        GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
+        GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, activeSpawnPoints.Count)];
         Vector3 spawnPosition = spawnPoint.transform.position;
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         spawnPoint.SetActive(false);
