@@ -9,6 +9,7 @@ public class SpawnEnemy : MonoBehaviour
 {
     public GameObject enemy1;
     public GameObject enemy2;
+    public GameObject enemy3;
     public int spawnPointCooldown = 5000;
 
     public List<GameObject> spawnPoints;
@@ -30,16 +31,22 @@ public class SpawnEnemy : MonoBehaviour
         {
             int currentEnemy1Count = GameObject.FindGameObjectsWithTag("Enemy").Length;
             int currentEnemy2Count = GameObject.FindGameObjectsWithTag("Enemy2").Length;
+            int currentEnemy3Count = GameObject.FindGameObjectsWithTag("Enemy3").Length;
 
-            if (currentEnemy1Count < 3)
+            if (currentEnemy1Count < 2)
             {
                 SpawnAtRandomSpawnPoint(enemy1);
 
             }
 
-            if (currentEnemy2Count < 3)
+            if (currentEnemy2Count < 2)
             {
                 SpawnAtRandomSpawnPoint(enemy2);
+            }
+
+            if(currentEnemy3Count < 2)
+            {
+                SpawnAtRandomSpawnPoint(enemy3);
             }
 
         }

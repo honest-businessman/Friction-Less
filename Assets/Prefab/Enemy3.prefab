@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: b6d904533e634b443930de9efed9b70c, type: 3}
-  m_Color: {r: 0.9056604, g: 0.12246334, b: 0.12246334, a: 1}
+  m_Color: {r: 0.66418463, g: 0.121568635, b: 0.90588236, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -280,6 +280,9 @@ MonoBehaviour:
   health: 1
   maxHealth: 1
   vulnerable: 1
+  explosionEffectPrefab: {fileID: 1163870137026607657, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
+  explosionSoundEnemy: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
+  explosionSoundPlayer: {fileID: 0}
 --- !u!114 &1925533634154342454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,3 +324,4 @@ MonoBehaviour:
   explosionEffectPrefab: {fileID: 1163870137026607657, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
   destroyDelay: 0.3
   explosionDelay: 1
+  explosionSound: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}

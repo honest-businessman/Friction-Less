@@ -7,10 +7,20 @@ public class HealthSystem : MonoBehaviour
     public bool vulnerable = true;
     public delegate void DieAction();
     public static event DieAction OnDie;
+    [SerializeField] GameObject explosionEffectPrefab;
+    [SerializeField] AudioClip explosionSoundEnemy;
+    [SerializeField] AudioClip explosionSoundPlayer;
+    private AudioSource audioSource;
 
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
     }
 
     void Update()
@@ -45,6 +55,19 @@ public class HealthSystem : MonoBehaviour
     private void Die()
     {
         OnDie?.Invoke();
+
+        if (explosionEffectPrefab != null)
+        {
+            GameObject explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(explosion, 2f);
+        }
+
+        AudioClip clipToPlay = gameObject.CompareTag("Player") ? explosionSoundPlayer : explosionSoundEnemy;
+
+        if(clipToPlay != null)
+        {
+            AudioSource.PlayClipAtPoint(clipToPlay,transform.position);
+        }
         Destroy(gameObject);
     }
 }

@@ -274,6 +274,9 @@ MonoBehaviour:
   health: 2
   maxHealth: 2
   vulnerable: 1
+  explosionEffectPrefab: {fileID: 1163870137026607657, guid: c72bbef0b9eb5f747a2ae88464bdd042, type: 3}
+  explosionSoundEnemy: {fileID: 0}
+  explosionSoundPlayer: {fileID: 8300000, guid: b6b6fcf836651a14fa84ff7e17a76479, type: 3}
 --- !u!114 &7356961255664485176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b3e209b6db62b4488d048ea39c46ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  driveCharge: 0
   mouseAiming: 1
   inputHandler: {fileID: 7705520504310172337}
   moveSpeed: 25
@@ -300,7 +304,6 @@ MonoBehaviour:
   chargeFadeDelay: 2
   chargeAngle: 45
   minChargeMoveSpeed: 3
-  driveCharge: 0
   driftPressed: 0
   turret: {fileID: 2827446204254931088}
 --- !u!114 &6632548965348768541

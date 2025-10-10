@@ -294,6 +294,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5935190990124011078, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
+      propertyPath: explosionEffectPrefab
+      value: 
+      objectReference: {fileID: 1163870137026607657, guid: c72bbef0b9eb5f747a2ae88464bdd042, type: 3}
     - target: {fileID: 6632548965348768541, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
       propertyPath: trailSpeed
       value: 300
@@ -5385,6 +5389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy1: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
   enemy2: {fileID: 1106549739165163026, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  spawnPointCooldown: 5000
+  spawnPoints: []
 --- !u!4 &998321830
 Transform:
   m_ObjectHideFlags: 0

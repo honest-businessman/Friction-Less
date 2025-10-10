@@ -1,6 +1,7 @@
 using UnityEngine;
 using Pathfinding;
 using System.Collections;
+using Unity.Jobs;
 public class ExplosionAttackSystme : MonoBehaviour
 {
     
@@ -10,15 +11,27 @@ public class ExplosionAttackSystme : MonoBehaviour
     private float destroyDelay = 0.3f;
     [SerializeField]
     private float explosionDelay = 1.5f;
+    [SerializeField]
+    private AudioClip explosionSound;
+
 
     private AIPath aiPath;
     private bool hasExploded = false;
     private FactionController fc;
+    private AudioSource audioSource;
 
     private void Start()
     {
         fc = GetComponent<FactionController>();
         aiPath = GetComponent<AIPath>();
+
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -53,6 +66,10 @@ public class ExplosionAttackSystme : MonoBehaviour
     {
         yield return new WaitForSeconds(explosionDelay);
 
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(explosionSound);
+        }
         if (explosionEffectPrefab != null)
         {
             GameObject explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);

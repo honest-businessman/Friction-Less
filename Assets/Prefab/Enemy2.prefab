@@ -293,6 +293,9 @@ MonoBehaviour:
   health: 2
   maxHealth: 2
   vulnerable: 1
+  explosionEffectPrefab: {fileID: 1163870137026607657, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
+  explosionSoundEnemy: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
+  explosionSoundPlayer: {fileID: 0}
 --- !u!114 &8481944963521392265
 MonoBehaviour:
   m_ObjectHideFlags: 0
