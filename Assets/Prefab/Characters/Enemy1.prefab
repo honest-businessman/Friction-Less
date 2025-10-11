@@ -351,12 +351,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a33eebe8acc0848b59b47dc2a89449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  separationDistance: 3
-  separationForce: 3
+  separationDistance: 2
+  separationForce: 2
   enemyTags:
   - Enemy
   - Enemy2
   - Enemy3
+  updateInterval: 0.05
 --- !u!1001 &3760635615252848966
 PrefabInstance:
   m_ObjectHideFlags: 0

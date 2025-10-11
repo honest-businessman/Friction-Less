@@ -75,7 +75,7 @@ public abstract class AiMeleeBase : MonoBehaviour
         {
             separation /= count;
             separation *= separationForce;
-            separation *= Time.deltaTime * 50f; // 補正
+            separation *= Time.deltaTime * 70f;
         }
 
         return separation;

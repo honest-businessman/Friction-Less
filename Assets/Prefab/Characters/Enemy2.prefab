@@ -239,7 +239,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 2
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -277,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109101e0280b9e6498e3c6bbb16680d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  separationDistance: 2
-  separationForce: 3
+  separationDistance: 3
+  separationForce: 4
   enemyTags:
   - Enemy
   - Enemy2
