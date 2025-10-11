@@ -193,7 +193,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3995268348965258034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,9 +279,9 @@ MonoBehaviour:
   health: 1
   maxHealth: 1
   vulnerable: 1
-  explosionEffectPrefab: {fileID: 1163870137026607657, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
-  explosionSoundEnemy: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
-  explosionSoundPlayer: {fileID: 0}
+  DamageSound: {fileID: 0}
+  DeathSound: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
+  DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
 --- !u!114 &1925533634154342454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,5 +307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9408cb09ed93074194a3de6ea100f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  separationDistance: 2
+  separationForce: 3
+  enemyTags:
+  - Enemy
+  - Enemy2
+  - Enemy3
+  updateInterval: 0.05
   explosionSettings: {fileID: 11400000, guid: 8dd50d5cc022ccd4e855cd2a9c860d09, type: 2}
   explosionDelay: 1.5

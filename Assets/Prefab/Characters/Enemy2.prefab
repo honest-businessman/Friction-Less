@@ -194,7 +194,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3914504617479457719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109101e0280b9e6498e3c6bbb16680d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  separationDistance: 2
+  separationForce: 3
+  enemyTags:
+  - Enemy
+  - Enemy2
+  - Enemy3
+  updateInterval: 0.05
 --- !u!114 &4796032889167405082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +301,7 @@ MonoBehaviour:
   vulnerable: 1
   DamageSound: {fileID: 0}
   DeathSound: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
-  DeathVFX: {fileID: 0}
+  DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
 --- !u!114 &8481944963521392265
 MonoBehaviour:
   m_ObjectHideFlags: 0
