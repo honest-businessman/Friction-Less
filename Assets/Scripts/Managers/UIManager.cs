@@ -1,18 +1,29 @@
 using TMPro;
 using UnityEngine;
 
-public class UIHandler : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-
+    public static UIManager Instance { get; private set; }
     public TextMeshProUGUI meterText;
     public PlayerController playerController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         meterText.text = $"Friction Charge: 0%";
     }
 
-    // Update is called once per frame
     void Update()
     {
         DisplayCharge();
