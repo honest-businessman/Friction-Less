@@ -5,13 +5,9 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-    [SerializeField]
     public UnityEvent<InputValue> OnInputMove = new UnityEvent<InputValue>(); // Event for movement scripts to subscribe to
-    [SerializeField]
     public UnityEvent<InputValue> OnInputDrift = new UnityEvent<InputValue>(); // Event for movement scripts to subscribe to
-    [SerializeField]
     public UnityEvent<InputValue> OnInputFire = new UnityEvent<InputValue>(); // Event for firing scripts to subscribe to
-    [SerializeField]
     public UnityEvent<InputValue> OnInputChangeWeapon = new UnityEvent<InputValue>(); // Event for weapon scripts to subscribe to
     private void OnMove(InputValue value)
     {
