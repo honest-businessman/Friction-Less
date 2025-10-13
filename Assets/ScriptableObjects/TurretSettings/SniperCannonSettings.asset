@@ -17,7 +17,7 @@ MonoBehaviour:
   isNormalHitscan: 0
   shellSpeed: 15
   shellSize: 0.2
-  shellBounces: 1
+  shellBounces: 0
   shellDamage: 1
   isChargedHitscan: 1
   hitscanSize: 2

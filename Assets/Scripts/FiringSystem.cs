@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 public class FiringSystem : MonoBehaviour
 {
     [SerializeField]
-    private InputHandler inputHandler;
-    [SerializeField]
     LayerMask chargedHitList;
     [SerializeField]
     GameObject hitscanTrailPrefab;
@@ -64,17 +62,6 @@ public class FiringSystem : MonoBehaviour
             }
         }
         return null;
-    }
-
-    private void OnEnable()
-    {
-        if(isPlayer)
-            inputHandler.OnInputFire.AddListener(FireCommand);
-    }
-    private void OnDisable()
-    {
-        if(isPlayer)
-            inputHandler.OnInputFire.RemoveListener(FireCommand);
     }
 
     // For AI or non-input based firing

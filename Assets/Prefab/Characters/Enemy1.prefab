@@ -216,7 +216,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 2
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -283,7 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c7105269f452745aeb1b6309a2b99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 0}
   chargedHitList:
     serializedVersion: 2
     m_Bits: 2177
@@ -351,8 +350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a33eebe8acc0848b59b47dc2a89449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  separationDistance: 2
-  separationForce: 2
+  separationDistance: 3
+  separationForce: 4
   enemyTags:
   - Enemy
   - Enemy2

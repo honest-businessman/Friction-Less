@@ -12,12 +12,14 @@ public class AiBombController : AiMeleeBase
    
     private bool hasExploded = false;
     private FactionController fc;
+    private Rigidbody2D rb;
     
 
     protected override void Start()
     {
         base.Start(); // Runs base Start() logic from AiMeleeBase
         fc = GetComponent<FactionController>();
+        rb = GetComponent<Rigidbody2D>();
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -42,6 +44,7 @@ public class AiBombController : AiMeleeBase
                 AiPath.destination = transform.position;
             }
 
+            rb.bodyType = RigidbodyType2D.Static; // Prevents further movement from physics
             StartCoroutine(Explode());
         }
 

@@ -9,8 +9,6 @@ public class PlayerController : CharacterBase
 {
     private CharacterController controller;
     public bool mouseAiming = false;
-    [SerializeField]
-    private InputHandler inputHandler;
     public float moveSpeed = 25f; // Movement speed
     public float maxSpeed = 5f; // Maximum speed the player can reach
     public float driftSpeed = 5f;
@@ -44,6 +42,7 @@ public class PlayerController : CharacterBase
     private MoveState currentState = MoveState.Idle;
     private Vector2 playerInput;
     private Rigidbody2D rb;
+    private FiringSystem firingSystem;
     private float timeLastCharge;
     private Vector2 aimInput;
 
@@ -52,33 +51,25 @@ public class PlayerController : CharacterBase
         DriveCharge = 0f;
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
+        firingSystem = GetComponent<FiringSystem>();
         defaultDrag = rb.linearDamping;
     }
 
-    private void OnEnable()
+    public void Move(Vector2 moveVector)
     {
-        inputHandler.OnInputMove.AddListener(ProcessMove);
-        inputHandler.OnInputDrift.AddListener(ProcessDrift);
-        inputHandler.OnInputChangeWeapon.AddListener(ChangeTurret);
-    }
-    private void OnDisable()
-    {
-        inputHandler.OnInputMove.RemoveListener(ProcessMove);
-        inputHandler.OnInputDrift.RemoveListener(ProcessDrift);
-        inputHandler.OnInputChangeWeapon.RemoveListener(ChangeTurret);
-    }
-
-    private void ProcessMove(InputValue value)
-    {
-        playerInput = value.Get<Vector2>();
+        playerInput = moveVector;
         
     }
-
-    private void ProcessDrift(InputValue value)
+    public void Drift(bool isPressed)
     {
-        driftPressed = value.isPressed;
+        driftPressed = isPressed;
     }
-    private void ChageMoveState()
+    public void Aim(Vector2 aimVector)
+    {
+        aimInput = aimVector;
+    }
+
+    private void ChangeMoveState()
     {
         if (driftPressed)
             currentState = MoveState.Drifting;
@@ -106,7 +97,7 @@ public class PlayerController : CharacterBase
     }
     private void PlayerMovement()
     {
-        ChageMoveState();
+        ChangeMoveState();
 
         Debug.DrawRay(transform.position, transform.up * 2, Color.green); // Draw ray pointing up from the player
         if (currentState == MoveState.Moving)
@@ -188,10 +179,6 @@ public class PlayerController : CharacterBase
             DriveCharge = Mathf.Max(DriveCharge, 0f); // Ensure charge doesn't go below 0
     }
 
-    void OnAim(InputValue value)
-    {
-        aimInput = value.Get<Vector2>();
-    }
 
     void TurretRotate()
     {
@@ -213,18 +200,17 @@ public class PlayerController : CharacterBase
         turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
     }
 
-    void ChangeTurret(InputValue value)
+    public void ChangeWeapon(float changeInput)
     {
         if(equippedTurrets.Count <= 1) { return; }
 
-        float input = value.Get<float>();
-        if(input > 0)
+        if(changeInput > 0)
         {
             Debug.Log("Next Turret!");
             // Uses modulo operator to get remainder after division. This is to wrap the index within the count.
             turretIndex = (turretIndex + 1) % equippedTurrets.Count; 
         }
-        else if(input < 0)
+        else if(changeInput < 0)
         {
             Debug.Log("Previous Turret!");
             // Adds count to index to prevent negative index result when wrapping with modulo.
@@ -242,5 +228,10 @@ public class PlayerController : CharacterBase
         sprender.color = newSettings.spriteColor;
         TurretController tController = turret.GetComponent<TurretController>();
         tController.settings = newSettings;
+    }
+
+    public void Fire()
+    {
+        firingSystem.FireCommand();
     }
 }
