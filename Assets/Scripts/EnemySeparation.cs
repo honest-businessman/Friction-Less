@@ -78,6 +78,11 @@ public class EnemySeparation : MonoBehaviour
         
     }
 
+    public Vector3 GetSeparationVector()
+    {
+        return ComputeSeparationVector();
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
