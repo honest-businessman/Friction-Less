@@ -24,21 +24,24 @@ public class AiTankController : CharacterBase
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
+        Vector3 targetPos;
 
         if (distance > preferredDistance + tolerance)
         {
-            aiPath.destination = player.position;
-            aiPath.canMove = true;
+            targetPos = player.position;
+            //aiPath.canMove = true;
         }
         else if(distance < preferredDistance - tolerance)
         {
-            Vector2 away = transform.position + (transform.position - player.position).normalized * 2f;
-            aiPath.destination = away;
-            aiPath.canMove = true;
+            targetPos = transform.position + (transform.position - player.position).normalized * 2f;
+            //aiPath.canMove = true;
         }
         else
         {
-            aiPath.canMove = false;
+            targetPos = transform.position;
+            //aiPath.canMove = false;
         }
+        var separation = GetComponent<EnemySeparation>()?.GetSeparationVector() ?? Vector3.zero;
+        aiPath.destination = targetPos + separation * 0.8f;
     }
 }

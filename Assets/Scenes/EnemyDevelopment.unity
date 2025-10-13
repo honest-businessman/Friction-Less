@@ -5482,8 +5482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCharacters:
   - {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
-  - {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
-  - {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   spawnCooldownInSeconds: 3
   spawnPointCooldownInSeconds: 5
   spawnPoints:
