@@ -11,6 +11,7 @@ TagManager:
   - Projectile
   - HitscanTrail
   - Enemy3
+  - WallGen
   layers:
   - Default
   - TransparentFX
