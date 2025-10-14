@@ -44,7 +44,7 @@ public class ProjectileController : MonoBehaviour
     {
         Debug.Log($"Triggered by: {other.gameObject.name}");
 
-        if (other.TryGetComponent<FactionController>(out FactionController otherFC))
+        if (other.TryGetComponent(out FactionController otherFC))
         {
             if (fc.IsSameFaction(otherFC))
             {
@@ -52,7 +52,7 @@ public class ProjectileController : MonoBehaviour
                 return;
             }
 
-            if (other.TryGetComponent<HealthSystem>(out HealthSystem otherHS))
+            if (other.TryGetComponent(out HealthSystem otherHS))
             {
                 Debug.Log("Damaging target.");
                 otherHS.TakeDamage(damage);
@@ -63,8 +63,13 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"Collided with: {collision.gameObject.name}");
-
+        if (collision.gameObject.TryGetComponent(out FactionController otherFC))
+        {
+            if (!fc.IsSameFaction(otherFC))
+            {
+                HandleTrigger(collision.collider);
+            }
+        }
         if (bounceCount >= maxBounces)
         {
             Debug.Log("Destroying projectile due to max bounces.");

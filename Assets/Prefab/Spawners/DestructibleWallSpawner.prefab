@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3122754417334114698
+--- !u!1 &7879219967609914425
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 495295699360015697}
-  - component: {fileID: -7675663481536458208}
+  - component: {fileID: 2060991340874790967}
+  - component: {fileID: 6694834235660201964}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: DestructibleWallSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &495295699360015697
+--- !u!4 &2060991340874790967
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122754417334114698}
+  m_GameObject: {fileID: 7879219967609914425}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37368473, y: 0.5783693, z: -0.18210588}
+  m_LocalPosition: {x: -1.6475093, y: -0.12657844, z: 0.021339204}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7675663481536458208
+--- !u!114 &6694834235660201964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122754417334114698}
+  m_GameObject: {fileID: 7879219967609914425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3e2718703a55b4f8ca8890f34bc68a, type: 3}
+  m_Script: {fileID: 11500000, guid: 21f237db9f04cfd4bb3af1a8eb42e31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7356961255664485176, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-  gameManager: {fileID: 7918574954609366807, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
+  DestructibleWall: {fileID: 237680117543784354, guid: e1eed6abe4217794996738300e49f897, type: 3}
+  maxSpawnGroups: 3
+  spawnInterval: 15
+  initialDelay: 3

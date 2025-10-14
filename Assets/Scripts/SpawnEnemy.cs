@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class SpawnEnemy : MonoBehaviour
 {
@@ -12,10 +13,15 @@ public class SpawnEnemy : MonoBehaviour
     public float spawnCooldownInSeconds = 3f;
     public float spawnPointCooldownInSeconds = 5f;
 
-    public List<GameObject> spawnPoints;
+    private List<GameObject> spawnPoints;
+    private float spawnTimer;
 
-    private float spawnTimer = 0f;
 
+    void Start()
+    {
+        spawnTimer = Time.time;
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpoint Enemy").ToList();
+    }
     void Update()
     {
         if(Time.time - spawnTimer >= spawnCooldownInSeconds)

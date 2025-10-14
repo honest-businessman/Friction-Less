@@ -16,7 +16,7 @@ public class EnemySeparation : MonoBehaviour
     void Start()
     {
         aiPath = GetComponent<AIPath>();
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame

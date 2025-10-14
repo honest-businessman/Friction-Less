@@ -52,7 +52,8 @@ public class DestructibleWallSpawn : MonoBehaviour
             foreach (var tilePos in connectedTiles)
             {
                 Vector3 worldPos = tilemap.CellToWorld(tilePos) + tilemap.tileAnchor;
-                Instantiate(DestructibleWall, worldPos, Quaternion.identity);
+                GameObject dWall = Instantiate(DestructibleWall, worldPos, Quaternion.identity);
+                dWall.transform.SetParent(transform);
                 usedTiles.Add(tilePos);
             }
 

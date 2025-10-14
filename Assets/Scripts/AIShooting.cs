@@ -16,7 +16,7 @@ public class AIShooting : MonoBehaviour
     void Start()
     {
         turret = FindTagInChildren("Turret").gameObject; // Return the GameObject if tag matches
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindWithTag("Player").transform;
         fireSystem = GetComponent<FiringSystem>();
         timer = tryInterval;
     }

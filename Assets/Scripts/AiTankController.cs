@@ -13,9 +13,8 @@ public class AiTankController : CharacterBase
     void Start()
     {
         DriveCharge = 0f;
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindWithTag("Player").transform;
         aiPath = GetComponent<AIPath>();
-
     }
 
     // Update is called once per frame

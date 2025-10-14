@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3122754417334114698
+--- !u!1 &4106149410812115491
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 495295699360015697}
-  - component: {fileID: -7675663481536458208}
+  - component: {fileID: 94816034608826369}
+  - component: {fileID: 4182463556541701809}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &495295699360015697
+--- !u!4 &94816034608826369
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122754417334114698}
+  m_GameObject: {fileID: 4106149410812115491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37368473, y: 0.5783693, z: -0.18210588}
+  m_LocalPosition: {x: -0.26, y: 2.92, z: 0.0022446546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7675663481536458208
+--- !u!114 &4182463556541701809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122754417334114698}
+  m_GameObject: {fileID: 4106149410812115491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3e2718703a55b4f8ca8890f34bc68a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e28df149e5adfc4d8c166d2be41a5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7356961255664485176, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
-  gameManager: {fileID: 7918574954609366807, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
+  enemyCharacters:
+  - {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
+  - {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  - {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
+  spawnCooldownInSeconds: 5
+  spawnPointCooldownInSeconds: 10
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

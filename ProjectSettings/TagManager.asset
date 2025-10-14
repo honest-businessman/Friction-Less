@@ -12,6 +12,9 @@ TagManager:
   - HitscanTrail
   - Enemy3
   - WallGen
+  - Spawnpoint Player
+  - Spawnpoint Enemy
+  - Map Object
   layers:
   - Default
   - TransparentFX

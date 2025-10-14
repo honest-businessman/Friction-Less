@@ -6,7 +6,7 @@ public class HealthSystem : MonoBehaviour
     public int maxHealth = 2;
     public bool vulnerable = true;
     public delegate void DieAction();
-    public static event DieAction OnDie;
+    public event DieAction OnDie;
 
     [SerializeField] AudioClip DamageSound;
     [SerializeField] AudioClip DeathSound;

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3579360181940226903}
   - component: {fileID: 6383136267655055263}
   - component: {fileID: -6348820110824146951}
-  m_Layer: 0
+  - component: {fileID: 547316070591380797}
+  m_Layer: 11
   m_Name: DestructibleWall
-  m_TagString: Untagged
+  m_TagString: Map Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -3372601040203406708, guid: 0a53f89297e0a6540aecbe57b36db06e, type: 3}
+  m_Sprite: {fileID: 8990140259527430584, guid: 098a77dce91fa714aa74b03e95fb8730, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,3 +154,16 @@ MonoBehaviour:
   DamageSound: {fileID: 0}
   DeathSound: {fileID: 0}
   DeathVFX: {fileID: 0}
+--- !u!114 &547316070591380797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237680117543784354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e4ea771ab3b5f499ccf2bf453b22a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 2

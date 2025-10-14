@@ -15,7 +15,7 @@ public abstract class AiMeleeBase : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        Player = GameObject.Find("Player").transform;
+        Player = GameObject.FindWithTag("Player").transform;
         AiPath = GetComponent<AIPath>();
 
         if(AiPath != null)
