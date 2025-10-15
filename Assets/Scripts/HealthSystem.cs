@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    public int health = 2;
-    public int maxHealth = 2;
+    public float health = 2;
+    public float maxHealth = 2;
     public bool vulnerable = true;
     public delegate void DieAction();
     public event DieAction OnDie;
@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (vulnerable)
         {
