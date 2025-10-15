@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 94816034608826369}
   - component: {fileID: 4182463556541701809}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,10 +50,3 @@ MonoBehaviour:
   - {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
   spawnCooldownInSeconds: 5
   spawnPointCooldownInSeconds: 10
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

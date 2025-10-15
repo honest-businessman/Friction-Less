@@ -27,9 +27,9 @@ public class AiBombController : AiMeleeBase
 
         Debug.Log($"Triggered by: {other.gameObject.name}");
 
-        if (other.TryGetComponent<FactionController>(out FactionController otherFC))
+        if (other.TryGetComponent(out FactionController otherFC))
         {
-            if (fc.IsSameFaction(otherFC))
+            if (fc.IsSameFaction(otherFC) || otherFC.Faction == FactionController.Factions.Neutral) // Will not explode on neutral map objects
             {
                 Debug.Log("Same faction - ignoring.");
                 return;
