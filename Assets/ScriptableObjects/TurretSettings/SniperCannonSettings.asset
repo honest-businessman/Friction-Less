@@ -15,8 +15,8 @@ MonoBehaviour:
   sprite: {fileID: -3036036819145591855, guid: 2a59ac762e2c3144eb5f2a837c6e5b2c, type: 3}
   spriteColor: {r: 1, g: 0.9964248, b: 0, a: 1}
   isNormalHitscan: 0
-  shellSpeed: 15
-  shellSize: 0.2
+  shellSpeed: 16
+  shellSize: 0.15
   shellBounces: 0
   shellDamage: 2
   isChargedHitscan: 1

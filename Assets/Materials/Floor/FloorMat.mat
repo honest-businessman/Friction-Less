@@ -44,6 +44,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseTex:
+        m_Texture: {fileID: 2800000, guid: 788a4c3ef33f87248935ebf0269450fc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HeightMap:
         m_Texture: {fileID: 2800000, guid: d7192d0c29b3c8e4ea908cfd7304a283, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -69,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SeamNormalMap:
-        m_Texture: {fileID: 2800000, guid: 7d2ee673ca126d84c9dc74d0276b03f5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8c6c47addbcf5e14a863d5c27c5a76c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceNormalMap:
@@ -94,9 +98,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BaseTexScale: 26.14
+    - _BaseTexTiling: 0.06666
     - _BumpNormalStrength: 0.1
     - _DistortionStrength: 0.08
-    - _EdgeFadeDistance: 25
+    - _EdgeFadeDistance: 0
     - _EnableExternalAlpha: 0
     - _Glossiness: 0.5
     - _HeightMapTiling: 0.07
@@ -105,7 +111,7 @@ Material:
     - _Metallic: 0
     - _NormalMapTiling: 1
     - _NormalStrength: 0.01
-    - _ReflectionIntensity: 1
+    - _ReflectionIntensity: 0.06
     - _ReflectionOffsetX: 0.01
     - _ReflectionOffsetY: 0.01
     - _ReflectionStrength: 0.34
@@ -117,22 +123,25 @@ Material:
     - _SeamDistortion: 0
     - _SeamNormalStrength: 0.04
     - _SeamNormalTiling: 0.07
-    - _SeamReflectionBrightness: 300
+    - _SeamReflectionBrightness: 1
     - _SeamReflectionScale: 0.5
     - _SeamSharpness: 1
-    - _SeamThreshold: 0.18
+    - _SeamThreshold: 0
     - _SurfaceHighlightThreshold: 1
     - _SurfaceNormalStrength: 11.29
     - _SurfaceReflectionBrightness: 3
     - _TileSize: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 0.071499996, g: 0.01625, b: 0.078, a: 1}
+    - _BaseTexOffset: {r: 0.06666, g: 0, b: 0, a: 0}
+    - _BaseTexScale: {r: 1, g: 1, b: 0, a: 0}
+    - _BaseTexTiling: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _FloorCenter: {r: 0, g: 0, b: 0, a: 0}
-    - _FloorMaxBounds: {r: 15, g: 8, b: 0, a: 0}
-    - _FloorMinBounds: {r: -15, g: -8, b: 0, a: 0}
-    - _ReflectionOffset: {r: 0.005, g: 0.007, b: 0, a: 0}
+    - _FloorMaxBounds: {r: 16, g: 9, b: 0, a: 0}
+    - _FloorMinBounds: {r: -16, g: -9, b: 0, a: 0}
+    - _ReflectionOffset: {r: 0.03, g: 0.035, b: 0, a: 0}
     - _ReflectionOffsetX: {r: 0, g: 0, b: 0, a: 0}
     - _ReflectionTint: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

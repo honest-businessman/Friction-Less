@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Renderer))]
 public class FloorReflectionSetup : MonoBehaviour
 {
