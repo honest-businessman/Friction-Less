@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b6a74f35ae0ef468a973a8cc54ab36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1098565714445436324, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
+  playerPrefab: {fileID: 6930791190220538420, guid: 584e4ed4a5270014e9d2a71b096e4cc5, type: 3}
   restartDelay: 3
 --- !u!1001 &170075308762607609
 PrefabInstance:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5416c44f1673c54f870a8d5e3a77807, type: 3}
   m_Name: RicochetCannonSettings
   m_EditorClassIdentifier: 
-  sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
+  sprite: {fileID: -3036036819145591855, guid: 2a59ac762e2c3144eb5f2a837c6e5b2c, type: 3}
   spriteColor: {r: 1, g: 1, b: 1, a: 1}
   isNormalHitscan: 0
   shellSpeed: 7

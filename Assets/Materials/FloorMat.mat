@@ -74,10 +74,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistortionStrength: 0.3
+    - _DistortionStrength: 0.5
     - _EdgeFadeDistance: 25
     - _EnableExternalAlpha: 0
-    - _ReflectionIntensity: 2
+    - _ReflectionIntensity: 0.2
     - _ReflectionStrength: 0.34
     - _ZWrite: 0
     m_Colors:
