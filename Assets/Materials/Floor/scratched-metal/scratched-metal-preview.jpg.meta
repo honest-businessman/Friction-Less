@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      scratched-metal-preview_0: -6009548984467902328
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

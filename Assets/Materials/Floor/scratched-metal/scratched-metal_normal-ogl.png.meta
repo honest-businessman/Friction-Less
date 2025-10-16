@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      scratched-metal_normal-ogl_0: 4955214084138460955
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
