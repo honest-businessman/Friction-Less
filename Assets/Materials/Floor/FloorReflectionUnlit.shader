@@ -5,11 +5,14 @@ Shader "Custom/FloorReflectionUnlit"
         _ReflectionTex ("Reflection Texture", 2D) = "black" {}
         _FloorMinBounds ("Floor Min Bounds", Vector) = (0,0,0,0)
         _FloorMaxBounds ("Floor Max Bounds", Vector) = (1,1,0,0)
-        _DistortionStrength ("Distortion Strength", Float) = 0.05
-        _ReflectionIntensity ("Reflection Intensity", Float) = 0.5
+        _ReflectionIntensity ("Reflection Intensity", Range(0,3)) = 1.0
         _EdgeFadeDistance ("Edge Fade Distance", Float) = 0.5
         _BaseColor ("Base Floor Color", Color) = (0,0,0,1)
+        _TileSize ("Tile Size", Float) = 1.0
+        _SeamSharpness ("Tile Seam Sharpness", Float) = 10.0
+        _SeamDistortion ("Seam Distortion Strength", Float) = 0.002
     }
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -25,15 +28,16 @@ Shader "Custom/FloorReflectionUnlit"
             sampler2D _ReflectionTex;
             float4 _FloorMinBounds;
             float4 _FloorMaxBounds;
-            float _DistortionStrength;
             float _ReflectionIntensity;
             float _EdgeFadeDistance;
             fixed4 _BaseColor;
+            float _TileSize;
+            float _SeamSharpness;
+            float _SeamDistortion;
 
             struct appdata
             {
                 float4 vertex : POSITION;
-                float3 worldPos : TEXCOORD0;
             };
 
             struct v2f
@@ -47,14 +51,8 @@ Shader "Custom/FloorReflectionUnlit"
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
-
-                // Get world position
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-
-                // Calculate view direction
-                float3 viewPos = _WorldSpaceCameraPos;
-                o.viewDir = normalize(viewPos - o.worldPos);
-
+                o.viewDir = normalize(_WorldSpaceCameraPos - o.worldPos);
                 return o;
             }
 
@@ -68,32 +66,31 @@ Shader "Custom/FloorReflectionUnlit"
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                // Base floor color
                 float3 baseCol = _BaseColor.rgb;
 
-                // Map worldPos to reflection UVs (normalized inside floor bounds)
                 float2 floorSize = _FloorMaxBounds.xy - _FloorMinBounds.xy;
                 float2 normPos = (IN.worldPos.xy - _FloorMinBounds.xy) / floorSize;
+                float2 reflUV = saturate(normPos);
 
-                // Simple procedural distortion using sine waves
-                float2 distortion = float2(
-                    sin(normPos.y * 20.0) * 0.01,
-                    cos(normPos.x * 20.0) * 0.01
-                ) * _DistortionStrength;
+                // --- Procedural tile seam distortion ---
+                float2 tileCoord = IN.worldPos.xy / _TileSize;
+                float2 tileFrac = frac(tileCoord);
+                float2 seamMask = smoothstep(0.0, 1.0 / _SeamSharpness, min(tileFrac, 1.0 - tileFrac));
+                float seamEffect = (1.0 - min(seamMask.x, seamMask.y));
+                float2 offset = seamEffect * _SeamDistortion;
 
-                float2 reflUV = clamp(normPos + distortion, 0, 1);
+                reflUV += offset;
 
-                // Sample reflection texture with distortion
                 fixed4 reflectionCol = tex2D(_ReflectionTex, reflUV);
 
-                // Fresnel effect (view angle with upward normal)
+                // Fresnel effect
                 float3 floorNormal = float3(0,0,1);
                 float fresnel = pow(1 - saturate(dot(normalize(IN.viewDir), floorNormal)), 3);
 
                 // Edge fade
                 float edgeFade = EdgeFade(IN.worldPos.xy);
 
-                // Combine reflection with base color
+                // Final blend
                 float reflectionAmount = _ReflectionIntensity * fresnel * edgeFade;
                 float3 finalColor = lerp(baseCol, reflectionCol.rgb, reflectionAmount);
 

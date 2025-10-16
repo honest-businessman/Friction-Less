@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FloorMat
-  m_Shader: {fileID: 4800000, guid: ee0ae601edbaf044692df8d1992a47f8, type: 3}
+  m_Shader: {fileID: 4800000, guid: 276a6f0cfce31f5439b56e3aff960331, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,8 +36,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlbedoTex:
+        m_Texture: {fileID: 2800000, guid: 43d76002c1a1f6c4a802148897aecd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 2800000, guid: d7192d0c29b3c8e4ea908cfd7304a283, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -49,11 +57,23 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9063c0364a6f4934884b670ae24455b0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectionTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScratchMap:
+        m_Texture: {fileID: 2800000, guid: 43d76002c1a1f6c4a802148897aecd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SeamNormalMap:
+        m_Texture: {fileID: 2800000, guid: 7d2ee673ca126d84c9dc74d0276b03f5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SurfaceNormalMap:
+        m_Texture: {fileID: 2800000, guid: 18870d012e96fc645b8518b1785f64b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TileTex:
@@ -74,18 +94,48 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistortionStrength: 0.5
+    - _BumpNormalStrength: 0.1
+    - _DistortionStrength: 0.08
     - _EdgeFadeDistance: 25
     - _EnableExternalAlpha: 0
-    - _ReflectionIntensity: 0.2
+    - _Glossiness: 0.5
+    - _HeightMapTiling: 0.07
+    - _HeightStrength: -0.06
+    - _MaxReflectionDistance: 8.07
+    - _Metallic: 0
+    - _NormalMapTiling: 1
+    - _NormalStrength: 0.01
+    - _ReflectionIntensity: 1
+    - _ReflectionOffsetX: 0.01
+    - _ReflectionOffsetY: 0.01
     - _ReflectionStrength: 0.34
+    - _ScratchDarkenIntensity: 1
+    - _ScratchHighlightStrength: 1
+    - _ScratchReflectionIntensity: 3
+    - _ScratchThreshold: 0.09
+    - _ScratchTileCount: 13.9
+    - _SeamDistortion: 0
+    - _SeamNormalStrength: 0.04
+    - _SeamNormalTiling: 0.07
+    - _SeamReflectionBrightness: 300
+    - _SeamReflectionScale: 0.5
+    - _SeamSharpness: 1
+    - _SeamThreshold: 0.18
+    - _SurfaceHighlightThreshold: 1
+    - _SurfaceNormalStrength: 11.29
+    - _SurfaceReflectionBrightness: 3
+    - _TileSize: 1
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _FloorCenter: {r: 0, g: 0, b: 0, a: 0}
     - _FloorMaxBounds: {r: 15, g: 8, b: 0, a: 0}
     - _FloorMinBounds: {r: -15, g: -8, b: 0, a: 0}
+    - _ReflectionOffset: {r: 0.005, g: 0.007, b: 0, a: 0}
+    - _ReflectionOffsetX: {r: 0, g: 0, b: 0, a: 0}
     - _ReflectionTint: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScratchMapScale: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

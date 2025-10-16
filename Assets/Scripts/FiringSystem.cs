@@ -202,30 +202,35 @@ public class FiringSystem : MonoBehaviour
                 tryDamage();
                 int pensSpent;
                 if (hitFc.Faction == FactionController.Factions.Neutral)
-                    pensSpent = 0;
+                    pensSpent = 0; // Prevent spending pens on Neutral entities.
                 else
                     pensSpent = 1;
 
-                Vector2 penetrationOrigin = (Vector2)hit.point + (Vector2)rayDirection * 0.01f;
+                Vector2 penetrationOrigin = hit.point + (Vector2)rayDirection * 0.01f;
                 Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * settings.hitscanRange;
-                yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, pensSpent, currentBounces, currentPens + 1));
+                yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, 1, currentBounces, currentPens + pensSpent));
                 yield break;
             }
             
             if (maxBounces > currentBounces) // Start new hitscan for bounce
             {
-                tryDamage();
+                if (tryDamage() && hitFc.Faction != FactionController.Factions.Neutral)
+                {
+                    yield break; // Stop bounce if damage was dealt to a non-neutral faction
+                }
                 Debug.Log("DEBUG4");
                 yield return new WaitForSeconds(bounceDelay);
                 yield return StartCoroutine(FireHitscan(rayOrigin, hit.point, hit.normal, 2, currentBounces + 1, currentPens));
             }
 
-            void tryDamage()
+            bool tryDamage()
             {
                 if (hitFc != null && hitHealthSystem != null && !(fc.IsSameFaction(hitFc)))
                 {
                     hitHealthSystem.TakeDamage(settings.hitscanDamage);
+                    return true;
                 }
+                return false;
             }
         }
     }

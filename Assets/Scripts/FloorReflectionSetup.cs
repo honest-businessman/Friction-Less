@@ -61,6 +61,9 @@ public class FloorReflectionSetup : MonoBehaviour
 
         floorMaterial.SetVector("_FloorMinBounds", new Vector4(floorBounds.min.x, floorBounds.min.y, 0, 0));
         floorMaterial.SetVector("_FloorMaxBounds", new Vector4(floorBounds.max.x, floorBounds.max.y, 0, 0));
+        Vector3 center = floorBounds.center;
+        floorMaterial.SetVector("_FloorCenter", new Vector4(center.x, center.y, 0f, 0f));
+
 
         // Assign Render Texture to reflection camera
         reflectionCamera.targetTexture = reflectionRT;

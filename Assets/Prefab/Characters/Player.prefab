@@ -65,7 +65,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
+  health: 3
+  maxHealth: 3
   vulnerable: 1
   DamageSound: {fileID: 8300000, guid: e5ea4a3984f7efd418618b710759d31f, type: 3}
   DeathSound: {fileID: 8300000, guid: b6b6fcf836651a14fa84ff7e17a76479, type: 3}
@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7800946409071096644, guid: 0a406fa0cac3ca645a19df4c98cdbcb5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
     m_RemovedComponents:
     - {fileID: 1340297039541373807, guid: 0a406fa0cac3ca645a19df4c98cdbcb5, type: 3}
     m_RemovedGameObjects: []
@@ -324,6 +328,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4672602374819409980, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
     - target: {fileID: 7636920721850702891, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.008
@@ -390,6 +398,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
@@ -469,6 +481,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2759497254178083693}
     m_Modifications:
+    - target: {fileID: 3095648165457781682, guid: 61c6095becd8e2c409f8a14008fb14a9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
     - target: {fileID: 6137220232763625235, guid: 61c6095becd8e2c409f8a14008fb14a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00781
