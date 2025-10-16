@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c22d83a8cc8299a4aa46ffac543d8d29
+guid: 2207c2c4b6112a54c9ee9b799d398ded
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5837882631227150356
-    second: TrackLeftF4_0
+      213: -3036036819145591855
+    second: PlayerTurret_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TrackLeftF4_0
+      name: PlayerTurret_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 1
-        width: 8
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 21
+        y: 18
+        width: 21
+        height: 45
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26492217}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 41097ba9253540150800000000000000
-      internalID: 5837882631227150356
+      spriteID: 1d3f1dd3994ddd5d0800000000000000
+      internalID: -3036036819145591855
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d13a6ced74e06f845a96a18740f0e93e
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TrackLeftF4_0: 5837882631227150356
+      PlayerTurret_0: -3036036819145591855
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
