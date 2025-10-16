@@ -112,7 +112,7 @@ MonoBehaviour:
   threadCount: 1
   maxFrameTime: 10
   batchGraphUpdates: 1
-  graphUpdateBatchingInterval: 0.5
+  graphUpdateBatchingInterval: 0.1
   euclideanEmbedding:
     mode: 0
     seed: 0
@@ -167,12 +167,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSize: 4
   heavySize: 2
-  lightPenalty: 2000
-  heavyPenalty: 4000
+  lightPenalty: 3000
+  heavyPenalty: 5000
   proximityPenaltyCooldown: 0.2
-  wallErosionPenalty: 4000
+  wallErosionPenalty: 5000
   mapObjectSize: 3
-  pathClaimPenalty: 2000
+  pathClaimPenalty: 4000
 --- !u!1001 &1673446590152390627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,6 +228,10 @@ PrefabInstance:
     - target: {fileID: 4106149410812115491, guid: 9189e2b54c0bfce4cbe55e10ab15ce0e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182463556541701809, guid: 9189e2b54c0bfce4cbe55e10ab15ce0e, type: 3}
+      propertyPath: spawnCooldownInSeconds
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4182463556541701809, guid: 9189e2b54c0bfce4cbe55e10ab15ce0e, type: 3}
       propertyPath: enemyCharacters.Array.size
