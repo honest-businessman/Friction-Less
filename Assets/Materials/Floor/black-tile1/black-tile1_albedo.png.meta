@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      black-tile1_albedo_0: -2921207651702160147
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

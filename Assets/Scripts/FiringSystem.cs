@@ -197,9 +197,9 @@ public class FiringSystem : MonoBehaviour
 
             hit.transform.TryGetComponent(out FactionController hitFc);
             hit.transform.gameObject.TryGetComponent(out HealthSystem hitHealthSystem);
-            if (currentPens < settings.hitscanPenetrations)
+            tryDamage();
+            if (hitHealthSystem != null && currentPens < settings.hitscanPenetrations)
             {
-                tryDamage();
                 int pensSpent;
                 if (hitFc.Faction == FactionController.Factions.Neutral)
                     pensSpent = 0; // Prevent spending pens on Neutral entities.
@@ -214,7 +214,7 @@ public class FiringSystem : MonoBehaviour
             
             if (maxBounces > currentBounces) // Start new hitscan for bounce
             {
-                if (tryDamage() && hitFc.Faction != FactionController.Factions.Neutral)
+                if (!hitFc == null && hitFc.Faction != FactionController.Factions.Neutral)
                 {
                     yield break; // Stop bounce if damage was dealt to a non-neutral faction
                 }
@@ -223,14 +223,12 @@ public class FiringSystem : MonoBehaviour
                 yield return StartCoroutine(FireHitscan(rayOrigin, hit.point, hit.normal, 2, currentBounces + 1, currentPens));
             }
 
-            bool tryDamage()
+            void tryDamage()
             {
                 if (hitFc != null && hitHealthSystem != null && !(fc.IsSameFaction(hitFc)))
                 {
                     hitHealthSystem.TakeDamage(settings.hitscanDamage);
-                    return true;
                 }
-                return false;
             }
         }
     }
