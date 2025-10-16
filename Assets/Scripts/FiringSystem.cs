@@ -195,27 +195,37 @@ public class FiringSystem : MonoBehaviour
             tr.transform.position = hit.point;
             OnImpact?.Invoke(); // Should activate a particle effect through this event
 
-            if (hit.transform.gameObject.TryGetComponent<HealthSystem>(out HealthSystem otherHealthSystem))
+            hit.transform.TryGetComponent(out FactionController hitFc);
+            hit.transform.gameObject.TryGetComponent(out HealthSystem hitHealthSystem);
+            if (currentPens < settings.hitscanPenetrations)
             {
-                otherHealthSystem.TakeDamage(settings.hitscanDamage);
-                if (currentPens < settings.hitscanPenetrations) // Penetrate enemy hit, may not work for enemies that do not die in a single hitscan.
-                {
-                    Vector2 penetrationOrigin = (Vector2)hit.point + (Vector2)rayDirection * 0.01f;
-                    Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * settings.hitscanRange;
-                    yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, 1, currentBounces, currentPens + 1));
-                    yield break;
-                }
+                tryDamage();
+                int pensSpent;
+                if (hitFc.Faction == FactionController.Factions.Neutral)
+                    pensSpent = 0;
                 else
-                {
-                    yield break;
-                }
-            }
+                    pensSpent = 1;
 
+                Vector2 penetrationOrigin = (Vector2)hit.point + (Vector2)rayDirection * 0.01f;
+                Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * settings.hitscanRange;
+                yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, pensSpent, currentBounces, currentPens + 1));
+                yield break;
+            }
+            
             if (maxBounces > currentBounces) // Start new hitscan for bounce
             {
+                tryDamage();
                 Debug.Log("DEBUG4");
                 yield return new WaitForSeconds(bounceDelay);
                 yield return StartCoroutine(FireHitscan(rayOrigin, hit.point, hit.normal, 2, currentBounces + 1, currentPens));
+            }
+
+            void tryDamage()
+            {
+                if (hitFc != null && hitHealthSystem != null && !(fc.IsSameFaction(hitFc)))
+                {
+                    hitHealthSystem.TakeDamage(settings.hitscanDamage);
+                }
             }
         }
     }

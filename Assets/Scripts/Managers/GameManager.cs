@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     private float restartDelay = 3f;
 
     private InputManager inputManager;
+    private UIManager uiManager;
     GameObject player;
 
     private void Awake()
@@ -95,6 +97,10 @@ public class GameManager : MonoBehaviour
         inputManager = GetComponentInChildren<InputManager>();
         inputManager.Player = player.GetComponent<PlayerController>();
         inputManager.GameManager = this;
+
+        uiManager = GetComponentInChildren<UIManager>();
+        uiManager.playerController = player.GetComponent<PlayerController>();
+        uiManager.meterText = GameObject.FindGameObjectWithTag("UI Drive Charge").GetComponent<TextMeshProUGUI>(); ;
     }
 
     private void HandlePlayerDeath()
