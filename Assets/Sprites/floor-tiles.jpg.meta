@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cf29b2b03425d3a488b37fcca41f973a
+guid: ce85ae40c6ea425438a58214eb4d3e32
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4816354352489320217
-    second: TrackLeftF3_0
+      213: -7360323005471336529
+    second: floor-tiles_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TrackLeftF3_0
+      name: floor-tiles_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 1
-        width: 8
-        height: 48
+        x: 0
+        y: 0
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91f4884f3c027d240800000000000000
-      internalID: 4816354352489320217
+      spriteID: fa7deb22931ead990800000000000000
+      internalID: -7360323005471336529
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      TrackLeftF3_0: 4816354352489320217
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1719586734934283805}
   - component: {fileID: 4233394448574460378}
   - component: {fileID: 5261669759274116534}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4842817159760583724}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1776, y: -0.03109, z: 0}
   m_LocalScale: {x: 0.95797235, y: 0.9994036, z: 0.5}
   m_ConstrainProportionsScale: 0

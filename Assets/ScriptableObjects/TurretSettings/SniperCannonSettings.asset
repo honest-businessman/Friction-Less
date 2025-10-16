@@ -23,7 +23,7 @@ MonoBehaviour:
   hitscanSize: 2
   hitscanBounces: 0
   hitscanPenetrations: 2
-  hitscanDamage: 2
+  hitscanDamage: 4
   hitscanRange: 100
   fireRate: 2
   shellLifetime: 10

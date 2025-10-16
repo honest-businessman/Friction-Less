@@ -311,25 +311,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7903307073750961727}
     m_Modifications:
-    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
-      propertyPath: m_SortingOrder
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
-      objectReference: {fileID: 0}
-    - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
-      propertyPath: shellPrefab
-      value: 
-      objectReference: {fileID: 875240488514508923, guid: 3af224c90a76698439a83f982de9cd37, type: 3}
-    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
-      propertyPath: chargedRange
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6766343977067499528, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_LocalPosition.x
@@ -394,21 +378,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7903307073750961727}
     m_Modifications:
-    - target: {fileID: 605009524163165013, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 3989620362374659842, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
       propertyPath: m_Name
       value: Battery
-      objectReference: {fileID: 0}
-    - target: {fileID: 7818970223351211324, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4380599
-      objectReference: {fileID: 0}
-    - target: {fileID: 7818970223351211324, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0784035
       objectReference: {fileID: 0}
     - target: {fileID: 7818970223351211324, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
       propertyPath: m_LocalPosition.x

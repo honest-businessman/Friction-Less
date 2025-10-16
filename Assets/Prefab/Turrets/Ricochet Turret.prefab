@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6766343977067499528}
   - component: {fileID: 1312509101285848859}
   - component: {fileID: 3503761678754282661}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ricochet Turret
   m_TagString: Turret
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2606858850793271264}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.041467637, w: 0.99913985}
+  m_LocalRotation: {x: 0, y: 0, z: 0.041465886, w: 0.99913996}
   m_LocalPosition: {x: -0, y: 0.013, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.753}
 --- !u!212 &1312509101285848859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 7
   m_Sprite: {fileID: -3036036819145591855, guid: 2a59ac762e2c3144eb5f2a837c6e5b2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
