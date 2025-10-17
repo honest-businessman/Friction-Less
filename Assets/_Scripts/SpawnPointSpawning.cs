@@ -6,42 +6,19 @@ using System.Threading.Tasks;
 using System.Linq;
 using Pathfinding;
 
-public class SpawnEnemy : MonoBehaviour
+public class SpawnPointSpawning : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> enemyCharacters;
-    [SerializeField]
-    private float spawnCooldownInSeconds = 3f;
     [SerializeField]
     private float spawnPointCooldownInSeconds = 5f;
 
     private List<GameObject> spawnPoints;
-    private float spawnTimer;
-
 
     void Start()
     {
-        spawnTimer = Time.time;
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpoint Enemy").ToList();
     }
-    void Update()
-    {
-        if(Time.time - spawnTimer >= spawnCooldownInSeconds)
-        {
-            spawnTimer = Time.time;
-            // Find total number of enemies in the scene based on tag
-            int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-            if (currentEnemyCount < 5)
-            {
-                // Selects a random enemy to spawn
-                int rand = UnityEngine.Random.Range(0, enemyCharacters.Count); 
-                SpawnAtRandomSpawnPoint(enemyCharacters[rand]);
-            }
-        }
-    }
-
-    void SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
+    public void SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
     {
         List<GameObject> activeSpawnPoints = spawnPoints.FindAll(sp => sp.activeInHierarchy);
         GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, activeSpawnPoints.Count)];
