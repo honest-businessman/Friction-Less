@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Linq;
 using Pathfinding;
+using System.Collections;
 
 public class SpawnPointSpawning : MonoBehaviour
 {
@@ -12,13 +13,9 @@ public class SpawnPointSpawning : MonoBehaviour
     private float spawnPointCooldownInSeconds = 5f;
 
     private List<GameObject> spawnPoints;
+    private Dictionary<GameObject, Coroutine> spawnPointCoroutines = new Dictionary<GameObject, Coroutine>();
 
-    void Start()
-    {
-        spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpoint Enemy").ToList();
-    }
-
-    public void SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
+    public GameObject SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
     {
         List<GameObject> activeSpawnPoints = spawnPoints.FindAll(sp => sp.activeInHierarchy);
         GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, activeSpawnPoints.Count)];
@@ -29,6 +26,7 @@ public class SpawnPointSpawning : MonoBehaviour
         SetupEnemy(enemy);
         spawnPoint.SetActive(false);
         ManagePointPostSpawn(spawnPoint);
+        return enemy;
     }
 
     void SetupEnemy(GameObject enemy)
@@ -52,14 +50,30 @@ public class SpawnPointSpawning : MonoBehaviour
         ssm.uniformLength = true;*/
     }
 
-    private async void ManagePointPostSpawn(GameObject spawnPoint)
+    private void ManagePointPostSpawn(GameObject spawnPoint)
     {
-        await SetActiveAfterDelay(spawnPoint);
+        if (spawnPointCoroutines.TryGetValue(spawnPoint, out Coroutine existing))
+        {
+            StopCoroutine(existing);
+        }
+        spawnPointCoroutines[spawnPoint] = StartCoroutine(SetActiveAfterDelay(spawnPoint));
     }
-    async Task SetActiveAfterDelay(GameObject spawnPoint)
+    private IEnumerator SetActiveAfterDelay(GameObject spawnPoint)
     {
-        await Task.Delay((int)(spawnPointCooldownInSeconds * 1000)); // Times by 1000 to convert to milliseconds.
+        yield return new WaitForSeconds(spawnPointCooldownInSeconds);
         spawnPoint.SetActive(true);
+        spawnPointCoroutines.Remove(spawnPoint);
         Debug.Log($"Point {spawnPoint.name} Reactivated");
+    }
+
+    public void ResetSpawnPoints()
+    {
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpoint Enemy").ToList();
+        foreach (GameObject sp in spawnPoints)
+            sp.SetActive(true);
+
+        foreach (Coroutine c in spawnPointCoroutines.Values)
+            StopCoroutine(c);
+        spawnPointCoroutines.Clear();
     }
 }

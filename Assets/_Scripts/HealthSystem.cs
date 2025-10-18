@@ -56,11 +56,13 @@ public class HealthSystem : MonoBehaviour
         if (health >= maxHealth)
             health = maxHealth;
     }
+    public void GainMaxHealth()
+    {
+        health = maxHealth;
+    }
 
     private void Die()
     {
-        OnDie?.Invoke();
-
         if (DeathVFX != null)
         {
             GameObject explosion = Instantiate(DeathVFX, transform.position, Quaternion.identity);
@@ -74,5 +76,9 @@ public class HealthSystem : MonoBehaviour
             AudioSource.PlayClipAtPoint(clipToPlay,transform.position);
         }
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        OnDie?.Invoke();
     }
 }

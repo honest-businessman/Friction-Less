@@ -278,12 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109101e0280b9e6498e3c6bbb16680d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  separationDistance: 3
-  separationForce: 4
-  enemyTags:
-  - Enemy
-  - Enemy2
-  - Enemy3
   updateInterval: 0.05
 --- !u!114 &4796032889167405082
 MonoBehaviour:
@@ -328,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce90a059a646b6645bd76c241feb1c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeCollider: {fileID: 6926360911520516438}
   settings: {fileID: 11400000, guid: 9c2588f079a67fc44ae4da4132f18baa, type: 2}
 --- !u!1 &8622605097605196927
 GameObject:

@@ -26,7 +26,7 @@ public class XPObject : MonoBehaviour
             Vector3 dir = (playerTarget.position - transform.position).normalized;
             transform.position += dir * moveSpeed * Time.deltaTime;
 
-            if(Vector3.Distance(transform.position,, playerTarget.position) <= 0.1f)
+            if(Vector3.Distance(transform.position, playerTarget.position) <= 0.1f)
             {
                 LevelSystem levelSystem = playerTarget.GetComponent<LevelSystem>();
                 if (levelSystem != null)
