@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4071293954520922766
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FloorMat
+  m_Shader: {fileID: 4800000, guid: 276a6f0cfce31f5439b56e3aff960331, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoTex:
+        m_Texture: {fileID: 2800000, guid: 43d76002c1a1f6c4a802148897aecd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTex:
+        m_Texture: {fileID: 2800000, guid: 788a4c3ef33f87248935ebf0269450fc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 2800000, guid: d7192d0c29b3c8e4ea908cfd7304a283, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 9063c0364a6f4934884b670ae24455b0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScratchMap:
+        m_Texture: {fileID: 2800000, guid: 43d76002c1a1f6c4a802148897aecd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SeamNormalMap:
+        m_Texture: {fileID: 2800000, guid: 8c6c47addbcf5e14a863d5c27c5a76c7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SurfaceNormalMap:
+        m_Texture: {fileID: 2800000, guid: 18870d012e96fc645b8518b1785f64b2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TileTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BaseTexScale: 26.14
+    - _BaseTexTiling: 0.06666
+    - _BumpNormalStrength: 0.1
+    - _DistortionStrength: 0.08
+    - _EdgeFadeDistance: 0
+    - _EnableExternalAlpha: 0
+    - _Glossiness: 0.5
+    - _HeightMapTiling: 0.07
+    - _HeightStrength: -0.06
+    - _MaxReflectionDistance: 8.07
+    - _Metallic: 0
+    - _NormalMapTiling: 1
+    - _NormalStrength: 0.01
+    - _ReflectionIntensity: 0.06
+    - _ReflectionOffsetX: 0.01
+    - _ReflectionOffsetY: 0.01
+    - _ReflectionStrength: 0.34
+    - _ScratchDarkenIntensity: 1
+    - _ScratchHighlightStrength: 1
+    - _ScratchReflectionIntensity: 3
+    - _ScratchThreshold: 0.09
+    - _ScratchTileCount: 13.9
+    - _SeamDistortion: 0
+    - _SeamNormalStrength: 0.04
+    - _SeamNormalTiling: 0.07
+    - _SeamReflectionBrightness: 1
+    - _SeamReflectionScale: 0.5
+    - _SeamSharpness: 1
+    - _SeamThreshold: 0
+    - _SurfaceHighlightThreshold: 1
+    - _SurfaceNormalStrength: 11.29
+    - _SurfaceReflectionBrightness: 3
+    - _TileSize: 1
+    - _ZWrite: 0
+    m_Colors:
+    - _BaseColor: {r: 0.071499996, g: 0.01625, b: 0.078, a: 1}
+    - _BaseTexOffset: {r: 0.06666, g: 0, b: 0, a: 0}
+    - _BaseTexScale: {r: 1, g: 1, b: 0, a: 0}
+    - _BaseTexTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _FloorCenter: {r: 0, g: 0, b: 0, a: 0}
+    - _FloorMaxBounds: {r: 16, g: 9, b: 0, a: 0}
+    - _FloorMinBounds: {r: -16, g: -9, b: 0, a: 0}
+    - _ReflectionOffset: {r: 0.03, g: 0.035, b: 0, a: 0}
+    - _ReflectionOffsetX: {r: 0, g: 0, b: 0, a: 0}
+    - _ReflectionTint: {r: 1, g: 1, b: 1, a: 0}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScratchMapScale: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

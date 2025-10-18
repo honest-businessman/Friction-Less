@@ -355,7 +355,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2353,7 +2353,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2457,8 +2458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e28df149e5adfc4d8c166d2be41a5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy1: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
-  enemy2: {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+  enemyCharacters: []
+  spawnCooldownInSeconds: 3
+  spawnPointCooldownInSeconds: 5
 --- !u!4 &1415773136
 Transform:
   m_ObjectHideFlags: 0
@@ -2575,7 +2577,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2637,7 +2639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   driveCharge: 0
   mouseAiming: 0
-  inputHandler: {fileID: 0}
   moveSpeed: 25
   maxSpeed: 5
   driftSpeed: 5
@@ -2651,6 +2652,7 @@ MonoBehaviour:
   chargeAngle: 45
   minChargeMoveSpeed: 3
   driftPressed: 0
+  equippedTurrets: []
   turret: {fileID: 213634295}
 --- !u!114 &1804601362
 MonoBehaviour:
@@ -2772,6 +2774,9 @@ MonoBehaviour:
   health: 2
   maxHealth: 2
   vulnerable: 1
+  DamageSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  DeathVFX: {fileID: 0}
 --- !u!1 &1971939579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2859,7 +2864,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,7 +5,7 @@ public class MapObjectPathing : MonoBehaviour
 {
     GraphUpdateObject penaltyGuo;
 
-    private void Start()
+    private void Awake()
     {
         // Example usage: Update graph around this object's bounds
         Bounds bounds = GetComponent<Collider2D>().bounds;
