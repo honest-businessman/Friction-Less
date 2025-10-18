@@ -32,6 +32,7 @@ public class PlayerController : CharacterBase
     public GameObject turret;
     private TurretController turretController;
 
+    public float pickupRadius = 1.5f; //distance of XP starting homing
 
     private enum MoveState
     {
