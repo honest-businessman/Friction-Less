@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -43,13 +43,24 @@ public class HealthSystem : MonoBehaviour
             }
             else
             {
-                if(gameObject.CompareTag("Player") && DamageSound != null)
+                //Trigger glitch effect only for the player
+                if (gameObject.CompareTag("Player"))
                 {
-                    audioSource.PlayOneShot(DamageSound);
+                    // Play damage sound if available
+                    if (DamageSound != null)
+                    {
+                        audioSource.PlayOneShot(DamageSound);
+                    }
+
+                    // Trigger glitch visual
+                    GlitchFlash glitch = GetComponent<GlitchFlash>();
+                    if (glitch != null)
+                        glitch.TriggerGlitch();
                 }
             }
         }
     }
+
     public void GainHealth(int gainedHealth)
     {
         health += gainedHealth;

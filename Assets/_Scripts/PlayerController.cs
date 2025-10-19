@@ -23,7 +23,11 @@ public class PlayerController : CharacterBase
     public float chargeAngle = 45f; // degrees
     public float minChargeMoveSpeed= 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
-    
+
+    // Reference to the TrackRight Animator
+    [SerializeField] private Animator trackRightAnimator;
+    [SerializeField] private Animator trackLeftAnimator;
+
     [HideInInspector] public bool driftPressed;
 
     [SerializeField]
@@ -48,6 +52,21 @@ public class PlayerController : CharacterBase
 
     void Awake()
     {
+        // Find TrackRight and TrackLeft children by name and get their Animators
+        if (trackRightAnimator == null)
+        {
+            Transform trackRightTransform = transform.Find("TrackRight");
+            if (trackRightTransform != null)
+                trackRightAnimator = trackRightTransform.GetComponent<Animator>();
+        }
+
+        if (trackLeftAnimator == null)
+        {
+            Transform trackLeftTransform = transform.Find("TrackLeft");
+            if (trackLeftTransform != null)
+                trackLeftAnimator = trackLeftTransform.GetComponent<Animator>();
+        }
+
         DriveCharge = 0f;
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
@@ -121,6 +140,14 @@ public class PlayerController : CharacterBase
         {
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
         }
+
+        bool isMoving = (currentState == MoveState.Moving);
+
+        if (trackRightAnimator != null)
+            trackRightAnimator.SetBool("isMoving", isMoving);
+
+        if (trackLeftAnimator != null)
+            trackLeftAnimator.SetBool("isMoving", isMoving);
     }
     private void PlayerRotate()
     {
