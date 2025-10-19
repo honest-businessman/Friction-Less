@@ -26,9 +26,12 @@ public class GameManager : MonoBehaviour
     private GameObject playerPrefab;
     [SerializeField]
     private float restartDelay = 3f;
+    [SerializeField]
+    private float waveDelay = 3f;
 
     private InputManager inputManager;
     private UIManager uiManager;
+    private WaveManager waveManager;
     GameObject player;
 
     private void Awake()
@@ -57,6 +60,8 @@ public class GameManager : MonoBehaviour
         CurrentState = GameState.InGame;
         SpawnPlayer();
         InitializeManagers();
+
+        StartCoroutine(WaveLoop());
     }
 
     private void CleanupPlayer()
@@ -101,6 +106,25 @@ public class GameManager : MonoBehaviour
         uiManager = GetComponentInChildren<UIManager>();
         uiManager.playerController = player.GetComponent<PlayerController>();
         uiManager.meterText = GameObject.FindGameObjectWithTag("UI Drive Charge").GetComponent<TextMeshProUGUI>(); ;
+
+        waveManager = GetComponentInChildren<WaveManager>();
+        waveManager.CleanWaves();
+    }
+
+    private IEnumerator WaveLoop()
+    {
+        Debug.Log("Starting Wave Loop...");
+        bool waveDone = false;
+        waveManager.OnWaveCompleted.AddListener(() => waveDone = true);
+        while (true)
+        {
+            waveDone = false;
+            yield return new WaitForSeconds(waveDelay);
+            waveManager.NextWave();
+            Debug.Log("Wave Loop Waiting for Next Wave...");
+            yield return new WaitUntil(() => waveDone);
+            Debug.Log($"Wave {waveManager.currentWave} completed.");
+        }
     }
 
     private void HandlePlayerDeath()
@@ -120,6 +144,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Restarting in {restartDelay} seconds...");
         yield return new WaitForSeconds(restartDelay);
         // asynchronously reload the current scene
+        waveManager.CleanWaves();
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         while (!asyncLoad.isDone) // Wait until the asynchronous scene fully loads
         {
