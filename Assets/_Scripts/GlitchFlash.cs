@@ -12,7 +12,6 @@ public class GlitchFlash : MonoBehaviour
 
     void Start()
     {
-        glitchParts.Add(transform.Find("TurretGlitch")?.gameObject);
         glitchParts.Add(transform.Find("TrackLeftGlitch")?.gameObject);
         glitchParts.Add(transform.Find("TrackRightGlitch")?.gameObject);
         glitchParts.Add(transform.Find("BatteryGlitch")?.gameObject);
