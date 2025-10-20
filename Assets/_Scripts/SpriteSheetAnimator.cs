@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [ExecuteAlways]
 public class SpriteSheetAnimator : MonoBehaviour
@@ -16,6 +17,11 @@ public class SpriteSheetAnimator : MonoBehaviour
     public int endFrame = -1;  // inclusive; -1 means last frame in sheet
     public bool playOnAwake = true;
     public bool loop = true;
+
+    [Header("Events")]
+    public int streetLightOnFrame = 7;
+    public int streetLightFrameCounter = 0;
+    public UnityEvent OnStreetLightTrigger;
 
     // runtime
     private Material runtimeMaterial;
@@ -83,6 +89,7 @@ public class SpriteSheetAnimator : MonoBehaviour
         currentFrameIndex = startFrame;
         ApplyFrame(currentFrameIndex);
         playing = playOnAwake;
+        streetLightFrameCounter = 0;
     }
 
 
@@ -112,6 +119,16 @@ public class SpriteSheetAnimator : MonoBehaviour
             if (loop) currentFrameIndex = startFrame;
             else { currentFrameIndex = endFrame; playing = false; }
         }
+
+        // Street light event trigger
+        streetLightFrameCounter++;
+        if (streetLightFrameCounter >= streetLightOnFrame)
+        {
+            
+            OnStreetLightTrigger?.Invoke();
+            streetLightFrameCounter = 0;
+        }
+
         ApplyFrame(currentFrameIndex);
     }
 
