@@ -181,7 +181,7 @@ MonoBehaviour:
   health: 50
   maxHealth: 3
   vulnerable: 1
-  DamageSound: {fileID: 8300000, guid: e5ea4a3984f7efd418618b710759d31f, type: 3}
+  DamageSound: {fileID: 8300000, guid: 663b7d2bf77fd3543a415684a4b4927c, type: 3}
   DeathSound: {fileID: 8300000, guid: b6b6fcf836651a14fa84ff7e17a76479, type: 3}
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
 --- !u!114 &8461829810799904988
