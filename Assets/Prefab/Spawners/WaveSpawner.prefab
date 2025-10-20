@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 94816034608826369}
+  - component: {fileID: 5948482373283914252}
   - component: {fileID: 4182463556541701809}
   m_Layer: 0
   m_Name: WaveSpawner
@@ -32,6 +33,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5948482373283914252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4106149410812115491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55100cfbf64a2f4b9ba306ea352b8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+  enemiesToSpawn: []
+  currentWave: 0
+  waveBudget: 0
+  waveDuration: 0
+  spawningDuration: 0
 --- !u!114 &4182463556541701809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,6 +63,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9972a7e7ec12474291f867d00a22528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCharacters: []
-  spawnCooldownInSeconds: 3
   spawnPointCooldownInSeconds: 5

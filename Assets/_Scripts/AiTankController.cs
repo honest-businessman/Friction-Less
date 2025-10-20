@@ -40,7 +40,6 @@ public class AiTankController : CharacterBase
             targetPos = transform.position;
             //aiPath.canMove = false;
         }
-        var separation = GetComponent<EnemySeparation>()?.GetSeparationVector() ?? Vector3.zero;
-        aiPath.destination = targetPos + separation * 0.8f;
+        aiPath.destination = targetPos * 0.8f;
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MeleeSystem : MonoBehaviour
 {
+    [SerializeField] 
+    private Collider2D meleeCollider;
     [SerializeField]
     private MeleeSettings settings;
 
@@ -14,9 +16,12 @@ public class MeleeSystem : MonoBehaviour
     }
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (Time.time - meleeTimer >= 1 / settings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
+        ColliderDistance2D distance = meleeCollider.Distance(other);
+        if (!distance.isOverlapped) return;
+
+        if (Time.time - meleeTimer >= 1 / settings.fireRate) // Divide fire rate by 1 to convert fire rate to hits per second
         {
-            if (other.TryGetComponent<FactionController>(out FactionController otherFC))
+            if (other.TryGetComponent(out FactionController otherFC))
             {
                 Debug.Log($"Triggered by: {other.gameObject.name}");
                 if (!fc.IsSameFaction(otherFC))

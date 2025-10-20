@@ -7,6 +7,9 @@ using System.Linq;
 
 public class PlayerController : CharacterBase
 {
+    [SerializeField] private ParticleSystem fullChargeParticles;
+    private bool particlesPlaying = false;
+
     private CharacterController controller;
     public bool mouseAiming = false;
     public float moveSpeed = 25f; // Movement speed
@@ -23,7 +26,11 @@ public class PlayerController : CharacterBase
     public float chargeAngle = 45f; // degrees
     public float minChargeMoveSpeed= 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
-    
+
+    // Reference to the TrackRight Animator
+    [SerializeField] private Animator trackRightAnimator;
+    [SerializeField] private Animator trackLeftAnimator;
+
     [HideInInspector] public bool driftPressed;
 
     [SerializeField]
@@ -49,6 +56,21 @@ public class PlayerController : CharacterBase
 
     void Awake()
     {
+        // Find TrackRight and TrackLeft children by name and get their Animators
+        if (trackRightAnimator == null)
+        {
+            Transform trackRightTransform = transform.Find("TrackRight");
+            if (trackRightTransform != null)
+                trackRightAnimator = trackRightTransform.GetComponent<Animator>();
+        }
+
+        if (trackLeftAnimator == null)
+        {
+            Transform trackLeftTransform = transform.Find("TrackLeft");
+            if (trackLeftTransform != null)
+                trackLeftAnimator = trackLeftTransform.GetComponent<Animator>();
+        }
+
         DriveCharge = 0f;
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
@@ -95,6 +117,7 @@ public class PlayerController : CharacterBase
         }
 
         PlayerMovement();
+        HandleChargeParticles();
     }
     private void PlayerMovement()
     {
@@ -121,6 +144,28 @@ public class PlayerController : CharacterBase
         if (rb.linearVelocity.magnitude > maxSpeed)
         {
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
+
+        bool isMoving = (currentState == MoveState.Moving);
+
+        if (trackRightAnimator != null)
+            trackRightAnimator.SetBool("isMoving", isMoving);
+
+        if (trackLeftAnimator != null)
+            trackLeftAnimator.SetBool("isMoving", isMoving);
+    }
+    //particle effects for full charge
+    private void HandleChargeParticles()
+    {
+        if (DriveCharge >= 100f && !particlesPlaying)
+        {
+            fullChargeParticles.Play();
+            particlesPlaying = true;
+        }
+        else if (DriveCharge < 100f && particlesPlaying)
+        {
+            fullChargeParticles.Stop();  // stops the effect, but doesn't destroy it
+            particlesPlaying = false;
         }
     }
     private void PlayerRotate()

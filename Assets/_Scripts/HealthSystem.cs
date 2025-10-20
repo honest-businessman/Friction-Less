@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -46,24 +46,37 @@ public class HealthSystem : MonoBehaviour
             }
             else
             {
-                if(gameObject.CompareTag("Player") && DamageSound != null)
+                //Trigger glitch effect only for the player
+                if (gameObject.CompareTag("Player"))
                 {
-                    audioSource.PlayOneShot(DamageSound);
+                    // Play damage sound if available
+                    if (DamageSound != null)
+                    {
+                        audioSource.PlayOneShot(DamageSound);
+                    }
+
+                    // Trigger glitch visual
+                    GlitchFlash glitch = GetComponent<GlitchFlash>();
+                    if (glitch != null)
+                        glitch.TriggerGlitch();
                 }
             }
         }
     }
+
     public void GainHealth(int gainedHealth)
     {
         health += gainedHealth;
         if (health >= maxHealth)
             health = maxHealth;
     }
+    public void GainMaxHealth()
+    {
+        health = maxHealth;
+    }
 
     private void Die()
     {
-        OnDie?.Invoke();
-
         if (DeathVFX != null)
         {
             GameObject explosion = Instantiate(DeathVFX, transform.position, Quaternion.identity);
@@ -91,5 +104,9 @@ public class HealthSystem : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        OnDie?.Invoke();
     }
 }
