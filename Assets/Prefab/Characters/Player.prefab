@@ -205,7 +205,7 @@ MonoBehaviour:
   turnSpeed: 20
   driftTurnSpeed: 20
   treadOffset: 0.2
-  chargePerSecond: 60
+  chargePerSecond: 40
   dischargePerSecond: 70
   chargeFadeDelay: 2
   chargeAngle: 45

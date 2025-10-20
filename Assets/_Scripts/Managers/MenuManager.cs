@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -11,17 +12,33 @@ public class MenuManager : MonoBehaviour
     public Color colorButtonActive;
     public Color colorButtonHover;
 
+    public UnityEvent OnStartSequence = new UnityEvent();
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
         }
+}
+
+    private void Start()
+    {
+        MenuAnimationManager.Instance.OnCameraMoveCompleted.AddListener(StartGame);
+    }
+    private void OnDisable()
+    {
+        MenuAnimationManager.Instance.OnCameraMoveCompleted.RemoveListener(StartGame);
+    }
+
+
+    public void StartPressed()
+    {
+        OnStartSequence?.Invoke();
     }
 
     public void StartGame()
@@ -38,15 +55,15 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ExitGame()
+    public void ExitPressed()
     {
         Debug.Log("Quitting Game");
         Application.Quit();
     }
 
-    public void OpenSettings()
+    public void SettingsPressed()
     {
        Debug.Log("Opening Settings");
-        // Implement settings menu logic here
+
     }
 }
