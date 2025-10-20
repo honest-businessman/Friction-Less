@@ -45,9 +45,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Initialize()
     {
-        if (buttons.Count > 0)
+        if (buttons.Count > 0 && GameManager.Instance.CurrentState == GameManager.GameState.MainMenu)
         {
             selectedIndex = 0;
             buttons[selectedIndex].Select();

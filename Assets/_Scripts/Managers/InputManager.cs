@@ -7,7 +7,6 @@ public class InputManager : MonoBehaviour
 
     private PlayerInputSystem inputSystem;
     [SerializeField] private PlayerController player;
-    public GameManager GameManager { get; set; }
 
     private void Awake()
     {
@@ -26,7 +25,7 @@ public class InputManager : MonoBehaviour
         inputSystem.Enable();
 
         // Global input (always available)
-        inputSystem.UI.Pause.performed += ctx => GameManager.PauseRecieve();
+        inputSystem.UI.Pause.performed += ctx => GameManager.Instance.PauseRecieve();
         GameManager.OnPause.AddListener(OnUIPause);
         GameManager.OnUnpause.AddListener(OnUIUnpause);
     }
@@ -35,7 +34,7 @@ public class InputManager : MonoBehaviour
     {
         inputSystem.Disable();
 
-        inputSystem.UI.Pause.performed -= ctx => GameManager.PauseRecieve();
+        inputSystem.UI.Pause.performed -= ctx => GameManager.Instance.PauseRecieve();
         GameManager.OnPause.RemoveListener(OnUIPause);
         GameManager.OnUnpause.RemoveListener(OnUIUnpause);
     }

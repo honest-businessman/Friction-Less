@@ -50,7 +50,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartMainMenu();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            StartMainMenu();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            StartGame();
+        }
     }
 
     public void StartMainMenu()
@@ -126,10 +133,16 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void InitializeMainMenuManagers()
+    {
+        MenuManager.Instance.Initialize();
+    }
+
     private void InitializeInGameManagers()
     {
         inputManager = GetComponentInChildren<InputManager>();
-        inputManager.GameManager = this;
+
+        MenuManager.Instance.Initialize();
 
         uiManager = GetComponentInChildren<UIManager>();
         uiManager.playerController = player.GetComponent<PlayerController>();
