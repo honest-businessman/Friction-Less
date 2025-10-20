@@ -24,8 +24,8 @@ public class MenuAnimationManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        ssa = screen.GetComponent<SpriteSheetAnimator>();
+        if(screen != null) { ssa = screen.GetComponent<SpriteSheetAnimator>(); }
+        
         cam = Camera.main;
     }
 

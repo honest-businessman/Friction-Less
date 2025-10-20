@@ -26,7 +26,10 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        DisplayCharge();
+        if (GameManager.Instance.CurrentState == GameManager.GameState.InGame)
+        { 
+            DisplayCharge();
+        }
     }
 
     public void DisplayCharge()

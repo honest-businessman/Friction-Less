@@ -11,31 +11,44 @@ public class Button3D : MonoBehaviour
 
     private bool isActivated = false;
 
+
+
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         originalMaterial = meshRenderer.material;
         originalMaterial.color = MenuManager.Instance.colorButton;
     }
-
     private void OnMouseDown()
     {
-        if(isActivated) return;
         Debug.Log("Mouse Down");
+        Press();
+    }
+    public void Press()
+    {
+        if(isActivated) return;
         originalMaterial.color = MenuManager.Instance.colorButtonActive;
         StartCoroutine(Activate());
+    }
+    public void Select()
+    {
+        originalMaterial.color = MenuManager.Instance.colorButtonHover;
+    }
+    public void Deselect()
+    {
+        originalMaterial.color = MenuManager.Instance.colorButton;
     }
     private void OnMouseEnter()
     {
         if (isActivated) return;
         Debug.Log("Mouse Enter");
-        originalMaterial.color = MenuManager.Instance.colorButtonHover;
+        Select();
     }
     private void OnMouseExit()
     {
         if (isActivated) return;
         Debug.Log("Mouse Exit");
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        Deselect();
     }
 
     private IEnumerator Activate()

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,18 +50,45 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        StartMainMenu();
+    }
+
+    public void StartMainMenu()
+    {
+        Time.timeScale = 1f;
+        CleanupPlayer();
+        CurrentState = GameState.MainMenu;
+        MenuAnimationManager.Instance.OnCameraMoveCompleted?.AddListener(OnCameraMoveCompleted);
+
+        InputManager.Instance.EnableUIInput();
+    }
+
+    private void OnCameraMoveCompleted()
+    {
+        StartCoroutine(EnterGame());
+    }
+
+    public IEnumerator EnterGame()
+    {
+        yield return LoadSceneAsync(1);
         StartGame();
+    }
+    public IEnumerator EnterMainMenu()
+    {
+        yield return LoadSceneAsync(0);
     }
 
     public void StartGame()
     {
+        MenuAnimationManager.Instance.OnCameraMoveCompleted?.RemoveListener(OnCameraMoveCompleted);
         Time.timeScale = 1f;
         CleanupPlayer();
         HazardLevel = 0;
         CurrentState = GameState.InGame;
         SpawnPlayer();
-        InitializeManagers();
+        InitializeInGameManagers();
 
+        InputManager.Instance.EnablePlayerInput(player.GetComponent<PlayerController>());
         StartCoroutine(WaveLoop());
     }
 
@@ -97,10 +125,10 @@ public class GameManager : MonoBehaviour
         playerHealthSys.OnDie += HandlePlayerDeath;
     }
 
-    private void InitializeManagers()
+
+    private void InitializeInGameManagers()
     {
         inputManager = GetComponentInChildren<InputManager>();
-        inputManager.Player = player.GetComponent<PlayerController>();
         inputManager.GameManager = this;
 
         uiManager = GetComponentInChildren<UIManager>();
@@ -145,14 +173,19 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(restartDelay);
         // asynchronously reload the current scene
         waveManager.CleanWaves();
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        while (!asyncLoad.isDone) // Wait until the asynchronous scene fully loads
-        {
-            yield return null;
-        }
+        yield return LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
         // Once Loaded, restart the game
         StartGame();
+    }
+
+    private IEnumerator LoadSceneAsync(int buildIndex)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     public void PauseRecieve()
