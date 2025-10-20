@@ -155,6 +155,8 @@ MonoBehaviour:
   DamageSound: {fileID: 0}
   DeathSound: {fileID: 0}
   DeathVFX: {fileID: 0}
+  xpContainer: {fileID: 5878789037923216627, guid: 672d6149646181644a4925dc0dfab62a, type: 3}
+  dropXP: 0
 --- !u!114 &547316070591380797
 MonoBehaviour:
   m_ObjectHideFlags: 0

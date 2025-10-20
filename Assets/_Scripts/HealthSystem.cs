@@ -11,6 +11,9 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] AudioClip DamageSound;
     [SerializeField] AudioClip DeathSound;
     [SerializeField] GameObject DeathVFX;
+    [SerializeField] private XPContainer xpContainer;
+    [SerializeField] private bool dropXP = false;
+
     private AudioSource audioSource;
 
     void Start()
@@ -73,6 +76,20 @@ public class HealthSystem : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(clipToPlay,transform.position);
         }
+
+        if (!CompareTag("Player"))
+        {
+            
+            if (xpContainer != null)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                {
+                    xpContainer.SpawnXP(transform.position, player.transform);
+                }
+            }
+        }
+
         Destroy(gameObject);
     }
 }

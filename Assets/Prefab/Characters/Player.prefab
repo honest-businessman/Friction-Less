@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2531162805804896880}
   - component: {fileID: 2489226470317238442}
   - component: {fileID: 7546853941866593753}
+  - component: {fileID: 7007301603030296698}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -179,6 +180,8 @@ MonoBehaviour:
   DamageSound: {fileID: 8300000, guid: e5ea4a3984f7efd418618b710759d31f, type: 3}
   DeathSound: {fileID: 8300000, guid: b6b6fcf836651a14fa84ff7e17a76479, type: 3}
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
+  xpContainter: {fileID: 0}
+  dropXP: 0
 --- !u!114 &2531162805804896880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +213,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a7f289142fa2be641aac566456fd009d, type: 2}
   - {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}
   turret: {fileID: 1596308201891408184}
+  pickupRadius: 1.5
 --- !u!114 &2489226470317238442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +245,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
+--- !u!114 &7007301603030296698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213092101655995850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8172d0a1f6d3b741a5c14a2770e638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentXP: 0
+  xpToLevelUp: 100
+  level: 1
 --- !u!1001 &255693370021137836
 PrefabInstance:
   m_ObjectHideFlags: 0
