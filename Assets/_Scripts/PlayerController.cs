@@ -7,6 +7,9 @@ using System.Linq;
 
 public class PlayerController : CharacterBase
 {
+    [SerializeField] private ParticleSystem fullChargeParticles;
+    private bool particlesPlaying = false;
+
     private CharacterController controller;
     public bool mouseAiming = false;
     public float moveSpeed = 25f; // Movement speed
@@ -114,6 +117,7 @@ public class PlayerController : CharacterBase
         }
 
         PlayerMovement();
+        HandleChargeParticles();
     }
     private void PlayerMovement()
     {
@@ -149,6 +153,20 @@ public class PlayerController : CharacterBase
 
         if (trackLeftAnimator != null)
             trackLeftAnimator.SetBool("isMoving", isMoving);
+    }
+    //particle effects for full charge
+    private void HandleChargeParticles()
+    {
+        if (DriveCharge >= 100f && !particlesPlaying)
+        {
+            fullChargeParticles.Play();
+            particlesPlaying = true;
+        }
+        else if (DriveCharge < 100f && particlesPlaying)
+        {
+            fullChargeParticles.Stop();  // stops the effect, but doesn't destroy it
+            particlesPlaying = false;
+        }
     }
     private void PlayerRotate()
     {
