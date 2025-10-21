@@ -180,4 +180,4 @@ MonoBehaviour:
   playerTarget: {fileID: 2759497254178083693, guid: fb2a751da467dc74f92a3ea21ff44b14, type: 3}
   pickupRadius: 1
   baseSize: 0.04
-  sizeIncreasePerValue: 0.015
+  sizeIncreasePerValue: 0.01
