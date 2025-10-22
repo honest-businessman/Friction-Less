@@ -77,9 +77,7 @@ public class HealthSystem : MonoBehaviour
 
     public void GainHealth(int gainedHealth)
     {
-        health += gainedHealth;
-        if (health >= maxHealth)
-            health = maxHealth;
+        health = Mathf.Min(health + gainedHealth, maxHealth);
     }
     public void GainMaxHealth()
     {
@@ -123,7 +121,7 @@ public class HealthSystem : MonoBehaviour
         yield return new WaitForSeconds(regenDelay);
         
         regenCoroutine = null;
-        health = Mathf.Min(health + regenAmount, maxHealth);
+        GainHealth(regenAmount);
         OnRegenFinish?.Invoke();
         Debug.Log($"{gameObject.name} is regenerated {regenAmount} health!");
     }
