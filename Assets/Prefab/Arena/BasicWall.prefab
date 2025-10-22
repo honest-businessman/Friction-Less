@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: -6348820110824146951}
   - component: {fileID: 547316070591380797}
   - component: {fileID: -2383665468862383048}
+  - component: {fileID: 632093670123516418}
   m_Layer: 12
-  m_Name: DestructibleWall
+  m_Name: BasicWall
   m_TagString: Map Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,5 +181,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e769cedab44075458ef7bb09d94a784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &632093670123516418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237680117543784354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a9c476440b66744a2059241b0b4055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

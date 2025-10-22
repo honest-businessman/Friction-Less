@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthSystem : MonoBehaviour
 {
-    public float health = 2;
-    public float maxHealth = 2;
     public bool vulnerable = true;
+    public float health = 3;
+    public float maxHealth = 3;
+    public bool regenerateHealth = false;
+    public int regenAmount = 3;
+    public float regenDelay = 5f;
     public delegate void DieAction();
     public event DieAction OnDie;
+    public UnityEvent OnRegenStart;
+    public UnityEvent OnRegenFinish;
 
     [SerializeField] AudioClip DamageSound;
     [SerializeField] AudioClip DeathSound;
@@ -15,6 +22,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private bool dropXP = false;
 
     private AudioSource audioSource;
+    private Coroutine regenCoroutine;
 
     void Start()
     {
@@ -27,17 +35,14 @@ public class HealthSystem : MonoBehaviour
         audioSource.spatialBlend = 1f;
     }
 
-    void Update()
-    {
-
-    }
-
     public void TakeDamage(float damage)
     {
         if (vulnerable)
         {
             Debug.Log($"{gameObject.name} taken {damage} damage!");
             health -= damage;
+            
+            if (regenCoroutine != null) { StopCoroutine(regenCoroutine);  }
 
             if (health <= 0)
             {
@@ -46,6 +51,12 @@ public class HealthSystem : MonoBehaviour
             }
             else
             {
+                if (regenerateHealth) 
+                {
+                    regenCoroutine = StartCoroutine(StartRegenerateDelay()); 
+                    OnRegenStart?.Invoke();
+                }
+
                 //Trigger glitch effect only for the player
                 if (gameObject.CompareTag("Player"))
                 {
@@ -105,6 +116,18 @@ public class HealthSystem : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private IEnumerator StartRegenerateDelay()
+    {
+        Debug.Log($"{gameObject.name} is regenerating {regenAmount} health in {regenDelay} seconds!");
+        yield return new WaitForSeconds(regenDelay);
+        
+        regenCoroutine = null;
+        health = Mathf.Min(health + regenAmount, maxHealth);
+        OnRegenFinish?.Invoke();
+        Debug.Log($"{gameObject.name} is regenerated {regenAmount} health!");
+    }
+
     private void OnDestroy()
     {
         OnDie?.Invoke();

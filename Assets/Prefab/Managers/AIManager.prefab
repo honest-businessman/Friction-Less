@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1329b25046078824bbb038cfc24e206b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightSize: 4
-  heavySize: 2
-  lightPenalty: 2000
+  lightSize: 3.5
+  heavySize: 1.5
+  lightPenalty: 3000
   heavyPenalty: 10000
   proximityPenaltyCooldown: 0.2
   wallErosionPenalty: 5000

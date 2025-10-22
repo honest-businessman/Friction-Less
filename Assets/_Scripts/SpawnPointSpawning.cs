@@ -37,7 +37,6 @@ public class SpawnPointSpawning : MonoBehaviour
         int[] penalties = new int[32];
         penalties[1] = AIManager.Instance.WallErosionPenalty; // Tag 1 is "Wall Erosion" under the pathfinding settings
         seeker.tagPenalties = penalties;
-        Debug.Log(seeker.tagPenalties);
         // Applies AiManager's PathClaimPenalty to the spawned enemy's AlternativePath component
         AlternativePath altPath = enemy.AddComponent<AlternativePath>();
         altPath.penalty = AIManager.Instance.PathClaimPenalty;

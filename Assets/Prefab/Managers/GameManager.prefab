@@ -346,20 +346,48 @@ PrefabInstance:
       value: WaveManager
       objectReference: {fileID: 0}
     - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
-      propertyPath: waveDuration
-      value: 40
+      propertyPath: baseWallSpawnInterval
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
-      propertyPath: spawningDuration
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
-      propertyPath: enemies.Array.data[0].minimumWave
+      propertyPath: wallObjects.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: spawnBlockingObstacleMask.m_Bits
+      value: 384
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: enemies.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: enemies.Array.data[1].enemyPrefab
+      value: 
+      objectReference: {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
       propertyPath: enemies.Array.data[1].minimumWave
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: enemies.Array.data[2].enemyPrefab
+      value: 
+      objectReference: {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: wallObjects.Array.data[0].wallPrefab
+      value: 
+      objectReference: {fileID: 237680117543784354, guid: e1eed6abe4217794996738300e49f897, type: 3}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: wallObjects.Array.data[1].wallPrefab
+      value: 
+      objectReference: {fileID: 237680117543784354, guid: f08464367d6483748ad5399686790d06, type: 3}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: wallObjects.Array.data[0].minimumWave
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
+      propertyPath: wallObjects.Array.data[1].minimumWave
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5466104997940430005, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
       propertyPath: m_LocalPosition.x

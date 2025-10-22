@@ -6,10 +6,19 @@ using Pathfinding.Examples;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance { get; private set; }
+
     [Header("Wave Settings")]
     public List<Enemy> enemies = new List<Enemy>();
+    public List<WallObjectSettings> wallObjects = new List<WallObjectSettings>();
     public float waveDuration = 20f;
     public float spawningDuration = 10f;
+    public float baseWallSpawnInterval = 15f;
+    public float wallSpawnScaling = 1.1f;
+
+    [Header("Spawn Settings")]
+    public LayerMask spawnBlockingObstacleMask;
+    public float blockSpawnCheckRadius = 2f;
 
     [Header("Runtime State")]
     public int currentWave = 0;
@@ -23,6 +32,8 @@ public class WaveManager : MonoBehaviour
     public UnityEvent OnWaveCompleted;
 
     private SpawnPointSpawning sps;
+    private WallSpawning ws;
+    private LayerMask wallObjectMask; // For prevent walls spawning on each other
     private Coroutine waveRoutine;
     private bool waveActive;
 
@@ -34,9 +45,20 @@ public class WaveManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         if (!TryGetComponent(out sps))
             sps = gameObject.AddComponent<SpawnPointSpawning>();
         sps.ResetSpawnPoints();
+        if (!TryGetComponent(out ws))
+            ws = gameObject.AddComponent<WallSpawning>();
 
         if (spawningDuration > waveDuration)
         {
@@ -61,6 +83,13 @@ public class WaveManager : MonoBehaviour
         OnWaveStarted?.Invoke();
         Debug.Log($"Starting Wave {currentWave} with budget {waveBudget} spawning {enemiesToSpawn.Count} enemies.");
         waveActive = true;
+
+        WallObjectSettings wall = GenerateWallObject();
+        if(wall != null)
+        {
+            float wallInterval = Mathf.Max(1f, baseWallSpawnInterval - (currentWave * wallSpawnScaling));
+            StartWallSpawning(wall.wallPrefab, wallInterval);
+        }
 
         float spawnInterval = enemiesToSpawn.Count > 0 ? (spawningDuration / enemiesToSpawn.Count) : 0f;
         float elapsed = 0f;
@@ -93,6 +122,7 @@ public class WaveManager : MonoBehaviour
 
         // Wait out remaining wave duration
         yield return new WaitForSeconds(waveDuration - spawningDuration);
+        StopWallSpawning();
         EndWave();
     }
 
@@ -151,7 +181,7 @@ public class WaveManager : MonoBehaviour
             Enemy enemy = eligibleEnemies[randEnemyID];
             if (waveBudget - enemy.cost >= 0)
             {
-                generated.Add(enemy.enemyprefab);
+                generated.Add(enemy.enemyPrefab);
                 waveBudget -= enemy.cost;
             }
             safetyCounter++;
@@ -164,6 +194,21 @@ public class WaveManager : MonoBehaviour
         return generated;
     }
 
+    WallObjectSettings GenerateWallObject()
+    {
+        if (wallObjects.Count == 0)
+            return null;
+        WallObjectSettings selectedWall = null;
+        foreach (WallObjectSettings wo in wallObjects)
+        {
+            if (currentWave >= wo.minimumWave && ( selectedWall == null || wo.minimumWave > selectedWall.minimumWave ))
+            {
+                selectedWall = wo;
+            }
+        }
+        return selectedWall;
+    }
+
     public void CleanWaves()
     {
         foreach (GameObject enemy in activeEnemies)
@@ -173,6 +218,7 @@ public class WaveManager : MonoBehaviour
         }
         activeEnemies.Clear();
         enemiesToSpawn.Clear();
+        ws.ClearAllWalls();
         waveActive = false;
         currentWave = 0;
         waveBudget = 0;
@@ -184,13 +230,33 @@ public class WaveManager : MonoBehaviour
 
         sps.ResetSpawnPoints();
     }
+
+    private void StartWallSpawning(GameObject wallPrefab, float interval)
+    {
+        ws.SpawnOverTime(wallPrefab, interval);
+    }
+    private void StopWallSpawning()
+    {
+        ws.StopSpawning();
+    }
+
+    public bool CheckSpawnBlocked(Vector2 position)
+    {
+        return Physics2D.OverlapCircle(position, blockSpawnCheckRadius, spawnBlockingObstacleMask);
+    }
 }
 
 
 [System.Serializable]
 public class Enemy
 {
-    public GameObject enemyprefab;
+    public GameObject enemyPrefab;
     public int cost;
+    public int minimumWave;
+}
+[System.Serializable]
+public class WallObjectSettings
+{
+    public GameObject wallPrefab;
     public int minimumWave;
 }

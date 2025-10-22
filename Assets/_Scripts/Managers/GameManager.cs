@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
         GameOver
     }
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
-    public int HazardLevel { get; private set; } = 0;
     public static UnityEvent OnPause = new UnityEvent();
     public static UnityEvent OnUnpause = new UnityEvent();
 
@@ -90,7 +89,6 @@ public class GameManager : MonoBehaviour
         MenuAnimationManager.Instance.OnCameraMoveCompleted?.RemoveListener(OnCameraMoveCompleted);
         Time.timeScale = 1f;
         CleanupPlayer();
-        HazardLevel = 0;
         CurrentState = GameState.InGame;
         SpawnPlayer();
         InitializeInGameManagers();
