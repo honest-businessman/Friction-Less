@@ -70,7 +70,7 @@ public class WallSpawning : MonoBehaviour
 
                     Vector3 worldPos = tilemap.CellToWorld(tilePos) + tilemap.tileAnchor;
 
-                    if (WaveManager.Instance != null && WaveManager.Instance.CheckSpawnBlocked(worldPos))
+                    if (WaveManager.Instance != null && WaveManager.Instance.CheckWallSpawnBlocked(worldPos))
                     {
                         trySpawn = true;
                         break;

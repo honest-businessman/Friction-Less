@@ -17,7 +17,8 @@ public class WaveManager : MonoBehaviour
     public float wallSpawnScaling = 1.1f;
 
     [Header("Spawn Settings")]
-    public LayerMask spawnBlockingObstacleMask;
+    public LayerMask spawnBlockingWallMask;
+    public LayerMask spawnBlockingEnemyMask;
     public float blockSpawnCheckRadius = 2f;
 
     [Header("Runtime State")]
@@ -99,21 +100,23 @@ public class WaveManager : MonoBehaviour
         {
             GameObject enemyPrefab = enemiesToSpawn[0];
             GameObject enemySpawned = sps.SpawnAtRandomSpawnPoint(enemyPrefab);
-            OnEnemySpawned?.Invoke(enemySpawned);
-            activeEnemies.Add(enemySpawned);
             enemiesToSpawn.RemoveAt(0);
-
-            if (enemySpawned.TryGetComponent(out HealthSystem health))
+            if (enemySpawned != null)
             {
-                HealthSystem.DieAction handler = null;
-                handler = () =>
+                OnEnemySpawned?.Invoke(enemySpawned);
+                activeEnemies.Add(enemySpawned);
+                if (enemySpawned.TryGetComponent(out HealthSystem health))
                 {
-                    activeEnemies.Remove(enemySpawned);
-                    health.OnDie -= handler; // unsubscribe immediately
-                    if (activeEnemies.Count == 0 && enemiesToSpawn.Count == 0)
-                        EndWaveEarly();
-                };
-                health.OnDie += handler;
+                    HealthSystem.DieAction handler = null;
+                    handler = () =>
+                    {
+                        activeEnemies.Remove(enemySpawned);
+                        health.OnDie -= handler; // unsubscribe immediately
+                        if (activeEnemies.Count == 0 && enemiesToSpawn.Count == 0)
+                            EndWaveEarly();
+                    };
+                    health.OnDie += handler;
+                }
             }
 
             yield return new WaitForSeconds(spawnInterval);
@@ -240,9 +243,13 @@ public class WaveManager : MonoBehaviour
         ws.StopSpawning();
     }
 
-    public bool CheckSpawnBlocked(Vector2 position)
+    public bool CheckWallSpawnBlocked(Vector2 position)
     {
-        return Physics2D.OverlapCircle(position, blockSpawnCheckRadius, spawnBlockingObstacleMask);
+        return Physics2D.OverlapCircle(position, blockSpawnCheckRadius, spawnBlockingWallMask);
+    }
+    public bool CheckEnemySpawnBlocked(Vector2 position)
+    {
+        return Physics2D.OverlapCircle(position, blockSpawnCheckRadius, spawnBlockingEnemyMask);
     }
 }
 
