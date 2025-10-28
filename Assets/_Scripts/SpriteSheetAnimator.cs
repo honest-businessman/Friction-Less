@@ -15,7 +15,6 @@ public class SpriteSheetAnimator : MonoBehaviour
     public float framesPerSecond = 10f;
     public int startFrame = 0; // inclusive
     public int endFrame = -1;  // inclusive; -1 means last frame in sheet
-    public bool playOnAwake = true;
     public bool loop = true;
 
     [Header("Events")]
@@ -29,9 +28,9 @@ public class SpriteSheetAnimator : MonoBehaviour
     private Vector2 frameSize;
     private float frameTimer;
     private int currentFrameIndex;
-    private bool playing = true;
+    private bool playing = false;
 
-    void Awake()
+    public void SetupAnimation()
     {
         var mr = GetComponent<MeshRenderer>();
         if (mr == null)
@@ -88,7 +87,7 @@ public class SpriteSheetAnimator : MonoBehaviour
 
         currentFrameIndex = startFrame;
         ApplyFrame(currentFrameIndex);
-        playing = playOnAwake;
+        playing = true;
         streetLightFrameCounter = 0;
     }
 
@@ -147,9 +146,9 @@ public class SpriteSheetAnimator : MonoBehaviour
     }
 
     // Public controls
-    public void Play() { playing = true; }
-    public void Pause() { playing = false; }
-    public void Stop()
+    public void PlayAnimation() { playing = true; }
+    public void PauseAnimation() { playing = false; }
+    public void StopAnimation()
     {
         playing = false;
         currentFrameIndex = startFrame;

@@ -33,14 +33,14 @@ public class MenuAnimationManager : MonoBehaviour
     {
         if (ssa != null)
             ssa.OnStreetLightTrigger.AddListener(HandleLightTriggered);
-        MenuManager.Instance.OnStartSequence.AddListener(HandleStartTriggered);
+        ScreenManager.Instance.OnStartSequence.AddListener(HandleStartTriggered);
     }
 
     private void OnDisable()
     {
         if (ssa != null)
             ssa.OnStreetLightTrigger.RemoveListener(HandleLightTriggered);
-        MenuManager.Instance.OnStartSequence.RemoveListener(HandleStartTriggered);
+        ScreenManager.Instance.OnStartSequence.RemoveListener(HandleStartTriggered);
     }
 
     private void HandleLightTriggered()
@@ -52,6 +52,7 @@ public class MenuAnimationManager : MonoBehaviour
     private void HandleStartTriggered()
     {
         Debug.Log("Start Sequence was triggered!");
+
         cam.GetComponent<Animator>().SetTrigger("PlayStartMove");
     }
 

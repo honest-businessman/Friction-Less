@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Device;
+using TMPro;
 
-public class MenuManager : MonoBehaviour
+public class ScreenManager : MonoBehaviour
 {
-    public static MenuManager Instance { get; private set; }
+    public static ScreenManager Instance { get; private set; }
 
     [Header("UI Setup")]
     [SerializeField] 
@@ -29,6 +31,27 @@ public class MenuManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnStartSequence = new UnityEvent();
 
+    [Header("Screen Materials")]
+    public Material osAnimationMaterial;
+    public Material game2DMaterial;
+    public Material settingsMaterial;
+
+    [Header("Title Text Objects")]
+    [SerializeField] private List<TextMeshPro> titleTexts;
+
+
+    public enum ScreenType
+    {
+        Menu,
+        Game2D,
+        Settings
+    }
+
+    private GameObject screenObj;
+    private MeshRenderer screenMeshRenderer;
+    private SpriteSheetAnimator ssAnimator;
+    private ScreenType lastScreen;
+    private UnityAction listener;
     private int selectedIndex = 0;
     private bool inputLocked = false;
     private bool navigateHeld = false;
@@ -42,40 +65,76 @@ public class MenuManager : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(Instance);
         }
+
+        screenObj = GameObject.FindWithTag("TankScreen");
+        screenMeshRenderer = screenObj.GetComponent<MeshRenderer>();
+        ssAnimator = screenObj.GetComponent<SpriteSheetAnimator>();
+
+        StartOSAnimation();
     }
 
-    public void Initialize()
+    public void Start()
     {
-        if (buttons.Count > 0 && GameManager.Instance.CurrentState == GameManager.GameState.MainMenu)
+        if (buttons.Count > 0)
         {
             selectedIndex = 0;
             buttons[selectedIndex].Select();
         }
     }
 
+    public void SetScreen(ScreenType screenType)
+    {
+        if (screenType == ScreenType.Menu)
+        {
+            screenMeshRenderer.sharedMaterial = osAnimationMaterial;
+            StartOSAnimation();
+            lastScreen = ScreenType.Menu;
+        }
+        else if (screenType == ScreenType.Game2D)
+        {
+            GameManager.OnNewGame.RemoveListener(listener);
+            screenMeshRenderer.sharedMaterial = game2DMaterial;
+            if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
+            lastScreen = ScreenType.Game2D;
+
+        }
+        else if (screenType == ScreenType.Settings)
+        {
+            if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
+            lastScreen = ScreenType.Settings;
+        }
+    }
+    private void StartOSAnimation()
+    {
+        foreach (var text in titleTexts)
+        {
+            text.gameObject.SetActive(true);
+        }
+        ssAnimator.SetupAnimation();
+        ssAnimator.PlayAnimation();
+    }
+    private void StopOSAnimation()
+    {
+        foreach (var text in titleTexts)
+        {
+            text.gameObject.SetActive(false);
+        }
+        ssAnimator.StopAnimation();
+    }
 
     public void StartPressed()
     {
         if (inputLocked) return;
         inputLocked = true;
 
+        StartCoroutine(GameManager.Instance.EnterGame());
         OnStartSequence?.Invoke();
+        listener = () => SetScreen(ScreenType.Game2D);
+        GameManager.OnNewGame.AddListener(listener);
     }
 
-    public void StartGame()
-    {
-        StartCoroutine(LoadGameScene());
-    }
-
-    private IEnumerator LoadGameScene()
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameSceneName);
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-    }
 
     public void ExitPressed()
     {
@@ -83,7 +142,7 @@ public class MenuManager : MonoBehaviour
         inputLocked = true;
 
         Debug.Log("Quitting Game");
-        Application.Quit();
+        UnityEngine.Device.Application.Quit();
     }
 
     public void SettingsPressed()

@@ -18,6 +18,7 @@ TagManager:
   - Enemy Path Collider
   - BuleCube
   - ReflectionCamera
+  - TankScreen
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         GameOver
     }
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
+    public static UnityEvent OnNewGame = new UnityEvent();
     public static UnityEvent OnPause = new UnityEvent();
     public static UnityEvent OnUnpause = new UnityEvent();
 
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour
     private float restartDelay = 3f;
     [SerializeField]
     private float waveDelay = 3f;
+
+    [SerializeField]
+    private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
 
     private InputManager inputManager;
     private UIManager uiManager;
@@ -71,17 +75,18 @@ public class GameManager : MonoBehaviour
 
     private void OnCameraMoveCompleted()
     {
-        StartCoroutine(EnterGame());
+        
     }
 
     public IEnumerator EnterGame()
     {
-        yield return LoadSceneAsync(1);
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+        OnNewGame?.Invoke();
         StartGame();
     }
     public IEnumerator EnterMainMenu()
     {
-        yield return LoadSceneAsync(0);
+        yield return LoadSceneAsync(0, LoadSceneMode.Single);
     }
 
     public void StartGame()
@@ -133,14 +138,12 @@ public class GameManager : MonoBehaviour
 
     private void InitializeMainMenuManagers()
     {
-        MenuManager.Instance.Initialize();
+
     }
 
     private void InitializeInGameManagers()
     {
         inputManager = GetComponentInChildren<InputManager>();
-
-        MenuManager.Instance.Initialize();
 
         uiManager = GetComponentInChildren<UIManager>();
         uiManager.playerController = player.GetComponent<PlayerController>();
@@ -184,15 +187,16 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(restartDelay);
         // asynchronously reload the current scene
         waveManager.CleanWaves();
-        yield return LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        yield return SceneManager.UnloadSceneAsync(1);
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
 
         // Once Loaded, restart the game
         StartGame();
     }
 
-    private IEnumerator LoadSceneAsync(int buildIndex)
+    private IEnumerator LoadSceneAsync(int buildIndex, LoadSceneMode loadSceneMode)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
         while (!asyncLoad.isDone)
         {
             yield return null;

@@ -291,9 +291,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 4
-  maxHealth: 4
   vulnerable: 1
+  health: 2
+  maxHealth: 2
+  regenerateHealth: 0
+  regenAmount: 3
+  regenDelay: 5
+  OnRegenStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRegenFinish:
+    m_PersistentCalls:
+      m_Calls: []
   DamageSound: {fileID: 0}
   DeathSound: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}

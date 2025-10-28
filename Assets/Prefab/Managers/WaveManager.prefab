@@ -45,20 +45,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 0}
+  - enemyPrefab: {fileID: 5887338319710954844, guid: 31cc859d0da308343a08c2c1411c5774, type: 3}
     cost: 2
     minimumWave: 2
-  - enemyPrefab: {fileID: 0}
+  - enemyPrefab: {fileID: 2129711638973890270, guid: 31d800d55db2a724297990c3cdb4461a, type: 3}
     cost: 1
-    minimumWave: 0
-  - enemyPrefab: {fileID: 0}
+    minimumWave: 1
+  - enemyPrefab: {fileID: 8114613961227363268, guid: bb58533d17f59c441a2a8306e7446b30, type: 3}
     cost: 2
     minimumWave: 3
-  wallObjects: []
+  wallObjects:
+  - wallPrefab: {fileID: 237680117543784354, guid: e1eed6abe4217794996738300e49f897, type: 3}
+    minimumWave: 2
+  - wallPrefab: {fileID: 237680117543784354, guid: f08464367d6483748ad5399686790d06, type: 3}
+    minimumWave: 5
   waveDuration: 40
   spawningDuration: 30
-  baseWallSpawnInterval: 15
+  baseWallSpawnInterval: 10
   wallSpawnScaling: 1.1
+  spawnBlockingWallMask:
+    serializedVersion: 2
+    m_Bits: 0
+  spawnBlockingEnemyMask:
+    serializedVersion: 2
+    m_Bits: 0
   blockSpawnCheckRadius: 2
   currentWave: 0
   waveBudget: 0

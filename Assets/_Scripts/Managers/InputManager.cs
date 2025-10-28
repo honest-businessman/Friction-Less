@@ -101,8 +101,8 @@ public class InputManager : MonoBehaviour
 
     private void OnUIPause() => inputSystem.Player.Disable();
     private void OnUIUnpause() => inputSystem.Player.Enable();
-    private void OnNavigate(InputAction.CallbackContext ctx) => MenuManager.Instance.HandleNavigate(ctx.ReadValue<Vector2>());
-    private void OnSubmit(InputAction.CallbackContext ctx) => MenuManager.Instance.HandleSubmit();
+    private void OnNavigate(InputAction.CallbackContext ctx) => ScreenManager.Instance.HandleNavigate(ctx.ReadValue<Vector2>());
+    private void OnSubmit(InputAction.CallbackContext ctx) => ScreenManager.Instance.HandleSubmit();
 
     public PlayerInputSystem GetInputSystem() => inputSystem;
 }

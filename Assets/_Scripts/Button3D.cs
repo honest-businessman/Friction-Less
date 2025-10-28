@@ -17,7 +17,7 @@ public class Button3D : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         originalMaterial = meshRenderer.material;
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        originalMaterial.color = ScreenManager.Instance.colorButton;
     }
     private void OnMouseDown()
     {
@@ -27,16 +27,16 @@ public class Button3D : MonoBehaviour
     public void Press()
     {
         if(isActivated) return;
-        originalMaterial.color = MenuManager.Instance.colorButtonActive;
+        originalMaterial.color = ScreenManager.Instance.colorButtonActive;
         StartCoroutine(Activate());
     }
     public void Select()
     {
-        originalMaterial.color = MenuManager.Instance.colorButtonHover;
+        originalMaterial.color = ScreenManager.Instance.colorButtonHover;
     }
     public void Deselect()
     {
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        originalMaterial.color = ScreenManager.Instance.colorButton;
     }
     private void OnMouseEnter()
     {
@@ -56,7 +56,7 @@ public class Button3D : MonoBehaviour
         isActivated = true;
         onActivate.Invoke();
         yield return new WaitForSeconds(1f);
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        originalMaterial.color = ScreenManager.Instance.colorButton;
         isActivated = false;
     }
 
