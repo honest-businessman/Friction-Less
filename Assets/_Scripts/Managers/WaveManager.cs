@@ -107,7 +107,7 @@ public class WaveManager : MonoBehaviour
                 activeEnemies.Add(enemySpawned);
                 if (enemySpawned.TryGetComponent(out HealthSystem health))
                 {
-                    HealthSystem.DieAction handler = null;
+                    System.Action handler = null;
                     handler = () =>
                     {
                         activeEnemies.Remove(enemySpawned);

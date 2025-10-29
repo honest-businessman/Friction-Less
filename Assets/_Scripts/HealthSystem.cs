@@ -1,17 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class HealthSystem : MonoBehaviour
 {
     public bool vulnerable = true;
-    public float health = 3;
-    public float maxHealth = 3;
+    public int health = 3;
+    public int maxHealth = 3;
     public bool regenerateHealth = false;
     public int regenAmount = 3;
     public float regenDelay = 5f;
-    public delegate void DieAction();
-    public event DieAction OnDie;
+    public event Action<int, int> OnDamageTaken;
+    public event Action OnDie;
     public UnityEvent OnRegenStart;
     public UnityEvent OnRegenFinish;
 
@@ -35,12 +36,13 @@ public class HealthSystem : MonoBehaviour
         audioSource.spatialBlend = 1f;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (vulnerable)
         {
             Debug.Log($"{gameObject.name} taken {damage} damage!");
             health -= damage;
+            OnDamageTaken?.Invoke(health, maxHealth);
             
             if (regenCoroutine != null) { StopCoroutine(regenCoroutine);  }
 

@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Device;
 using TMPro;
+using System;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class ScreenManager : MonoBehaviour
     private MeshRenderer screenMeshRenderer;
     private SpriteSheetAnimator ssAnimator;
     private ScreenType lastScreen;
-    private UnityAction listener;
+    private Action listener;
     private int selectedIndex = 0;
     private bool inputLocked = false;
     private bool navigateHeld = false;
@@ -94,7 +95,7 @@ public class ScreenManager : MonoBehaviour
         }
         else if (screenType == ScreenType.Game2D)
         {
-            GameManager.OnNewGame.RemoveListener(listener);
+            GameEvents.OnGameStarted -= listener;
             screenMeshRenderer.sharedMaterial = game2DMaterial;
             if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
             lastScreen = ScreenType.Game2D;
@@ -132,7 +133,7 @@ public class ScreenManager : MonoBehaviour
         StartCoroutine(GameManager.Instance.EnterGame());
         OnStartSequence?.Invoke();
         listener = () => SetScreen(ScreenType.Game2D);
-        GameManager.OnNewGame.AddListener(listener);
+        GameEvents.OnGameStarted += listener;
     }
 
 

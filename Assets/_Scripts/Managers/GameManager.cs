@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
         GameOver
     }
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
-    public static UnityEvent OnNewGame = new UnityEvent();
-    public static UnityEvent OnPause = new UnityEvent();
-    public static UnityEvent OnUnpause = new UnityEvent();
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -68,22 +65,22 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         CleanupPlayer();
         CurrentState = GameState.MainMenu;
-        MenuAnimationManager.Instance.OnCameraMoveCompleted?.AddListener(OnCameraMoveCompleted);
 
         InputManager.Instance.EnableUIInput();
-    }
-
-    private void OnCameraMoveCompleted()
-    {
-        
     }
 
     public IEnumerator EnterGame()
     {
         yield return LoadSceneAsync(1, LoadSceneMode.Additive);
-        OnNewGame?.Invoke();
+        GameEvents.OnGameStarted?.Invoke();
         StartGame();
     }
+
+    public IEnumerator LoadGame()
+    {
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+    }
+
     public IEnumerator EnterMainMenu()
     {
         yield return LoadSceneAsync(0, LoadSceneMode.Single);
@@ -91,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        MenuAnimationManager.Instance.OnCameraMoveCompleted?.RemoveListener(OnCameraMoveCompleted);
         Time.timeScale = 1f;
         CleanupPlayer();
         CurrentState = GameState.InGame;
@@ -120,6 +116,7 @@ public class GameManager : MonoBehaviour
         if (player = GameObject.FindWithTag("Player"))
         {
             Debug.Log("Player already exists in the scene.");
+            
         }
         else
         {
@@ -131,14 +128,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player spawned.");
         }
 
+        PlayerEvents.OnPlayerSpawned?.Invoke(player);
         HealthSystem playerHealthSys = player.GetComponent<HealthSystem>();
         playerHealthSys.OnDie += HandlePlayerDeath;
-    }
-
-
-    private void InitializeMainMenuManagers()
-    {
-
     }
 
     private void InitializeInGameManagers()
@@ -151,6 +143,8 @@ public class GameManager : MonoBehaviour
 
         waveManager = GetComponentInChildren<WaveManager>();
         waveManager.CleanWaves();
+
+
     }
 
     private IEnumerator WaveLoop()
@@ -191,15 +185,18 @@ public class GameManager : MonoBehaviour
         yield return LoadSceneAsync(1, LoadSceneMode.Additive);
 
         // Once Loaded, restart the game
+        GameEvents.OnGameRestarted?.Invoke();
         StartGame();
     }
 
     private IEnumerator LoadSceneAsync(int buildIndex, LoadSceneMode loadSceneMode)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+
+        // Wait until scene is loaded to 90% (internal ready)
         while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // animations continue running
         }
     }
 
@@ -220,7 +217,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentState = GameState.Paused;
             Time.timeScale = 0f;
-            OnPause.Invoke();
+            GameEvents.OnGamePaused.Invoke();
         }
     }
     private void UnpauseGame()
@@ -229,7 +226,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentState = GameState.InGame;
             Time.timeScale = 1f;
-            OnUnpause.Invoke();
+            GameEvents.OnGameResumed.Invoke();
         }
     }
 }

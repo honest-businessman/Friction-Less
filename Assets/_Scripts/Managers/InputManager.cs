@@ -26,8 +26,8 @@ public class InputManager : MonoBehaviour
 
         // Global input (always available)
         inputSystem.UI.Pause.performed += ctx => GameManager.Instance.PauseRecieve();
-        GameManager.OnPause.AddListener(OnUIPause);
-        GameManager.OnUnpause.AddListener(OnUIUnpause);
+        GameEvents.OnGamePaused += OnUIPause;
+        GameEvents.OnGameResumed += OnUIUnpause;
     }
 
     private void OnDisable()
@@ -35,8 +35,8 @@ public class InputManager : MonoBehaviour
         inputSystem.Disable();
 
         inputSystem.UI.Pause.performed -= ctx => GameManager.Instance.PauseRecieve();
-        GameManager.OnPause.RemoveListener(OnUIPause);
-        GameManager.OnUnpause.RemoveListener(OnUIUnpause);
+        GameEvents.OnGamePaused -= OnUIPause;
+        GameEvents.OnGameResumed -= OnUIUnpause;
     }
 
     public void EnablePlayerInput(PlayerController playerController)
