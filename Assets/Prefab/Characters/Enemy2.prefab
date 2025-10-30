@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4796032889167405082}
   - component: {fileID: 8481944963521392265}
   - component: {fileID: 1094879279869966464}
+  - component: {fileID: 6597514838132885459}
   m_Layer: 8
   m_Name: Enemy2
   m_TagString: Enemy
@@ -35,8 +36,8 @@ Transform:
   m_GameObject: {fileID: 2129711638973890270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0.0304, y: 0.288, z: 0}
+  m_LocalScale: {x: 2.060781, y: 2.1596565, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6949095004145517270}
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1078948340907208801, guid: f8857d2793af4e34eaff5724daf8c670, type: 3}
+  m_Sprite: {fileID: -6670333127089441112, guid: 4340e3cca4b243841a1e53db43b4eeae, type: 3}
   m_Color: {r: 0.9245283, g: 0.2703808, b: 0.2703808, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -335,6 +336,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeCollider: {fileID: 6926360911520516438}
   settings: {fileID: 11400000, guid: 9c2588f079a67fc44ae4da4132f18baa, type: 2}
+--- !u!95 &6597514838132885459
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129711638973890270}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d31bcff6e8a631849a55342dcf7a80f5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8622605097605196927
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +385,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7144446375109768690}
@@ -411,5 +434,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
