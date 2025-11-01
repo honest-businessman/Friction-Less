@@ -5,8 +5,9 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] public int currentXP = 0;
     [SerializeField] public int xpToLevelUp = 100;
     [SerializeField] public int level = 1;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-     
+    [SerializeField] private UpgradeManager upgradeManager;
+    
+
     public void AddXP(int amount)
     {
         currentXP += amount;
@@ -17,7 +18,11 @@ public class LevelSystem : MonoBehaviour
         {
             level++;
             currentXP -= xpToLevelUp;
+            xpToLevelUp += 50;
+            
             Debug.Log("Level Up. New Level: " + level);
+
+            upgradeManager.TriggerUpgrades();
         }
 
     }

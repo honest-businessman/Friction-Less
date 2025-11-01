@@ -24,7 +24,11 @@ public class MapObjectPathing : MonoBehaviour
 
     private void OnDestroy()
     {
-        ResetPenalty(penaltyGuo);
+        if(penaltyGuo != null)
+        {
+            ResetPenalty(penaltyGuo);
+        }
+        
     }
 
     private void ResetPenalty(GraphUpdateObject guo)

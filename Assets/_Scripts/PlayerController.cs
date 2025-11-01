@@ -41,6 +41,7 @@ public class PlayerController : CharacterBase
 
     public float pickupRadius = 1.5f; //distance of XP starting homing
 
+
     private enum MoveState
     {
         Idle,
@@ -76,6 +77,12 @@ public class PlayerController : CharacterBase
         rb = GetComponent<Rigidbody2D>();
         firingSystem = GetComponent<FiringSystem>();
         defaultDrag = rb.linearDamping;
+
+        firingSystem = GetComponent<FiringSystem>();
+        if(turret != null)
+        {
+            turretController = turret.GetComponent<TurretController>();
+        }
     }
 
     public void Move(Vector2 moveVector)
@@ -279,5 +286,31 @@ public class PlayerController : CharacterBase
     public void Fire()
     {
         firingSystem.FireCommand();
+    }
+
+    //upgrade functions
+    public void UpgradeSpeed(float multiplier)
+    {
+        moveSpeed *= multiplier;
+        Debug.Log($"Speed upgraded! New speed: {moveSpeed}");
+    }
+
+   public void UpgradeProjectileSpeed(float multiplier)
+    {
+        firingSystem.UpgradeTrailSpeed(multiplier);
+        if (turretController != null && turretController.settings != null)
+        {
+            turretController.settings.shellSpeed *= multiplier;
+            Debug.Log($"Projectile speed upgraded! New shell speed: {turretController.settings.shellSpeed}");
+        }
+        else
+        {
+            Debug.LogWarning("turretController or settings is null!");
+        }
+    }
+    public void UpgradeFireRate(float multiplier)
+    {
+        firingSystem.UpgradeFireRate(multiplier);
+        Debug.Log($"Fire rate upgraded! New fire rate: {firingSystem.Settings.fireRate}");
     }
 }

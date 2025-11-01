@@ -29,6 +29,8 @@ public class FiringSystem : MonoBehaviour
     public static event ImpactAction OnImpact;
     private TrailRenderer tr;
 
+    public TurretSettings Settings => settings;
+
     private void Awake()
     {
         cb = GetComponent<CharacterBase>();
@@ -74,6 +76,8 @@ public class FiringSystem : MonoBehaviour
     // Will fire a charged shot if drive is fully charged.
     void TryFire()
     {
+        Debug.Log("Current FireRate = " + settings.fireRate);
+
         // Get current turret parameters, need to implement only getting new parameters on weapon change
         turretController = turret.GetComponent<TurretController>();
         settings = turretController.settings;
@@ -232,4 +236,16 @@ public class FiringSystem : MonoBehaviour
             }
         }
     }
+
+    // public method to change the speed
+    public void UpgradeTrailSpeed(float multiplier)
+    {
+        trailSpeed *= multiplier;
+    }
+    //pubic method to change the Rate
+    public void UpgradeFireRate(float multiplier)
+    {
+        settings.fireRate *= multiplier;
+    }
+
 }
