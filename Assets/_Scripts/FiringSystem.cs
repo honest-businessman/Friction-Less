@@ -76,7 +76,6 @@ public class FiringSystem : MonoBehaviour
     // Will fire a charged shot if drive is fully charged.
     void TryFire()
     {
-        Debug.Log("Current FireRate = " + settings.fireRate);
 
         // Get current turret parameters, need to implement only getting new parameters on weapon change
         turretController = turret.GetComponent<TurretController>();
