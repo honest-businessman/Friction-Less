@@ -11,31 +11,44 @@ public class Button3D : MonoBehaviour
 
     private bool isActivated = false;
 
+
+
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         originalMaterial = meshRenderer.material;
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        originalMaterial.color = ScreenManager.Instance.colorButton;
     }
-
     private void OnMouseDown()
     {
-        if(isActivated) return;
         Debug.Log("Mouse Down");
-        originalMaterial.color = MenuManager.Instance.colorButtonActive;
+        Press();
+    }
+    public void Press()
+    {
+        if(isActivated) return;
+        originalMaterial.color = ScreenManager.Instance.colorButtonActive;
         StartCoroutine(Activate());
+    }
+    public void Select()
+    {
+        originalMaterial.color = ScreenManager.Instance.colorButtonHover;
+    }
+    public void Deselect()
+    {
+        originalMaterial.color = ScreenManager.Instance.colorButton;
     }
     private void OnMouseEnter()
     {
         if (isActivated) return;
         Debug.Log("Mouse Enter");
-        originalMaterial.color = MenuManager.Instance.colorButtonHover;
+        Select();
     }
     private void OnMouseExit()
     {
         if (isActivated) return;
         Debug.Log("Mouse Exit");
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        Deselect();
     }
 
     private IEnumerator Activate()
@@ -43,7 +56,7 @@ public class Button3D : MonoBehaviour
         isActivated = true;
         onActivate.Invoke();
         yield return new WaitForSeconds(1f);
-        originalMaterial.color = MenuManager.Instance.colorButton;
+        originalMaterial.color = ScreenManager.Instance.colorButton;
         isActivated = false;
     }
 

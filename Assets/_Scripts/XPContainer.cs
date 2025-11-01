@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class XPContainer : MonoBehaviour
 {
     [SerializeField] public GameObject xpPrefab;
-    [SerializeField] public int minXP = 1;
-    [SerializeField] public int maxXP = 3;
+    [SerializeField] public int minCount = 1;
+    [SerializeField] public int maxCount = 3;
     [SerializeField] public int minValue = 1;
     [SerializeField] public int maxValue = 10;
     [SerializeField] public float launchForce = 3f;
@@ -13,7 +13,7 @@ public class XPContainer : MonoBehaviour
 
     public void SpawnXP(Vector2 spawnOrigin, Transform player)
     {
-        int count = Random.Range(minXP, maxXP + 1);
+        int count = Random.Range(minCount, maxCount + 1);
 
         for(int i = 0; i < count; i++)
         {

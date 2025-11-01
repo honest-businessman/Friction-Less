@@ -4,6 +4,6 @@ using UnityEngine;
 public class MeleeSettings : ScriptableObject
 {
     public bool destroyAfterAttack = false;
-    public float damage = 2;
+    public int damage = 2;
     public float fireRate = 1;
 }

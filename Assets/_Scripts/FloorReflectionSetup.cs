@@ -7,7 +7,6 @@ public class FloorReflectionSetup : MonoBehaviour
 {
     [Header("References")]
     public Tilemap floorTilemap;
-    public Camera mainCamera;
     public Camera reflectionCamera;       
     public Material floorMaterial;        
 
@@ -18,6 +17,7 @@ public class FloorReflectionSetup : MonoBehaviour
 
     void Start()
     {
+        reflectionCamera = GameObject.FindGameObjectWithTag("ReflectionCamera").GetComponent<Camera>();
         reflectionCamera.clearFlags = CameraClearFlags.SolidColor;
         reflectionCamera.backgroundColor = Color.black;
         SetupReflection();

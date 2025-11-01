@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,9 +19,6 @@ public class GameManager : MonoBehaviour
         GameOver
     }
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
-    public int HazardLevel { get; private set; } = 0;
-    public static UnityEvent OnPause = new UnityEvent();
-    public static UnityEvent OnUnpause = new UnityEvent();
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -28,6 +26,9 @@ public class GameManager : MonoBehaviour
     private float restartDelay = 3f;
     [SerializeField]
     private float waveDelay = 3f;
+
+    [SerializeField]
+    private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
 
     private InputManager inputManager;
     private UIManager uiManager;
@@ -49,18 +50,51 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            StartMainMenu();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            StartGame();
+        }
+    }
+
+    public void StartMainMenu()
+    {
+        Time.timeScale = 1f;
+        CleanupPlayer();
+        CurrentState = GameState.MainMenu;
+
+        InputManager.Instance.EnableUIInput();
+    }
+
+    public IEnumerator EnterGame()
+    {
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+        GameEvents.OnGameStarted?.Invoke();
         StartGame();
+    }
+
+    public IEnumerator LoadGame()
+    {
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+    }
+
+    public IEnumerator EnterMainMenu()
+    {
+        yield return LoadSceneAsync(0, LoadSceneMode.Single);
     }
 
     public void StartGame()
     {
         Time.timeScale = 1f;
         CleanupPlayer();
-        HazardLevel = 0;
         CurrentState = GameState.InGame;
         SpawnPlayer();
-        InitializeManagers();
+        InitializeInGameManagers();
 
+        InputManager.Instance.EnablePlayerInput(player.GetComponent<PlayerController>());
         StartCoroutine(WaveLoop());
     }
 
@@ -82,6 +116,7 @@ public class GameManager : MonoBehaviour
         if (player = GameObject.FindWithTag("Player"))
         {
             Debug.Log("Player already exists in the scene.");
+            
         }
         else
         {
@@ -93,15 +128,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player spawned.");
         }
 
+        PlayerEvents.OnPlayerSpawned?.Invoke(player);
         HealthSystem playerHealthSys = player.GetComponent<HealthSystem>();
         playerHealthSys.OnDie += HandlePlayerDeath;
     }
 
-    private void InitializeManagers()
+    private void InitializeInGameManagers()
     {
         inputManager = GetComponentInChildren<InputManager>();
-        inputManager.Player = player.GetComponent<PlayerController>();
-        inputManager.GameManager = this;
 
         uiManager = GetComponentInChildren<UIManager>();
         uiManager.playerController = player.GetComponent<PlayerController>();
@@ -109,6 +143,8 @@ public class GameManager : MonoBehaviour
 
         waveManager = GetComponentInChildren<WaveManager>();
         waveManager.CleanWaves();
+
+
     }
 
     private IEnumerator WaveLoop()
@@ -145,14 +181,23 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(restartDelay);
         // asynchronously reload the current scene
         waveManager.CleanWaves();
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        while (!asyncLoad.isDone) // Wait until the asynchronous scene fully loads
-        {
-            yield return null;
-        }
+        yield return SceneManager.UnloadSceneAsync(1);
+        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
 
         // Once Loaded, restart the game
+        GameEvents.OnGameRestarted?.Invoke();
         StartGame();
+    }
+
+    private IEnumerator LoadSceneAsync(int buildIndex, LoadSceneMode loadSceneMode)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+
+        // Wait until scene is loaded to 90% (internal ready)
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // animations continue running
+        }
     }
 
     public void PauseRecieve()
@@ -172,7 +217,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentState = GameState.Paused;
             Time.timeScale = 0f;
-            OnPause.Invoke();
+            GameEvents.OnGamePaused.Invoke();
         }
     }
     private void UnpauseGame()
@@ -181,7 +226,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentState = GameState.InGame;
             Time.timeScale = 1f;
-            OnUnpause.Invoke();
+            GameEvents.OnGameResumed.Invoke();
         }
     }
 }

@@ -18,15 +18,33 @@ public class SpawnPointSpawning : MonoBehaviour
     public GameObject SpawnAtRandomSpawnPoint(GameObject enemyPrefab)
     {
         List<GameObject> activeSpawnPoints = spawnPoints.FindAll(sp => sp.activeInHierarchy);
-        GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, activeSpawnPoints.Count)];
-        Vector3 spawnPosition = spawnPoint.transform.position;
-        spawnPosition.z = 0; // Ensure z is 0 for 2D game
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-        
-        SetupEnemy(enemy);
-        spawnPoint.SetActive(false);
-        ManagePointPostSpawn(spawnPoint);
-        return enemy;
+        while (true)
+        {
+            if (activeSpawnPoints.Count > 0)
+            {
+                GameObject spawnPoint = activeSpawnPoints[UnityEngine.Random.Range(0, activeSpawnPoints.Count)];
+                Vector3 spawnPosition = spawnPoint.transform.position;
+                spawnPosition.z = 0; // Ensure z is 0 for 2D game
+
+                if (!WaveManager.Instance.CheckEnemySpawnBlocked(spawnPosition))
+                {
+                    GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                    SetupEnemy(enemy);
+                    spawnPoint.SetActive(false);
+                    ManagePointPostSpawn(spawnPoint);
+                    return enemy;
+                }
+                else
+                {
+                    activeSpawnPoints.Remove(spawnPoint);
+                }
+            }
+            else
+            {
+                Debug.Log($"No valid spawn points available to spawn {enemyPrefab.name}");
+                return null;
+            }
+        }
     }
 
     void SetupEnemy(GameObject enemy)
@@ -37,7 +55,6 @@ public class SpawnPointSpawning : MonoBehaviour
         int[] penalties = new int[32];
         penalties[1] = AIManager.Instance.WallErosionPenalty; // Tag 1 is "Wall Erosion" under the pathfinding settings
         seeker.tagPenalties = penalties;
-        Debug.Log(seeker.tagPenalties);
         // Applies AiManager's PathClaimPenalty to the spawned enemy's AlternativePath component
         AlternativePath altPath = enemy.AddComponent<AlternativePath>();
         altPath.penalty = AIManager.Instance.PathClaimPenalty;

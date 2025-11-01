@@ -76,7 +76,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!1 &8114613961227363268
 GameObject:
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5372130660410837039}
   - component: {fileID: 1925533634154342454}
   - component: {fileID: 9130824616342442785}
+  - component: {fileID: 7442636503008655908}
   m_Layer: 8
   m_Name: Enemy3
   m_TagString: Enemy
@@ -111,14 +112,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8114613961227363268}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.99998915, w: -0.0046613333}
   m_LocalPosition: {x: 2.95, y: 4.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2368029582857164047}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.534}
 --- !u!212 &3797490954208530294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -142,7 +143,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e1ec7b18ee993dc44b68db388d0fea46, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,8 +164,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 62a87d0baa54c544abaf509032da61d9, type: 3}
-  m_Color: {r: 0.9056604, g: 0.12246334, b: 0.12246334, a: 1}
+  m_Sprite: {fileID: 1346928252202327395, guid: b56ac5a0a91724344a8aca739aea15f7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -355,14 +356,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 4
-  maxHealth: 4
   vulnerable: 1
+  health: 2
+  maxHealth: 2
+  regenerateHealth: 0
+  regenAmount: 3
+  regenDelay: 5
+  OnRegenStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRegenFinish:
+    m_PersistentCalls:
+      m_Calls: []
   DamageSound: {fileID: 0}
   DeathSound: {fileID: 8300000, guid: 168e6fd27c95e804c9985d9e5b5cea88, type: 3}
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
   xpContainer: {fileID: 5878789037923216627, guid: 672d6149646181644a4925dc0dfab62a, type: 3}
-  dropXP: 0
+  dropXP: 1
 --- !u!114 &1925533634154342454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,12 +398,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9408cb09ed93074194a3de6ea100f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  separationDistance: 3
-  separationForce: 4
-  enemyTags:
-  - Enemy
-  - Enemy2
-  - Enemy3
   updateInterval: 0.05
   explosionSettings: {fileID: 11400000, guid: 8dd50d5cc022ccd4e855cd2a9c860d09, type: 2}
   explosionDelay: 1.2
+--- !u!95 &7442636503008655908
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114613961227363268}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eeae3f54ef877ca49a031e3e3d7862fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

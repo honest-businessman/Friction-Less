@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class XPObject : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Behaviour Settings")]
     [SerializeField] public int xpValue = 1;
     [SerializeField] public float moveSpeed = 3f;
     [SerializeField] private Transform playerTarget;
     [SerializeField] private float pickupRadius = 1f;
 
+    [Header("Sprite Settings")]
+    [SerializeField] private float baseSize = 0.04f;
+    [SerializeField] private float sizeIncreasePerValue = 0.04f;
+
     private bool isAttracting = false;
+    
 
 
     // Update is called once per frame
@@ -44,20 +49,7 @@ public class XPObject : MonoBehaviour
         playerTarget = player;
         pickupRadius = radius;
 
-        float scale = 0.05f;
-
-        if(value >= 1 && value <= 3)
-        {
-            scale = 0.04f;
-        }
-        else if(value >= 4 && value <= 7)
-        {
-            scale = 0.06f;
-        }
-        else if (value >= 8 && value <= 10)
-        {
-            scale = 0.08f;
-        }
+        float scale = baseSize + (xpValue * sizeIncreasePerValue);
         transform.localScale = new Vector3(scale, scale, 0);
     }
 

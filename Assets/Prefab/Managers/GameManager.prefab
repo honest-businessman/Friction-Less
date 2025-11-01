@@ -51,6 +51,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 6930791190220538420, guid: 584e4ed4a5270014e9d2a71b096e4cc5, type: 3}
   restartDelay: 3
   waveDelay: 3
+  gameSceneOffset: {x: 10, y: 0, z: 0}
 --- !u!1001 &170075308762607609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250,20 +251,12 @@ PrefabInstance:
       value: WaveManager
       objectReference: {fileID: 0}
     - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
-      propertyPath: waveDuration
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
-      propertyPath: spawningDuration
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
       propertyPath: enemies.Array.data[0].minimumWave
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3202764662375795131, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
       propertyPath: enemies.Array.data[1].minimumWave
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5466104997940430005, guid: 4aad3697ba2e99248b7c44db593f0ccc, type: 3}
       propertyPath: m_LocalPosition.x

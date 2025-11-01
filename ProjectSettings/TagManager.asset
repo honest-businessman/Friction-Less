@@ -17,6 +17,8 @@ TagManager:
   - Map Object
   - Enemy Path Collider
   - BuleCube
+  - ReflectionCamera
+  - TankScreen
   layers:
   - Default
   - TransparentFX
