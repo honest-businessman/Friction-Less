@@ -130,6 +130,7 @@ public class ScreenManager : MonoBehaviour
         if (inputLocked) return;
         inputLocked = true;
 
+        InputManager.Instance.DisablePlayerInput();
         StartCoroutine(GameManager.Instance.EnterGame());
         OnStartSequence?.Invoke();
         listener = () => SetScreen(ScreenType.Game2D);
