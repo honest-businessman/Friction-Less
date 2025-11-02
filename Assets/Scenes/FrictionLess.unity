@@ -294,7 +294,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 40951
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1435268209}
+  m_TargetTexture: {fileID: 1422880055}
   m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
@@ -361,7 +361,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
---- !u!84 &1435268209
+--- !u!84 &1422880055
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 1763103132}
   m_Layer: 0
   m_Name: Game2DCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
