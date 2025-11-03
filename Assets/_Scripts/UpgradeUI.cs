@@ -55,7 +55,7 @@ public class UpgradeUI : MonoBehaviour
 
     private string GetUpgradeDescription(System.Action upgradeAction)
     {
-        if (upgradeAction.Method.Name.Contains("UpgradeSpeed")) return "Speed Up";
+        if (upgradeAction.Method.Name.Contains("UpgradeSpeed")) return "Move Speed Up";
 
         if(upgradeAction.Method.Name.Contains("UpgradeFireRate")) return "Fire Rate Up";
 

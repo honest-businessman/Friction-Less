@@ -20,11 +20,24 @@ public class UpgradeManager : MonoBehaviour
 
         upgradeActions = new System.Action[]
         {
-            () => player.UpgradeSpeed(speedMultiplier),
-            () => player.UpgradeProjectileSpeed(projecttileSpeedMultiplier),
-            () => player.UpgradeFireRate(fireRateMultiplier)
+            UpgradeSpeed,
+            UpgradeProjectileSpeed,
+            UpgradeFireRate
 
         };
+    }
+
+    private void UpgradeSpeed()
+    {
+        player.UpgradeSpeed(speedMultiplier);
+    }
+    private void UpgradeProjectileSpeed()
+    {
+        player.UpgradeProjectileSpeed(projecttileSpeedMultiplier);
+    }
+    private void UpgradeFireRate()
+    {
+        player.UpgradeFireRate(fireRateMultiplier);
     }
 
     public void TriggerUpgrades()
