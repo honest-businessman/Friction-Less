@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections; // ✅ Added for coroutine
 
 public class PlayerController : CharacterBase
 {
@@ -24,12 +25,18 @@ public class PlayerController : CharacterBase
     public float dischargePerSecond = 100f;
     public float chargeFadeDelay = 1f; // Delay before charge starts fading
     public float chargeAngle = 45f; // degrees
-    public float minChargeMoveSpeed= 3f; // degrees
+    public float minChargeMoveSpeed = 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
 
     // Reference to the TrackRight Animator
     [SerializeField] private Animator trackRightAnimator;
     [SerializeField] private Animator trackLeftAnimator;
+
+    // ✅ Added Trail support
+    [SerializeField] private TrailRenderer trailLeft;
+    [SerializeField] private TrailRenderer trailRight;
+    [SerializeField] private float trailFadeOutTime = 0.5f;
+    private Coroutine fadeRoutine;
 
     [HideInInspector] public bool driftPressed;
 
@@ -55,6 +62,14 @@ public class PlayerController : CharacterBase
     private float timeLastCharge;
     private Vector2 aimInput;
 
+    private void Start()
+    {
+        // Ensure trails are hidden when the game starts
+        if (trailLeft != null) trailLeft.emitting = false;
+        if (trailRight != null) trailRight.emitting = false;
+    }
+
+
     void Awake()
     {
         // Find TrackRight and TrackLeft children by name and get their Animators
@@ -79,7 +94,7 @@ public class PlayerController : CharacterBase
         defaultDrag = rb.linearDamping;
 
         firingSystem = GetComponent<FiringSystem>();
-        if(turret != null)
+        if (turret != null)
         {
             turretController = turret.GetComponent<TurretController>();
         }
@@ -88,12 +103,16 @@ public class PlayerController : CharacterBase
     public void Move(Vector2 moveVector)
     {
         playerInput = moveVector;
-        
+
     }
+
+    // ✅ Modified to include trail control
     public void Drift(bool isPressed)
     {
         driftPressed = isPressed;
+        HandleDriftTrails(isPressed); // ✅ Added
     }
+
     public void Aim(Vector2 aimVector)
     {
         aimInput = aimVector;
@@ -108,10 +127,12 @@ public class PlayerController : CharacterBase
         else
             currentState = MoveState.Idle;
     }
+
     private void Update()
     {
         TurretRotate();
     }
+
     void FixedUpdate()
     {
         if (currentState == MoveState.Drifting)
@@ -120,12 +141,13 @@ public class PlayerController : CharacterBase
         }
         else
         {
-           rb.linearDamping = defaultDrag; // Reset linear damping when not drifting
+            rb.linearDamping = defaultDrag; // Reset linear damping when not drifting
         }
 
         PlayerMovement();
         HandleChargeParticles();
     }
+
     private void PlayerMovement()
     {
         ChangeMoveState();
@@ -161,6 +183,7 @@ public class PlayerController : CharacterBase
         if (trackLeftAnimator != null)
             trackLeftAnimator.SetBool("isMoving", isMoving);
     }
+
     //particle effects for full charge
     private void HandleChargeParticles()
     {
@@ -171,10 +194,12 @@ public class PlayerController : CharacterBase
         }
         else if (DriveCharge < 100f && particlesPlaying)
         {
-            fullChargeParticles.Stop();  // stops the effect, but doesn't destroy it
+            fullChargeParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); // instantly clear particles
             particlesPlaying = false;
         }
     }
+
+
     private void PlayerRotate()
     {
         float rotateSpeed;
@@ -202,7 +227,7 @@ public class PlayerController : CharacterBase
 
     private void ChargeDrive()
     {
-        
+
         Vector2 velocity = rb.linearVelocity;
         float mag = velocity.magnitude;
         Vector2 up = transform.up;
@@ -211,14 +236,14 @@ public class PlayerController : CharacterBase
         {
             float fAngle = Vector2.Angle(up, velocity);
             float bAngle = Vector2.Angle(-up, velocity);
-            
+
             Debug.DrawRay(transform.position, velocity * 2, Color.red);
             if (fAngle > chargeAngle && bAngle > chargeAngle)
             {
                 if (DriveCharge >= 100f)
                     DriveCharge = 100f; // Cap the charge at 100%
                 else
-                    DriveCharge += (chargePerSecond * Time.deltaTime) * (mag/maxSpeed) * Mathf.Abs(playerInput.y);
+                    DriveCharge += (chargePerSecond * Time.deltaTime) * (mag / maxSpeed) * Mathf.Abs(playerInput.y);
                 timeLastCharge = Time.time; // Reset the charge fade timer
             }
         }
@@ -255,15 +280,15 @@ public class PlayerController : CharacterBase
 
     public void ChangeWeapon(float changeInput)
     {
-        if(equippedTurrets.Count <= 1) { return; }
+        if (equippedTurrets.Count <= 1) { return; }
 
-        if(changeInput > 0)
+        if (changeInput > 0)
         {
             Debug.Log("Next Turret!");
             // Uses modulo operator to get remainder after division. This is to wrap the index within the count.
-            turretIndex = (turretIndex + 1) % equippedTurrets.Count; 
+            turretIndex = (turretIndex + 1) % equippedTurrets.Count;
         }
-        else if(changeInput < 0)
+        else if (changeInput < 0)
         {
             Debug.Log("Previous Turret!");
             // Adds count to index to prevent negative index result when wrapping with modulo.
@@ -295,7 +320,7 @@ public class PlayerController : CharacterBase
         Debug.Log($"Speed upgraded! New speed: {moveSpeed}");
     }
 
-   public void UpgradeProjectileSpeed(float multiplier)
+    public void UpgradeProjectileSpeed(float multiplier)
     {
         firingSystem.UpgradeTrailSpeed(multiplier);
         if (turretController != null && turretController.settings != null)
@@ -312,5 +337,42 @@ public class PlayerController : CharacterBase
     {
         firingSystem.UpgradeFireRate(multiplier);
         Debug.Log($"Fire rate upgraded! New fire rate: {firingSystem.Settings.fireRate}");
+    }
+
+    // ✅ Added trail fade handling
+    private void HandleDriftTrails(bool drifting)
+    {
+        if (drifting)
+        {
+            if (fadeRoutine != null)
+                StopCoroutine(fadeRoutine);
+
+            trailLeft.emitting = true;
+            trailRight.emitting = true;
+        }
+        else
+        {
+            fadeRoutine = StartCoroutine(FadeOutTrails());
+        }
+    }
+
+    private IEnumerator FadeOutTrails()
+    {
+        float startTime = Time.time;
+        float initialTimeLeft = trailLeft.time;
+        float initialTimeRight = trailRight.time;
+
+        while (Time.time < startTime + trailFadeOutTime)
+        {
+            float t = 1 - ((Time.time - startTime) / trailFadeOutTime);
+            trailLeft.time = Mathf.Lerp(0, initialTimeLeft, t);
+            trailRight.time = Mathf.Lerp(0, initialTimeRight, t);
+            yield return null;
+        }
+
+        trailLeft.time = initialTimeLeft;
+        trailRight.time = initialTimeRight;
+        trailLeft.emitting = false;
+        trailRight.emitting = false;
     }
 }
