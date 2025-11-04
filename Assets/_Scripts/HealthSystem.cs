@@ -16,11 +16,24 @@ public class HealthSystem : MonoBehaviour
     public UnityEvent OnRegenStart;
     public UnityEvent OnRegenFinish;
 
+    [Header("Audio / Effects")]
     [SerializeField] AudioClip DamageSound;
     [SerializeField] AudioClip DeathSound;
     [SerializeField] GameObject DeathVFX;
+
+    [Header("XP Settings")]
     [SerializeField] private XPContainer xpContainer;
     [SerializeField] private bool dropXP = false;
+
+    [Header("Sprite Change Settings")]
+    [SerializeField] private SpriteRenderer targetRenderer1;
+    [SerializeField] private SpriteRenderer targetRenderer2;
+    [SerializeField] private SpriteRenderer targetRenderer3;
+    [SerializeField] private SpriteRenderer targetRenderer4;
+
+    [SerializeField] private Sprite spriteAt3HP;
+    [SerializeField] private Sprite spriteAt2HP;
+    [SerializeField] private Sprite spriteAt1HP;
 
     private AudioSource audioSource;
     private Coroutine regenCoroutine;
@@ -28,12 +41,14 @@ public class HealthSystem : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if(audioSource == null)
+        if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1f;
+
+        UpdateSprite();
     }
 
     public void TakeDamage(int damage)
@@ -43,8 +58,8 @@ public class HealthSystem : MonoBehaviour
             Debug.Log($"{gameObject.name} taken {damage} damage!");
             health -= damage;
             OnDamageTaken?.Invoke(health, maxHealth);
-            
-            if (regenCoroutine != null) { StopCoroutine(regenCoroutine);  }
+
+            if (regenCoroutine != null) { StopCoroutine(regenCoroutine); }
 
             if (health <= 0)
             {
@@ -53,22 +68,21 @@ public class HealthSystem : MonoBehaviour
             }
             else
             {
-                if (regenerateHealth) 
+                UpdateSprite();
+
+                if (regenerateHealth)
                 {
-                    regenCoroutine = StartCoroutine(StartRegenerateDelay()); 
+                    regenCoroutine = StartCoroutine(StartRegenerateDelay());
                     OnRegenStart?.Invoke();
                 }
 
-                //Trigger glitch effect only for the player
                 if (gameObject.CompareTag("Player"))
                 {
-                    // Play damage sound if available
                     if (DamageSound != null)
                     {
                         audioSource.PlayOneShot(DamageSound);
                     }
 
-                    // Trigger glitch visual
                     GlitchFlash glitch = GetComponent<GlitchFlash>();
                     if (glitch != null)
                         glitch.TriggerGlitch();
@@ -80,10 +94,13 @@ public class HealthSystem : MonoBehaviour
     public void GainHealth(int gainedHealth)
     {
         health = Mathf.Min(health + gainedHealth, maxHealth);
+        UpdateSprite();
     }
+
     public void GainMaxHealth()
     {
         health = maxHealth;
+        UpdateSprite();
     }
 
     private void Die()
@@ -96,14 +113,13 @@ public class HealthSystem : MonoBehaviour
 
         AudioClip clipToPlay = DeathSound;
 
-        if(clipToPlay != null)
+        if (clipToPlay != null)
         {
-            AudioSource.PlayClipAtPoint(clipToPlay,transform.position);
+            AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
         }
 
         if (!CompareTag("Player"))
         {
-            
             if (xpContainer != null)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -121,15 +137,42 @@ public class HealthSystem : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} is regenerating {regenAmount} health in {regenDelay} seconds!");
         yield return new WaitForSeconds(regenDelay);
-        
+
         regenCoroutine = null;
         GainHealth(regenAmount);
         OnRegenFinish?.Invoke();
-        Debug.Log($"{gameObject.name} is regenerated {regenAmount} health!");
+        Debug.Log($"{gameObject.name} has regenerated {regenAmount} health!");
     }
 
     private void OnDestroy()
     {
         OnDie?.Invoke();
+    }
+
+    // 🔵 Handles sprite swapping logic for all target objects
+    private void UpdateSprite()
+    {
+        Sprite newSprite = null;
+
+        if (health >= 3)
+            newSprite = spriteAt3HP;
+        else if (health == 2)
+            newSprite = spriteAt2HP;
+        else if (health == 1)
+            newSprite = spriteAt1HP;
+
+        // Apply to all assigned renderers
+        ApplySprite(targetRenderer1, newSprite);
+        ApplySprite(targetRenderer2, newSprite);
+        ApplySprite(targetRenderer3, newSprite);
+        ApplySprite(targetRenderer4, newSprite);
+    }
+
+    private void ApplySprite(SpriteRenderer renderer, Sprite sprite)
+    {
+        if (renderer != null)
+        {
+            renderer.sprite = sprite;
+        }
     }
 }

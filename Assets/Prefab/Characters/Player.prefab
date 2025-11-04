@@ -702,9 +702,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 2759497254178083693}
     m_Modifications:
     - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_SortingOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a60848af1324b549b2cd559f324872a, type: 2}
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
