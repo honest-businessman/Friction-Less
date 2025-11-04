@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public static class UpgradeEvents 
+public static class UpgradeEvents
 {
-    public static event Action<System.Action, System.Action> OnUpgradesAvailable;
+    public static event Action<System.Action[]> OnUpgradesAvailable;
 
-    public static void UpgradesAvailable(System.Action upgrade1, System.Action upgrade2)
+    public static void UpgradesAvailable(params System.Action[] upgrades)
     {
-        OnUpgradesAvailable?.Invoke(upgrade1, upgrade2);
+        OnUpgradesAvailable?.Invoke(upgrades);
     }
 }

@@ -1,19 +1,19 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class UpgradeManager : MonoBehaviour
 {
-
     private PlayerController player;
     private System.Action[] upgradeActions;
 
     [SerializeField] float speedMultiplier = 1.2f;
     [SerializeField] float fireRateMultiplier = 1.2f;
-    [SerializeField] float projecttileSpeedMultiplier = 1.3f;
+    [SerializeField] float projectileSpeedMultiplier = 1.3f;
 
+    // Number of upgrades to offer
+    [SerializeField] int upgradesToOffer = 3;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = FindFirstObjectByType<PlayerController>();
@@ -23,31 +23,39 @@ public class UpgradeManager : MonoBehaviour
             UpgradeSpeed,
             UpgradeProjectileSpeed,
             UpgradeFireRate
-
         };
     }
 
-    private void UpgradeSpeed()
-    {
-        player.UpgradeSpeed(speedMultiplier);
-    }
-    private void UpgradeProjectileSpeed()
-    {
-        player.UpgradeProjectileSpeed(projecttileSpeedMultiplier);
-    }
-    private void UpgradeFireRate()
-    {
-        player.UpgradeFireRate(fireRateMultiplier);
-    }
+    private void UpgradeSpeed() => player.UpgradeSpeed(speedMultiplier);
+    private void UpgradeProjectileSpeed() => player.UpgradeProjectileSpeed(projectileSpeedMultiplier);
+    private void UpgradeFireRate() => player.UpgradeFireRate(fireRateMultiplier);
 
     public void TriggerUpgrades()
     {
-        int optionA = Random.Range(0, upgradeActions.Length);
-        int optionB;
-        do { optionB = Random.Range(0, upgradeActions.Length); } while (optionB == optionA);
+        if (upgradesToOffer > upgradeActions.Length)
+        {
+            Debug.LogWarning("Cannot offer more unique upgrades than available!");
+            return;
+        }
 
-        Debug.Log($"Upgrade options triggered: A={optionA}, B={optionB}");
-        UpgradeEvents.UpgradesAvailable(upgradeActions[optionA], upgradeActions[optionB]);
+        // Shuffle the array and take the first N options
+        List<System.Action> shuffled = new List<System.Action>(upgradeActions);
+        for (int i = 0; i < shuffled.Count; i++)
+        {
+            int randIndex = UnityEngine.Random.Range(i, shuffled.Count);
+            var temp = shuffled[i];
+            shuffled[i] = shuffled[randIndex];
+            shuffled[randIndex] = temp;
+        }
+
+        System.Action[] chosenUpgrades = shuffled.GetRange(0, upgradesToOffer).ToArray();
+
+        Debug.Log("Chosen upgrades:");
+        for (int i = 0; i < chosenUpgrades.Length; i++)
+            Debug.Log($"Option {i + 1}: {chosenUpgrades[i].Method.Name}");
+
+        // Invoke the event with the chosen upgrades
+        // You can modify UpgradeEvents to accept a variable number of upgrades using params
+        UpgradeEvents.UpgradesAvailable(chosenUpgrades);
     }
-
 }

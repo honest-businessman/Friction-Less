@@ -1,68 +1,64 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 public class UpgradeUI : MonoBehaviour
 {
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private Button optionAButton;
     [SerializeField] private Button optionBButton;
-    [SerializeField] private TextMeshProUGUI optionAText;
-    [SerializeField] private TextMeshProUGUI optionBText;
-
+    [SerializeField] private Button optionCButton;
 
     private System.Action optionAAction;
     private System.Action optionBAction;
+    private System.Action optionCAction;
 
     private void OnEnable()
     {
         UpgradeEvents.OnUpgradesAvailable += ShowUpgradeOptions;
     }
-    void OnDisable()
+
+    private void OnDisable()
     {
         UpgradeEvents.OnUpgradesAvailable -= ShowUpgradeOptions;
     }
 
-    private void ShowUpgradeOptions(System.Action actionA, System.Action actionB)
+    private void ShowUpgradeOptions(System.Action[] upgradeOptions)
     {
-        optionAAction = actionA;
-        optionBAction = actionB;
+        if (upgradeOptions.Length < 3)
+        {
+            Debug.LogWarning("Not enough upgrades to show all 3.");
+            return;
+        }
 
-        
+        // Assign each action
+        optionAAction = upgradeOptions[0];
+        optionBAction = upgradeOptions[1];
+        optionCAction = upgradeOptions[2];
+
+        // Show panel
         upgradePanel.SetActive(true);
         Time.timeScale = 0f;
 
-        //refect text to button
-        optionAText.text = GetUpgradeDescription(actionA);
-        optionBText.text = GetUpgradeDescription(actionB);
-
+        // Setup button listeners
         optionAButton.onClick.RemoveAllListeners();
         optionAButton.onClick.AddListener(() => SelectUpgrade(optionAAction));
 
         optionBButton.onClick.RemoveAllListeners();
         optionBButton.onClick.AddListener(() => SelectUpgrade(optionBAction));
+
+        optionCButton.onClick.RemoveAllListeners();
+        optionCButton.onClick.AddListener(() => SelectUpgrade(optionCAction));
+
+        // Make sure all buttons are active
+        optionAButton.gameObject.SetActive(true);
+        optionBButton.gameObject.SetActive(true);
+        optionCButton.gameObject.SetActive(true);
     }
+
     private void SelectUpgrade(System.Action chosenUpgrade)
     {
-
-        Debug.Log("Upgrade selected, invoking action...");
         chosenUpgrade?.Invoke();
-        Debug.Log("Upgrade applied successfully!");
-
-
         upgradePanel.SetActive(false);
         Time.timeScale = 1f;
     }
-
-    private string GetUpgradeDescription(System.Action upgradeAction)
-    {
-        if (upgradeAction.Method.Name.Contains("UpgradeSpeed")) return "Move Speed Up";
-
-        if(upgradeAction.Method.Name.Contains("UpgradeFireRate")) return "Fire Rate Up";
-
-        if(upgradeAction.Method.Name.Contains("UpgradeProjectileSpeed")) return "Projectile Speed Up";
-
-        return "Unknown upgrade";
-    }
-
-   
 }

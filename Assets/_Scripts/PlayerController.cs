@@ -106,11 +106,11 @@ public class PlayerController : CharacterBase
 
     }
 
-    // ✅ Modified to include trail control
+    // Modified to include trail control
     public void Drift(bool isPressed)
     {
         driftPressed = isPressed;
-        HandleDriftTrails(isPressed); // ✅ Added
+        HandleDriftTrails(isPressed); // Added
     }
 
     public void Aim(Vector2 aimVector)
