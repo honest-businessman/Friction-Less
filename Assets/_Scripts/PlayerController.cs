@@ -61,6 +61,7 @@ public class PlayerController : CharacterBase
     private FiringSystem firingSystem;
     private float timeLastCharge;
     private Vector2 aimInput;
+    private Quaternion lastTurretDirection;
 
     private void Start()
     {
@@ -269,13 +270,20 @@ public class PlayerController : CharacterBase
         else
         {
             if (aimInput.magnitude < 0.1f)
-                direction = transform.up;
+            {
+                turret.transform.rotation = transform.rotation * lastTurretDirection * Quaternion.Euler(0f, 0f, -90f);
+            }
             else
+            {
                 direction = new Vector2(aimInput.x, aimInput.y);
-        }
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+                turret.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+
+                // Store direction relative to player
+                lastTurretDirection = Quaternion.Inverse(transform.rotation) * Quaternion.Euler(0f, 0f, angle);
+            }
+        }
     }
 
     public void ChangeWeapon(float changeInput)
@@ -338,65 +346,41 @@ public class PlayerController : CharacterBase
         firingSystem.UpgradeFireRate(multiplier);
         Debug.Log($"Fire rate upgraded! New fire rate: {firingSystem.Settings.fireRate}");
     }
+
+    // Added trail fade handling
     private void HandleDriftTrails(bool drifting)
     {
         if (drifting)
         {
-            // Stop any fading routines
             if (fadeRoutine != null)
-            {
                 StopCoroutine(fadeRoutine);
-                fadeRoutine = null;
-            }
 
-            // Enable the trails
             trailLeft.emitting = true;
             trailRight.emitting = true;
         }
         else
         {
-            // Detach trails so they linger independently
-            DetachTrail(trailLeft);
-            DetachTrail(trailRight);
+            fadeRoutine = StartCoroutine(FadeOutTrails());
         }
     }
 
-    private void DetachTrail(TrailRenderer originalTrail)
+    private IEnumerator FadeOutTrails()
     {
-        // Create a temporary clone of the trail
-        GameObject trailClone = new GameObject("TrailClone");
-        trailClone.transform.position = originalTrail.transform.position;
-        trailClone.transform.rotation = originalTrail.transform.rotation;
+        float startTime = Time.time;
+        float initialTimeLeft = trailLeft.time;
+        float initialTimeRight = trailRight.time;
 
-        TrailRenderer cloneRenderer = trailClone.AddComponent<TrailRenderer>();
-        cloneRenderer.material = originalTrail.material;
-        cloneRenderer.startWidth = originalTrail.startWidth;
-        cloneRenderer.endWidth = originalTrail.endWidth;
-        cloneRenderer.time = originalTrail.time;
-        cloneRenderer.startColor = originalTrail.startColor;
-        cloneRenderer.endColor = originalTrail.endColor;
-        cloneRenderer.numCapVertices = originalTrail.numCapVertices;
-        cloneRenderer.numCornerVertices = originalTrail.numCornerVertices;
-
-        // Stop the original from emitting
-        originalTrail.emitting = false;
-
-        // Start fading the clone
-        fadeRoutine = StartCoroutine(FadeOutAndDestroyTrail(cloneRenderer));
-    }
-
-    private IEnumerator FadeOutAndDestroyTrail(TrailRenderer trail)
-    {
-        float initialTime = trail.time;
-        float elapsed = 0f;
-
-        while (elapsed < trailFadeOutTime)
+        while (Time.time < startTime + trailFadeOutTime)
         {
-            trail.time = Mathf.Lerp(initialTime, 0f, elapsed / trailFadeOutTime);
-            elapsed += Time.deltaTime;
+            float t = 1 - ((Time.time - startTime) / trailFadeOutTime);
+            trailLeft.time = Mathf.Lerp(0, initialTimeLeft, t);
+            trailRight.time = Mathf.Lerp(0, initialTimeRight, t);
             yield return null;
         }
 
-        Destroy(trail.gameObject);
+        trailLeft.time = initialTimeLeft;
+        trailRight.time = initialTimeRight;
+        trailLeft.emitting = false;
+        trailRight.emitting = false;
     }
 }
