@@ -61,6 +61,7 @@ public class PlayerController : CharacterBase
     private FiringSystem firingSystem;
     private float timeLastCharge;
     private Vector2 aimInput;
+    private Quaternion lastTurretDirection;
 
     private void Start()
     {
@@ -269,13 +270,20 @@ public class PlayerController : CharacterBase
         else
         {
             if (aimInput.magnitude < 0.1f)
-                direction = transform.up;
+            {
+                turret.transform.rotation = transform.rotation * lastTurretDirection * Quaternion.Euler(0f, 0f, -90f);
+            }
             else
+            {
                 direction = new Vector2(aimInput.x, aimInput.y);
-        }
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        turret.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+                turret.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+
+                // Store direction relative to player
+                lastTurretDirection = Quaternion.Inverse(transform.rotation) * Quaternion.Euler(0f, 0f, angle);
+            }
+        }
     }
 
     public void ChangeWeapon(float changeInput)
@@ -339,7 +347,7 @@ public class PlayerController : CharacterBase
         Debug.Log($"Fire rate upgraded! New fire rate: {firingSystem.Settings.fireRate}");
     }
 
-    // ✅ Added trail fade handling
+    // Added trail fade handling
     private void HandleDriftTrails(bool drifting)
     {
         if (drifting)
