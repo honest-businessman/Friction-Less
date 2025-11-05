@@ -124,43 +124,6 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5206092232246172004, guid: 2522624f2dbfba145acc80763068e540, type: 3}
   m_PrefabInstance: {fileID: 1607849421}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &193378235
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: ReflectionRenderTexture
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 3413
-  m_Height: 1920
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &199498342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +135,18 @@ PrefabInstance:
     - target: {fileID: 213092101655995850, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465624942689872115, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: m_Time
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465624942689872115, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: m_MinVertexDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: trailFadeOutTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: health
@@ -256,6 +231,14 @@ PrefabInstance:
     - target: {fileID: 2759497254178083693, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768731536022952363, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: m_Time
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: xpToLevelUp
@@ -1079,7 +1062,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 40951
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 193378235}
+  m_TargetTexture: {fileID: 1799487412}
   m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
@@ -1498,6 +1481,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderTexture: {fileID: 8400000, guid: 502caf487b3afc3499f49f82d6298749, type: 2}
   forceRenderToTextureInEditor: 0
+--- !u!84 &1799487412
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ReflectionRenderTexture
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 3413
+  m_Height: 1920
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &1877386943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1642,6 +1662,18 @@ PrefabInstance:
     - target: {fileID: 1343343610895474094, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
+      propertyPath: speedMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
+      propertyPath: fireRateMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
+      propertyPath: projectileSpeedMultiplier
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2356918587053590074, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
       propertyPath: m_Name
