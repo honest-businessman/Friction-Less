@@ -89,21 +89,24 @@ public class ScreenManager : MonoBehaviour
     {
         if (screenType == ScreenType.Menu)
         {
+            UIManager.Instance.ShowMainMenu();
             screenMeshRenderer.sharedMaterial = osAnimationMaterial;
             StartOSAnimation();
             lastScreen = ScreenType.Menu;
         }
         else if (screenType == ScreenType.Game2D)
         {
+            if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
             GameEvents.OnGameStarted -= listener;
             screenMeshRenderer.sharedMaterial = game2DMaterial;
-            if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
             lastScreen = ScreenType.Game2D;
 
         }
         else if (screenType == ScreenType.Settings)
         {
             if (lastScreen == ScreenType.Menu) { StopOSAnimation(); }
+            UIManager.Instance.ShowSettingsMenu();
+            screenMeshRenderer.sharedMaterial = settingsMaterial;
             lastScreen = ScreenType.Settings;
         }
     }
@@ -150,7 +153,15 @@ public class ScreenManager : MonoBehaviour
     public void SettingsPressed()
     {
         if (inputLocked) return;
-
+        if (UIManager.Instance.IsSettingsOpen())
+        {
+            SetScreen(ScreenType.Menu);
+        }
+        else
+        {
+           SetScreen(ScreenType.Settings);
+        }
+        
         Debug.Log("Opening Settings");
     }
 
