@@ -237,6 +237,13 @@ MonoBehaviour:
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
   xpContainer: {fileID: 0}
   dropXP: 0
+  targetRenderer1: {fileID: 0}
+  targetRenderer2: {fileID: 0}
+  targetRenderer3: {fileID: 0}
+  targetRenderer4: {fileID: 0}
+  spriteAt3HP: {fileID: 0}
+  spriteAt2HP: {fileID: 0}
+  spriteAt1HP: {fileID: 0}
 --- !u!114 &2531162805804896880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,13 +258,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   driveCharge: 0
   fullChargeParticles: {fileID: 236354953109614970}
-  mouseAiming: 1
+  mouseAiming: 0
   moveSpeed: 25
   maxSpeed: 5
-  driftSpeed: 4.5
+  driftSpeed: 6
   defaultDrag: 8
-  turnSpeed: 20
-  driftTurnSpeed: 20
+  turnSpeed: 18
+  driftTurnSpeed: 23
   treadOffset: 0.2
   chargePerSecond: 60
   dischargePerSecond: 70

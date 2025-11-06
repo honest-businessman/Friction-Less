@@ -6,7 +6,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
-using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
     private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
 
     private InputManager inputManager;
-    private UIManager uiManager;
     private WaveManager waveManager;
     GameObject player;
 
@@ -137,9 +135,6 @@ public class GameManager : MonoBehaviour
     {
         inputManager = GetComponentInChildren<InputManager>();
 
-        uiManager = GetComponentInChildren<UIManager>();
-        uiManager.playerController = player.GetComponent<PlayerController>();
-        uiManager.meterText = GameObject.FindGameObjectWithTag("UI Drive Charge").GetComponent<TextMeshProUGUI>(); ;
 
         waveManager = GetComponentInChildren<WaveManager>();
         waveManager.CleanWaves();
