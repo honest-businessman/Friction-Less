@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 using UnityEditor.SearchService;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,10 +30,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
+    [SerializeField] private RenderTexture uiRenderTexture;
+ 
 
     private InputManager inputManager;
-    private UIManager uiManager;
+    private bool isUiSceneLoaded = false;
     private WaveManager waveManager;
+    private string mainMenuSceneName = "MainMenu";
+    private string gameSceneName = "FrictionLess";
+    private string uiSceneName = "UIScene";
     GameObject player;
 
     private void Awake()
@@ -65,29 +71,49 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         CleanupPlayer();
         CurrentState = GameState.MainMenu;
-
+        if (!isUiSceneLoaded)  // Loads UI Scene
+        { 
+            isUiSceneLoaded = true;
+            StartCoroutine(LoadSceneAsync(uiSceneName, LoadSceneMode.Additive, () =>
+            {
+                UIManager.Instance.SetRenderTextureMode(uiRenderTexture);
+                UIManager.Instance.ShowMainMenu();
+                
+            }));
+            Debug.Log("UI Scene Loaded.");
+        } 
         InputManager.Instance.EnableUIInput();
     }
 
     public IEnumerator EnterGame()
     {
-        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+        yield return LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
         GameEvents.OnGameStarted?.Invoke();
         StartGame();
     }
 
     public IEnumerator LoadGame()
     {
-        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+        yield return LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
     }
 
     public IEnumerator EnterMainMenu()
     {
-        yield return LoadSceneAsync(0, LoadSceneMode.Single);
+        yield return LoadSceneAsync(mainMenuSceneName, LoadSceneMode.Single);
     }
 
     public void StartGame()
     {
+        if (!isUiSceneLoaded)  // Loads UI Scene
+        {
+            isUiSceneLoaded = true;
+            StartCoroutine(LoadSceneAsync(uiSceneName, LoadSceneMode.Additive, () =>
+            {
+                UIManager.Instance.HideAll();
+            }));
+            Debug.Log("UI Scene Loaded.");
+        }
+        
         Time.timeScale = 1f;
         CleanupPlayer();
         CurrentState = GameState.InGame;
@@ -123,7 +149,7 @@ public class GameManager : MonoBehaviour
             Vector3[] spawnPositionArray = GameObject.FindGameObjectsWithTag("Spawnpoint Player")
              .Select(sp => sp.transform.position)
              .ToArray();
-            Vector3 spawnposition = spawnPositionArray[Random.Range(0, spawnPositionArray.Length)];
+            Vector3 spawnposition = spawnPositionArray[UnityEngine.Random.Range(0, spawnPositionArray.Length)];
             player = Instantiate(playerPrefab, spawnposition, Quaternion.identity);
             Debug.Log("Player spawned.");
         }
@@ -136,10 +162,6 @@ public class GameManager : MonoBehaviour
     private void InitializeInGameManagers()
     {
         inputManager = GetComponentInChildren<InputManager>();
-
-        uiManager = GetComponentInChildren<UIManager>();
-        uiManager.playerController = player.GetComponent<PlayerController>();
-        uiManager.meterText = GameObject.FindGameObjectWithTag("UI Drive Charge").GetComponent<TextMeshProUGUI>(); ;
 
         waveManager = GetComponentInChildren<WaveManager>();
         waveManager.CleanWaves();
@@ -182,22 +204,24 @@ public class GameManager : MonoBehaviour
         // asynchronously reload the current scene
         waveManager.CleanWaves();
         yield return SceneManager.UnloadSceneAsync(1);
-        yield return LoadSceneAsync(1, LoadSceneMode.Additive);
+        yield return LoadSceneAsync("FrictionLess", LoadSceneMode.Additive);
 
         // Once Loaded, restart the game
         GameEvents.OnGameRestarted?.Invoke();
         StartGame();
     }
 
-    private IEnumerator LoadSceneAsync(int buildIndex, LoadSceneMode loadSceneMode)
+    private IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode, Action onComplete = null)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
 
         // Wait until scene is loaded to 90% (internal ready)
         while (!asyncLoad.isDone)
         {
             yield return null; // animations continue running
         }
+
+        onComplete?.Invoke();
     }
 
     public void PauseRecieve()

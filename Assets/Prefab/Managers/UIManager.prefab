@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7830606644465819684
+--- !u!1 &101245424333510459
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8085069117282468426}
-  - component: {fileID: -8338885016666859256}
+  - component: {fileID: 8214737110174286634}
+  - component: {fileID: 8314337846601303776}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -17,32 +17,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8085069117282468426
+--- !u!4 &8214737110174286634
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7830606644465819684}
+  m_GameObject: {fileID: 101245424333510459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.905835, y: 2.037554, z: -0.05019476}
+  m_LocalPosition: {x: -47.1799, y: -1.3782506, z: 18.828888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8338885016666859256
+--- !u!114 &8314337846601303776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7830606644465819684}
+  m_GameObject: {fileID: 101245424333510459}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9737e0466da942458ac27ceb17efd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meterText: {fileID: 898570728697877372, guid: bf55a0cf1fb1f964080c7e1cb5299aca, type: 3}
-  playerController: {fileID: 7356961255664485176, guid: c7bba005440fe4f4185d34f6a0c51b50, type: 3}
+  uiCamera: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  mainMenuPanel: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  pausePanel: {fileID: 0}

@@ -1,39 +1,70 @@
-using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    public TextMeshProUGUI meterText;
-    public PlayerController playerController;
+
+    [Header("References")]
+    [SerializeField] private Camera uiCamera;
+    [SerializeField] private Canvas uiCanvas;
+
+    [Header("Panels")]
+    public GameObject mainMenuPanel;
+    public GameObject settingsPanel;
+    public GameObject pausePanel;
+
+    private bool isSettingsOpen = false;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    public void SetRenderTextureMode(RenderTexture target)
     {
-        meterText.text = $"Friction Charge: 0%";
+        uiCamera.targetTexture = target;
+        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        uiCanvas.worldCamera = uiCamera;
     }
 
-    void Update()
+    public void SetScreenMode()
     {
-        if (GameManager.Instance.CurrentState == GameManager.GameState.InGame)
-        { 
-            DisplayCharge();
-        }
+        uiCamera.targetTexture = null;
+        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        uiCanvas.worldCamera = uiCamera;
     }
 
-    public void DisplayCharge()
+
+    public void ShowMainMenu()
     {
-        meterText.text = ($"Friction Charge: {playerController.DriveCharge:0}%");
+        HideAll();
+        mainMenuPanel.SetActive(true);
     }
+    public void ShowSettingsMenu()
+    {
+        HideAll();
+        settingsPanel.SetActive(true);
+        isSettingsOpen = true;
+    }
+    public void ShowPauseMenu()
+    {
+        HideAll();
+        pausePanel.SetActive(true);
+    }
+
+    public void HideAll()
+    {
+        mainMenuPanel?.SetActive(false);
+        settingsPanel?.SetActive(false);
+        isSettingsOpen = false;
+        pausePanel?.SetActive(false);
+    }
+
+    public bool IsSettingsOpen() { return isSettingsOpen; }
 }

@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FrictionLess.unity
     guid: 1c4623e2578ff484ab7700db9420659d
+  - enabled: 1
+    path: Assets/Scenes/UIScene.unity
+    guid: dc25b5167b35b2f49b21732a5f8e2547
+  - enabled: 1
+    path: Assets/Scenes/Trailer-Gameplay.unity
+    guid: 2676ff92bebe40a478352ce726df05c6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
