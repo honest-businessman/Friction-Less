@@ -19,6 +19,7 @@ TagManager:
   - BuleCube
   - ReflectionCamera
   - TankScreen
+  - 2D Camera
   layers:
   - Default
   - TransparentFX

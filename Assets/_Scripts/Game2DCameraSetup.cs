@@ -1,19 +1,37 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
 [ExecuteAlways]
+#endif
 public class GameCameraSetup : MonoBehaviour
 {
+    static GameObject Instance;
+
     [Header("Optional Render Texture")]
     public RenderTexture renderTexture;
 
     [Header("Debug")]
     public bool forceRenderToTextureInEditor = false;
 
+    private void Awake()
+    {
+        // Ensure singleton instance
+        if (Instance == null)
+        {
+            Instance = this.gameObject;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Start()
     {
         ApplyRenderMode();
     }
+
 
 #if UNITY_EDITOR
     private void Update()
@@ -27,27 +45,36 @@ public class GameCameraSetup : MonoBehaviour
     private void ApplyRenderMode()
     {
         Camera cam = GetComponent<Camera>();
-
-        // If there’s no assigned RenderTexture, just render normally.
         if (renderTexture == null)
         {
             cam.targetTexture = null;
+            Debug.LogWarning("RenderTexture not assigned, rendering normally.");
             return;
         }
 
-        // Decide if we’re in "Menu Mode" or "Scene Dev Mode"
-        bool loadedFromMainMenu =
-            SceneManager.sceneCount > 1 || forceRenderToTextureInEditor;
+        // In editor, use forceRenderToTextureInEditor; otherwise use GameManager
+        bool loadedFromMainMenu = false;
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying && forceRenderToTextureInEditor)
+        {
+            loadedFromMainMenu = true;
+        }
+        else
+#endif
+        {
+            loadedFromMainMenu = GameManager.Instance != null && GameManager.Instance.isMainScene;
+        }
 
         if (loadedFromMainMenu)
         {
-            // When loaded additively by main menu, render to texture
             cam.targetTexture = renderTexture;
         }
         else
         {
-            // When testing the 2D scene directly, render to Game view
             cam.targetTexture = null;
         }
     }
+
+
 }

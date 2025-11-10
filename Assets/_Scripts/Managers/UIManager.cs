@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        uiCamera = GameObject.FindWithTag("2D Camera").GetComponent<Camera>();
     }
 
     public void SetRenderTextureMode(RenderTexture target)
@@ -32,14 +34,6 @@ public class UIManager : MonoBehaviour
         uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         uiCanvas.worldCamera = uiCamera;
     }
-
-    public void SetScreenMode()
-    {
-        uiCamera.targetTexture = null;
-        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-        uiCanvas.worldCamera = uiCamera;
-    }
-
 
     public void ShowMainMenu()
     {

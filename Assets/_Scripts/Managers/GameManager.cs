@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
     [SerializeField] private RenderTexture uiRenderTexture;
- 
+
+    public bool isMainScene;
 
     private InputManager inputManager;
     private bool isUiSceneLoaded = false;
@@ -56,11 +58,17 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+            isMainScene = true;
             StartMainMenu();
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
+            isMainScene = false;
             StartGame();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager started in an unexpected scene.");
         }
     }
 
