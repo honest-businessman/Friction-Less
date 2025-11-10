@@ -6,7 +6,7 @@ public class UpgradeManager : MonoBehaviour
 {
     private PlayerController player;
     private System.Action[] upgradeActions;
-
+    [Header("Base Upgrade Multipliers")]
     [SerializeField] float speedMultiplier = 1.2f;
     [SerializeField] float fireRateMultiplier = 1.2f;
     [SerializeField] float projectileSpeedMultiplier = 1.3f;
@@ -26,9 +26,21 @@ public class UpgradeManager : MonoBehaviour
         };
     }
 
-    private void UpgradeSpeed() => player.UpgradeSpeed(speedMultiplier);
-    private void UpgradeProjectileSpeed() => player.UpgradeProjectileSpeed(projectileSpeedMultiplier);
-    private void UpgradeFireRate() => player.UpgradeFireRate(fireRateMultiplier);
+    private void UpgradeSpeed()
+    {
+        float randomMultiplier = UnityEngine.Random.Range(1.1f, 1.3f);
+        player.UpgradeSpeed(randomMultiplier);
+    }
+    private void UpgradeProjectileSpeed()
+    {
+        float randomMultiplier = UnityEngine.Random.Range(1.1f, 1.3f);
+        player.UpgradeProjectileSpeed(randomMultiplier);
+    }
+    private void UpgradeFireRate()
+    {
+        float randomMultiplier = UnityEngine.Random.Range(1.1f, 1.3f);
+        player.UpgradeFireRate(randomMultiplier);
+    }
 
     public void TriggerUpgrades()
     {
