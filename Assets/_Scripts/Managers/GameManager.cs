@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
