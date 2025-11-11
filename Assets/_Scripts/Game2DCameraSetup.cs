@@ -16,6 +16,8 @@ public class GameCameraSetup : MonoBehaviour
 
     private void Awake()
     {
+        if (!Application.isPlaying)
+            return;
         // Ensure singleton instance
         if (Instance == null)
         {
@@ -69,6 +71,7 @@ public class GameCameraSetup : MonoBehaviour
         if (loadedFromMainMenu)
         {
             cam.targetTexture = renderTexture;
+            GetComponent<AudioListener>().enabled = false; // Disable audio listener to avoid conflicts with main camera
         }
         else
         {

@@ -21,7 +21,6 @@ public class Button3D : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Debug.Log("Mouse Down");
         Press();
     }
     public void Press()
@@ -41,13 +40,11 @@ public class Button3D : MonoBehaviour
     private void OnMouseEnter()
     {
         if (isActivated) return;
-        Debug.Log("Mouse Enter");
         Select();
     }
     private void OnMouseExit()
     {
         if (isActivated) return;
-        Debug.Log("Mouse Exit");
         Deselect();
     }
 

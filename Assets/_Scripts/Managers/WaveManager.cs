@@ -154,6 +154,7 @@ public class WaveManager : MonoBehaviour
     {
         waveBudget = currentWave * 5;
         enemiesToSpawn = GenerateEnemies();
+        ws.Setup();
     }
 
     private List<GameObject> GenerateEnemies()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1586548051557810043}
   - component: {fileID: 5321544307639938862}
   - component: {fileID: 6034791491845166280}
+  - component: {fileID: 246368832726028493}
   m_Layer: 0
   m_Name: Screen
   m_TagString: TankScreen
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.0012342593, y: -0.7072291, z: 0.7069823, w: -0.0012338286}
   m_LocalPosition: {x: 0.7985, y: 1.2098, z: -0.2999}
-  m_LocalScale: {x: 0.02702299, y: 0.02, z: 0.01992941}
+  m_LocalScale: {x: 0.027022988, y: 0.02, z: 0.01992941}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1687858625567264912}
@@ -148,6 +149,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &246368832726028493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299371216356215931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fc3fdd6cf789a49b90e70825ede560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderTexture: {fileID: 8400000, guid: 502caf487b3afc3499f49f82d6298749, type: 2}
+  uiCanvas: {fileID: 0}
+  clickIndicator: {fileID: 0}
+  isUIActive: 1
+  scale: 0.69
+  texAspect: 3.88
+  screenAspect: 5.45
 --- !u!1 &7979434489188094838
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,4 +61,5 @@ public class UIManager : MonoBehaviour
     }
 
     public bool IsSettingsOpen() { return isSettingsOpen; }
+    public Canvas GetUICanvas() { return uiCanvas; }
 }

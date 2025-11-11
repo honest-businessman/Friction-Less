@@ -11,7 +11,7 @@ public class WallSpawning : MonoBehaviour
     private HashSet<Vector3Int> usedTiles = new HashSet<Vector3Int>();
     private bool spawningFlag = false;
 
-    private void Start()
+    public void Setup()
     {
         GameObject wallGen = GameObject.FindGameObjectWithTag("WallGen");
         if (wallGen == null)

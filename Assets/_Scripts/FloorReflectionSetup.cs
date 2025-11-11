@@ -94,7 +94,6 @@ public class FloorReflectionSetup : MonoBehaviour
         if (reflectionRT != null)
         {
             reflectionRT.Release();
-            DestroyImmediate(reflectionRT);
         }
     }
 }

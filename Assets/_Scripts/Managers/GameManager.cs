@@ -84,11 +84,11 @@ public class GameManager : MonoBehaviour
             {
                 UIManager.Instance.SetRenderTextureMode(uiRenderTexture);
                 UIManager.Instance.ShowMainMenu();
-                
+                ScreenManager.Instance.AssignUI();
+                Debug.Log("UI Scene Loaded.");
+                InputManager.Instance.EnableUIInput();
             }));
-            Debug.Log("UI Scene Loaded.");
         } 
-        InputManager.Instance.EnableUIInput();
     }
 
     public IEnumerator EnterGame()

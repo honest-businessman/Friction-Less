@@ -85,6 +85,12 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    public void AssignUI()
+    {
+        Canvas canvas = UIManager.Instance.GetUICanvas();
+        screenObj.GetComponent<RenderTextureUIInteractor>().SetupCanvas(canvas);
+    }
+
     public void SetScreen(ScreenType screenType)
     {
         if (screenType == ScreenType.Menu)
