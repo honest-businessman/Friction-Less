@@ -157,6 +157,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5051428080446543189}
+  - {fileID: 369918476803401108}
   - {fileID: 633766777473654193}
   m_Father: {fileID: 7610709406202197155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -294,6 +295,81 @@ PlayableDirector:
     - c5465320bbd73004aa50674fa3680141: {fileID: 3139450663801108939}
     - a94789b407b663d4dbc5ed2fb4a7293e: {fileID: 6730053233284352845}
     - d998fd50083bd4545a66c3bb320328fb: {fileID: 6730053233284352845}
+--- !u!1 &8711253803247379092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369918476803401108}
+  - component: {fileID: 5852954289467950683}
+  m_Layer: 0
+  m_Name: SettingCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369918476803401108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711253803247379092}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.17248487, y: -0.10806702, z: -0.0064499076, w: 0.979045}
+  m_LocalPosition: {x: -0.6743, y: 0.0278, z: -17.4837}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4584214487835937335}
+  m_LocalEulerAnglesHint: {x: -19.824, y: -12.86, z: 1.502}
+--- !u!114 &5852954289467950683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711253803247379092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority:
+    Enabled: 1
+    m_Value: 20
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 50
+    OrthographicSize: 5
+    NearClipPlane: 0.04137331
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1 &8761139702144812251
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +423,7 @@ MonoBehaviour:
   durationMultiplier: 0.08
   speed: 0.1
   shakeMultiplier: 0.05
+  reduceShake: 0
   OnGameCameraSwitchCompleted:
     m_PersistentCalls:
       m_Calls: []

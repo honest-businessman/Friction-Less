@@ -20,16 +20,17 @@ public class GameManager : MonoBehaviour
     }
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
 
-    [SerializeField]
-    private GameObject playerPrefab;
-    [SerializeField]
-    private float restartDelay = 3f;
-    [SerializeField]
-    private float waveDelay = 3f;
+    [Header("Behaviour")]
+    [SerializeField] private float restartDelay = 3f;
+    [SerializeField] private float waveDelay = 3f;
 
-    [SerializeField]
-    private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
+    [Header("2D Scene Setup")]
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private RenderTexture uiRenderTexture;
+    [SerializeField] private Vector3 gameSceneOffset = new Vector3(10, 0, 0);
+
+    [Header("Settings - Handled by Settings Manager")]
+    public bool trainMode = false;
 
     public bool isMainScene;
 

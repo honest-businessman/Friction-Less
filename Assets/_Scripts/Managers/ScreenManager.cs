@@ -146,7 +146,6 @@ public class ScreenManager : MonoBehaviour
         GameEvents.OnGameStarted += listener;
     }
 
-
     public void ExitPressed()
     {
         if (inputLocked) return;
@@ -162,10 +161,12 @@ public class ScreenManager : MonoBehaviour
         if (UIManager.Instance.IsSettingsOpen())
         {
             SetScreen(ScreenType.Menu);
+            MenuEvents.OnSettingsClosed?.Invoke();
         }
         else
         {
            SetScreen(ScreenType.Settings);
+           MenuEvents.OnSettingsOpened?.Invoke();
         }
         
         Debug.Log("Opening Settings");

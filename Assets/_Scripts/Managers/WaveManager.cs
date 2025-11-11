@@ -92,37 +92,43 @@ public class WaveManager : MonoBehaviour
             StartWallSpawning(wall.wallPrefab, wallInterval);
         }
 
-        float spawnInterval = enemiesToSpawn.Count > 0 ? (spawningDuration / enemiesToSpawn.Count) : 0f;
-        float elapsed = 0f;
-
-        // Spawn enemies gradually
-        while (elapsed < spawningDuration && enemiesToSpawn.Count > 0)
+        if (!GameManager.Instance.trainMode)
         {
-            GameObject enemyPrefab = enemiesToSpawn[0];
-            GameObject enemySpawned = sps.SpawnAtRandomSpawnPoint(enemyPrefab);
-            enemiesToSpawn.RemoveAt(0);
-            if (enemySpawned != null)
+            float spawnInterval = enemiesToSpawn.Count > 0 ? (spawningDuration / enemiesToSpawn.Count) : 0f;
+            float elapsed = 0f;
+
+            // Spawn enemies gradually
+            while (elapsed < spawningDuration && enemiesToSpawn.Count > 0)
             {
-                OnEnemySpawned?.Invoke(enemySpawned);
-                activeEnemies.Add(enemySpawned);
-                if (enemySpawned.TryGetComponent(out HealthSystem health))
+                GameObject enemyPrefab = enemiesToSpawn[0];
+                GameObject enemySpawned = sps.SpawnAtRandomSpawnPoint(enemyPrefab);
+                enemiesToSpawn.RemoveAt(0);
+                if (enemySpawned != null)
                 {
-                    System.Action handler = null;
-                    handler = () =>
+                    OnEnemySpawned?.Invoke(enemySpawned);
+                    activeEnemies.Add(enemySpawned);
+                    if (enemySpawned.TryGetComponent(out HealthSystem health))
                     {
-                        activeEnemies.Remove(enemySpawned);
-                        health.OnDie -= handler; // unsubscribe immediately
-                        if (activeEnemies.Count == 0 && enemiesToSpawn.Count == 0)
-                            EndWaveEarly();
-                    };
-                    health.OnDie += handler;
+                        System.Action handler = null;
+                        handler = () =>
+                        {
+                            activeEnemies.Remove(enemySpawned);
+                            health.OnDie -= handler; // unsubscribe immediately
+                            if (activeEnemies.Count == 0 && enemiesToSpawn.Count == 0)
+                                EndWaveEarly();
+                        };
+                        health.OnDie += handler;
+                    }
                 }
+
+                yield return new WaitForSeconds(spawnInterval);
+                elapsed += spawnInterval;
             }
-
-            yield return new WaitForSeconds(spawnInterval);
-            elapsed += spawnInterval;
         }
-
+        else
+        {
+            Debug.Log("Training Mode Active. No enemies will be spawned.");
+        }
         // Wait out remaining wave duration
         yield return new WaitForSeconds(waveDuration - spawningDuration);
         StopWallSpawning();

@@ -12,6 +12,7 @@ public class CameraAnimationManager : MonoBehaviour
     [SerializeField] private GameObject screen;
     [SerializeField] private GameObject streetLightDirect;
     [SerializeField] private CinemachineCamera menuCam;
+    [SerializeField] private CinemachineCamera settingCam;
     [SerializeField] private CinemachineCamera gameCam;
 
     [Header("Camera Shake Settings")]
@@ -19,13 +20,15 @@ public class CameraAnimationManager : MonoBehaviour
     [SerializeField] private float speed = 0.07f;
     [SerializeField] private float shakeMultiplier = 0.01f;
 
+    [Header("Settings - Handled by Settings Manager")]
+    public bool reduceShake = false;
+
     public UnityEvent OnGameCameraSwitchCompleted = new UnityEvent();
 
     private HealthSystem playerHealth;
     private Camera cam;
     private SpriteSheetAnimator ssa;
     private Coroutine shakeCoroutine;
-    private PlayableDirector playableDirector;
     
     private CinemachineBasicMultiChannelPerlin noise;
 
@@ -43,7 +46,6 @@ public class CameraAnimationManager : MonoBehaviour
 
         if(screen != null) { ssa = screen.GetComponent<SpriteSheetAnimator>(); }
         cam = Camera.main;
-        playableDirector = GetComponentInChildren<PlayableDirector>();
 
         noise = gameCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
     }
@@ -55,6 +57,8 @@ public class CameraAnimationManager : MonoBehaviour
         if (ssa != null)
             ssa.OnStreetLightTrigger.AddListener(HandleLightTriggered);
         GameEvents.OnGameStarted += HandleGameStart;
+        MenuEvents.OnSettingsOpened += HandleSettingsOpened;
+        MenuEvents.OnSettingsClosed += HandleSettingsClosed;
 
     }
 
@@ -65,6 +69,8 @@ public class CameraAnimationManager : MonoBehaviour
         if (ssa != null)
             ssa.OnStreetLightTrigger.RemoveListener(HandleLightTriggered);
         GameEvents.OnGameStarted -= HandleGameStart;
+        MenuEvents.OnSettingsOpened -= HandleSettingsOpened;
+        MenuEvents.OnSettingsClosed -= HandleSettingsClosed;
 
         if (playerHealth != null)
         {
@@ -96,7 +102,20 @@ public class CameraAnimationManager : MonoBehaviour
     private void HandleGameStart()
     {
         Debug.Log("Start Sequence was triggered!");
-        playableDirector.Play();
+        StartCoroutine(TransitionToGameCamera());
+    }
+    private IEnumerator TransitionToGameCamera()
+    {
+        yield return new WaitForSeconds(1f); // Short delay for scene loading
+        gameCam.Priority = menuCam.Priority > settingCam.Priority ? menuCam.Priority + 1 : settingCam.Priority + 1;
+    }
+    private void HandleSettingsOpened()
+    {
+        settingCam.Priority = menuCam.Priority + 1;
+    }
+    private void HandleSettingsClosed()
+    {
+        settingCam.Priority = menuCam.Priority - 1;
     }
 
     private void HandlePlayerDamageTaken(int remainingHealth, int maxHealth)
@@ -107,6 +126,10 @@ public class CameraAnimationManager : MonoBehaviour
 
     public void ShakeCamera(int intensity = 1)
     {
+        if(reduceShake)
+        {
+            return;
+        }
 
         // You can tweak duration and magnitude per intensity level
         float duration = durationMultiplier * intensity;
