@@ -309,6 +309,13 @@ MonoBehaviour:
   DeathVFX: {fileID: 6429035345946287399, guid: 33394f4719a322f4d8df3d2418a7ae6a, type: 3}
   xpContainer: {fileID: 5878789037923216627, guid: 672d6149646181644a4925dc0dfab62a, type: 3}
   dropXP: 1
+  targetRenderer1: {fileID: 0}
+  targetRenderer2: {fileID: 0}
+  targetRenderer3: {fileID: 0}
+  targetRenderer4: {fileID: 0}
+  spriteAt3HP: {fileID: 0}
+  spriteAt2HP: {fileID: 0}
+  spriteAt1HP: {fileID: 0}
 --- !u!114 &8481944963521392265
 MonoBehaviour:
   m_ObjectHideFlags: 0

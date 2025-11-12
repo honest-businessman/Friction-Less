@@ -165,9 +165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSize: 3.5
-  heavySize: 1.5
+  heavySize: 2
   lightPenalty: 3000
-  heavyPenalty: 10000
+  heavyPenalty: 8000
   proximityPenaltyCooldown: 0.2
   wallErosionPenalty: 5000
   mapObjectSize: 3

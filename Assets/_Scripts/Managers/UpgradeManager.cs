@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class UpgradeManager : MonoBehaviour
 {
+    public static UpgradeManager Instance { get; private set; }
+
     private PlayerController player;
     private System.Action[] upgradeActions;
 
@@ -13,6 +15,16 @@ public class UpgradeManager : MonoBehaviour
 
     // Number of upgrades to offer
     [SerializeField] int upgradesToOffer = 3;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {

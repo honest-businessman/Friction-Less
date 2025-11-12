@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public bool trainMode = false;
 
     public bool isMainScene;
+    public GameObject player;
 
     private InputManager inputManager;
     private bool isUiSceneLoaded = false;
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
     private string mainMenuSceneName = "MainMenu";
     private string gameSceneName = "FrictionLess";
     private string uiSceneName = "UIScene";
-    GameObject player;
 
     private void Awake()
     {

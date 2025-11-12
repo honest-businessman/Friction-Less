@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -12,8 +13,11 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
     public GameObject pausePanel;
+    public GameObject upgradePanel;
 
+    private UpgradeUI upgradeUI;
     private bool isSettingsOpen = false;
+    private Action<Action[]> upgradeHandler;
 
     private void Awake()
     {
@@ -26,6 +30,34 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         uiCamera = GameObject.FindWithTag("2D Camera").GetComponent<Camera>();
+        upgradeUI = upgradePanel.GetComponent<UpgradeUI>();
+    }
+
+    private void OnEnable()
+    {
+        upgradeHandler = (actions) =>
+        {
+            upgradeUI.gameObject.SetActive(true);
+            upgradeUI.ShowUpgradeOptions(actions);
+        };
+
+        UpgradeEvents.OnUpgradesAvailable += upgradeHandler;
+    }
+
+    private void OnDisable()
+    {
+        UpgradeEvents.OnUpgradesAvailable -= upgradeHandler;
+    }
+
+    public void HandleNavigate(Vector2 direction)
+    {
+        if (upgradeUI.isActiveAndEnabled) { upgradeUI.HandleNavigate(direction); }
+    }
+
+    public void HandleSubmit()
+    {
+        if (upgradeUI.isActiveAndEnabled) { upgradeUI.HandleSubmit(); }
+        
     }
 
     public void SetRenderTextureMode(RenderTexture target)

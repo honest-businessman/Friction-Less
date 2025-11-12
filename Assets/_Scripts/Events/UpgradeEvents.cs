@@ -7,6 +7,7 @@ public static class UpgradeEvents
 
     public static void UpgradesAvailable(params System.Action[] upgrades)
     {
+        Debug.Log("Upgrades available event triggered.");
         OnUpgradesAvailable?.Invoke(upgrades);
     }
 }

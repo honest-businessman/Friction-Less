@@ -69,7 +69,7 @@ MonoBehaviour:
   spawnBlockingEnemyMask:
     serializedVersion: 2
     m_Bits: 0
-  blockSpawnCheckRadius: 2
+  blockSpawnCheckRadius: 3
   currentWave: 0
   waveBudget: 0
   enemiesToSpawn: []

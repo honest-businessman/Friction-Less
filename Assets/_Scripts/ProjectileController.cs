@@ -42,19 +42,15 @@ public class ProjectileController : MonoBehaviour
 
     public void HandleTrigger(Collider2D other)
     {
-        Debug.Log($"Triggered by: {other.gameObject.name}");
-
         if (other.TryGetComponent(out FactionController otherFC))
         {
             if (fc.IsSameFaction(otherFC))
             {
-                Debug.Log("Same faction - ignoring.");
                 return;
             }
 
             if (other.TryGetComponent(out HealthSystem otherHS))
             {
-                Debug.Log("Damaging target.");
                 otherHS.TakeDamage(damage);
                 Destroy(gameObject);
             }
@@ -72,14 +68,12 @@ public class ProjectileController : MonoBehaviour
         }
         if (bounceCount >= maxBounces)
         {
-            Debug.Log("Destroying projectile due to max bounces.");
             Destroy(gameObject);
             return;
         }
 
         if (Time.time - lastBounceTime < bounceCooldown)
         {
-            Debug.Log("Bounce ignored due to time");
             return;
         }
 
@@ -91,19 +85,11 @@ public class ProjectileController : MonoBehaviour
 
         float angleDiff = Vector2.Angle(lastDirection, reflected);
 
-        // If the angle change is too small, ignore the bounce (prevents parallel jitter)
-        /*if (angleDiff < minBounceAngle)
-        {
-            Debug.Log("Bounce ignored due to angle");
-            return;
-        }*/
-
         rb.linearVelocity = reflected * speed;
         lastDirection = reflected;
         lastBounceTime = Time.time;
 
         bounceCount++;
-        Debug.Log($"BOUNCES: {bounceCount}/{maxBounces}");
 
         if (impactFX != null)
         {
