@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!212 &114372950 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5206092232246172004, guid: 2522624f2dbfba145acc80763068e540, type: 3}
-  m_PrefabInstance: {fileID: 1607849421}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &199498342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,62 +130,6 @@ PrefabInstance:
     - target: {fileID: 213092101655995850, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465624942689872115, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: m_Time
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465624942689872115, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: m_MinVertexDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: trailFadeOutTime
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: health
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: maxHealth
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: spriteAt1HP
-      value: 
-      objectReference: {fileID: 2045994070260232039, guid: 7ff0dad3aae48db40b0077ca24f22e51, type: 3}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: spriteAt2HP
-      value: 
-      objectReference: {fileID: 6540464533205305539, guid: 2a036ea9712359e41ba965a49ed5bc5b, type: 3}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: spriteAt3HP
-      value: 
-      objectReference: {fileID: -2637150370873066781, guid: 075321232de94b043b95a48fe6d7a2c4, type: 3}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: targetRenderer
-      value: 
-      objectReference: {fileID: 2128366598}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: targetRenderer1
-      value: 
-      objectReference: {fileID: 2128366598}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: targetRenderer2
-      value: 
-      objectReference: {fileID: 2010904576}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: targetRenderer3
-      value: 
-      objectReference: {fileID: 114372950}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: targetRenderer4
-      value: 
-      objectReference: {fileID: 1988884456}
-    - target: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: regenerateHealth
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2759497254178083693, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -232,72 +171,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4768731536022952363, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: m_Time
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: level
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: xpToLevelUp
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: xpCostScaling
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: upgradeManager
-      value: 
-      objectReference: {fileID: 624905546}
-    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
-      propertyPath: intialXpToLevelUp
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
---- !u!84 &216498784
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: ReflectionRenderTexture
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 3413
-  m_Height: 1920
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &526722177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -379,17 +257,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2522624f2dbfba145acc80763068e540, type: 3}
---- !u!114 &624905546 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
-  m_PrefabInstance: {fileID: 1983749787}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57dd0635ef70d7b478c6d329456af6ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &662370833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,6 +338,48 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2522624f2dbfba145acc80763068e540, type: 3}
+--- !u!20 &792055538 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
+  m_PrefabInstance: {fileID: 3090318916966835265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!84 &1117794089
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ReflectionRenderTexture
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 3413
+  m_Height: 1920
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &1340235287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,11 +520,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2522624f2dbfba145acc80763068e540, type: 3}
---- !u!20 &1763103130 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 378424061738334995, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
-  m_PrefabInstance: {fileID: 3090318916966835265}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1983749787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,21 +589,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
---- !u!212 &1988884456 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5206092232246172004, guid: 2522624f2dbfba145acc80763068e540, type: 3}
-  m_PrefabInstance: {fileID: 662370833}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &2010904576 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5206092232246172004, guid: 2522624f2dbfba145acc80763068e540, type: 3}
-  m_PrefabInstance: {fileID: 526722177}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &2128366598 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5206092232246172004, guid: 2522624f2dbfba145acc80763068e540, type: 3}
-  m_PrefabInstance: {fileID: 4639255743445334383}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2648216308379412851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,9 +602,13 @@ PrefabInstance:
       value: Grid
       objectReference: {fileID: 0}
     - target: {fileID: 3034698183750671931, guid: 9e283057f18386f49a480776df584e49, type: 3}
-      propertyPath: MainCamera
+      propertyPath: reflectionCamera
       value: 
-      objectReference: {fileID: 1763103130}
+      objectReference: {fileID: 792055538}
+    - target: {fileID: 4654778070710054712, guid: 9e283057f18386f49a480776df584e49, type: 3}
+      propertyPath: m_UseDelaunayMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8443572314203612655, guid: 9e283057f18386f49a480776df584e49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -816,7 +709,7 @@ PrefabInstance:
     - target: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 216498784}
+      objectReference: {fileID: 1117794089}
     - target: {fileID: 2913776580617316615, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_Name
       value: Game2DCamera

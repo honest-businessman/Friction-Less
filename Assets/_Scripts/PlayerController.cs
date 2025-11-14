@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections; // ✅ Added for coroutine
+using System.Collections; 
 
 public class PlayerController : CharacterBase
 {
@@ -37,10 +37,14 @@ public class PlayerController : CharacterBase
     [SerializeField] private TrailRenderer trailLeft;
     [SerializeField] private TrailRenderer trailRight;
     [SerializeField] private float trailFadeOutTime = 0.5f;
+    [SerializeField] private GameObject battery;
+    [SerializeField] private SpriteRenderer batterySR;
+    private Color originalBatteryColor;
     private Coroutine fadeRoutine;
 
     [HideInInspector] public bool driftPressed;
 
+    private float chargePauseEndTime = 0f;
     public GameObject turret;
     public TurretController turretController;
 
@@ -60,14 +64,6 @@ public class PlayerController : CharacterBase
     private float timeLastCharge;
     private Vector2 aimInput;
     private Quaternion lastTurretDirection;
-
-    private void Start()
-    {
-        // Ensure trails are hidden when the game starts
-        if (trailLeft != null) trailLeft.emitting = false;
-        if (trailRight != null) trailRight.emitting = false;
-    }
-
 
     void Awake()
     {
@@ -97,6 +93,26 @@ public class PlayerController : CharacterBase
         {
             turretController = turret.GetComponent<TurretController>();
         }
+
+        batterySR = battery.GetComponent<SpriteRenderer>();
+        originalBatteryColor = batterySR.material.color;
+    }
+
+    private void Start()
+    {
+        // Ensure trails are hidden when the game starts
+        if (trailLeft != null) trailLeft.emitting = false;
+        if (trailRight != null) trailRight.emitting = false;
+    }
+
+
+    private void OnEnable()
+    {
+        PlayerEvents.OnPlayerFireCharged += DelayChargingDrive;
+    }
+    private void OnDisable()
+    {
+        PlayerEvents.OnPlayerFireCharged -= DelayChargingDrive;
     }
 
     public void Move(Vector2 moveVector)
@@ -228,8 +244,18 @@ public class PlayerController : CharacterBase
         rb.angularVelocity = 0f;
     }
 
+    private void DelayChargingDrive(float delay)
+    {
+        chargePauseEndTime = Time.time + delay;
+        batterySR.material.color = Color.grey;
+    }
+
+
     private void ChargeDrive()
     {
+        if (Time.time < chargePauseEndTime)
+            return; // charging paused
+        batterySR.material.color = originalBatteryColor;
 
         Vector2 velocity = rb.linearVelocity;
         float mag = velocity.magnitude;
@@ -254,6 +280,9 @@ public class PlayerController : CharacterBase
 
     private void FadeDrive()
     {
+        if (Time.time < chargePauseEndTime)
+            return; // fading paused
+
         if (Time.time - timeLastCharge > chargeFadeDelay && DriveCharge > 0f)
             DriveCharge -= (dischargePerSecond * Time.deltaTime) * Mathf.Clamp01((Time.time - timeLastCharge) / chargeFadeDelay);
         else

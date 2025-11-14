@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1928322027661639612}
   - component: {fileID: 3434335921872645592}
   - component: {fileID: 4246413097871354376}
+  - component: {fileID: 5086430058680363495}
   m_Layer: 11
   m_Name: Blockades
   m_TagString: Untagged
@@ -454,6 +455,33 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!50 &5086430058680363495
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79753246806214774}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &423248018461084391
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +494,7 @@ GameObject:
   - component: {fileID: 4669012114190911179}
   - component: {fileID: 8483504354777696264}
   - component: {fileID: 4654778070710054712}
+  - component: {fileID: 6824429163948118704}
   m_Layer: 11
   m_Name: CollisionWalls
   m_TagString: Untagged
@@ -1632,6 +1661,33 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!50 &6824429163948118704
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423248018461084391}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1887174784767120730
 GameObject:
   m_ObjectHideFlags: 0
@@ -7861,7 +7917,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 2495544903362811927}
-  mainCamera: {fileID: 0}
   reflectionCamera: {fileID: 0}
   floorMaterial: {fileID: 2100000, guid: 892c4fa29c9ac554cbbfdce06424b975, type: 2}
   targetTextureHeight: 1920

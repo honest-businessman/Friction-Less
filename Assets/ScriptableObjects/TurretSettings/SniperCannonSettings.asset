@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5416c44f1673c54f870a8d5e3a77807, type: 3}
   m_Name: SniperCannonSettings
   m_EditorClassIdentifier: 
-  sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
-  spriteColor: {r: 1, g: 1, b: 1, a: 1}
+  sprite: {fileID: -4095391172050105586, guid: 1fb3d87df0c0b6e409435a073da0d1c0, type: 3}
+  color: {r: 1, g: 0.4152124, b: 0, a: 1}
   isNormalHitscan: 0
   shellSpeed: 16
   shellSize: 0.15

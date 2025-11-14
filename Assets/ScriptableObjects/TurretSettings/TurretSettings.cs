@@ -4,7 +4,7 @@ using UnityEngine;
 public class TurretSettings : ScriptableObject
 {
     public Sprite sprite;
-    public Color spriteColor;
+    public Color color;
     public bool isNormalHitscan = false;
     public float shellSpeed = 9f;
     public float shellSize = 0.3f;

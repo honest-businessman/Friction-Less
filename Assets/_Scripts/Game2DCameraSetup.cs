@@ -50,7 +50,6 @@ public class GameCameraSetup : MonoBehaviour
         if (renderTexture == null)
         {
             cam.targetTexture = null;
-            Debug.LogWarning("RenderTexture not assigned, rendering normally.");
             return;
         }
 

@@ -6,16 +6,14 @@ using UnityEngine.InputSystem;
 
 public class FiringSystem : MonoBehaviour
 {
-    [SerializeField]
-    LayerMask chargedHitList;
-    [SerializeField]
-    GameObject hitscanTrailPrefab;
-    [SerializeField]
-    private float trailSpeed = 300f;
-    [SerializeField]
-    private float bounceDelay = 0.5f;
+    [SerializeField] LayerMask chargedHitList;
+    [SerializeField] GameObject hitscanTrailPrefab;
+    [SerializeField] private float trailSpeed = 300f;
+    [SerializeField] private float bounceDelay = 0.5f;
+    [SerializeField] private float chargeStartDelay = 2f;
+    [SerializeField] private Transform muzzle;
 
-    private float firingTimer = 0f;
+    private float normalFiringTimer = 0f;
     private bool isPlayer = false;
     private bool canCharge = false;
     private GameObject turret;
@@ -77,18 +75,19 @@ public class FiringSystem : MonoBehaviour
 
         // Get current turret parameters, need to implement only getting new parameters on weapon change
         turretController = turret.GetComponent<TurretController>();
-
-        if (Time.time - firingTimer >= 1 / turretController.CurrentSettings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
+        if (cb.DriveCharge >= 100f)
         {
-            firingTimer = Time.time;
-            firePosition = turret.transform.position + (turret.transform.up * turretController.CurrentSettings.spawnOffset);
-            if (cb.DriveCharge >= 100f)
-            {
-                Debug.Log("Fire Charged!");
-                FireCharged();
-                cb.DrainDrive();
-                return;
-            }
+            Debug.Log("Fire Charged!");
+            PlayerEvents.OnPlayerFireCharged?.Invoke(chargeStartDelay);
+            firePosition = muzzle.position;
+            FireCharged();
+            cb.DrainDrive();
+            return;
+        }
+        else if (Time.time - normalFiringTimer >= 1 / turretController.CurrentSettings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
+        {
+            normalFiringTimer = Time.time;
+            firePosition = muzzle.position;
             FireNormal();
         }
     }
@@ -114,7 +113,7 @@ public class FiringSystem : MonoBehaviour
     // Fires a physical projectile that can bounce.
     void FireShell()
     {
-        GameObject shell = Instantiate(turretController.CurrentSettings.shellPrefab, firePosition, turret.transform.rotation);
+        GameObject shell = Instantiate(turretController.CurrentSettings.shellPrefab, muzzle.position, muzzle.rotation);
         shell.GetComponent<ProjectileController>().Initialize(turretController.CurrentSettings.shellBounces, turretController.CurrentSettings.shellDamage, turretController.CurrentSettings.shellLifetime, fc.Faction);
         shell.transform.localScale = new Vector2(turretController.CurrentSettings.shellSize, turretController.CurrentSettings.shellSize);
         shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretController.CurrentSettings.shellSpeed;
@@ -131,9 +130,9 @@ public class FiringSystem : MonoBehaviour
 
         if (shotType == 0) // Ready raycast for first shot
         {
-            rayOrigin = firePosition;
-            rayDirection = turret.transform.up;
-            trailRotation = turret.transform.rotation;
+            rayOrigin = muzzle.position;
+            rayDirection = muzzle.up;
+            trailRotation = muzzle.rotation;
             Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * turretController.CurrentSettings.hitscanRange;
             Debug.DrawLine(rayOrigin, debugRayEndpoint, Color.green, 3f);
         }

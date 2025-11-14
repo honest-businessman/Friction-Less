@@ -20,6 +20,7 @@ TagManager:
   - ReflectionCamera
   - TankScreen
   - 2D Camera
+  - Muzzle
   layers:
   - Default
   - TransparentFX

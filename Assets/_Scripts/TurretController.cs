@@ -21,7 +21,7 @@ public class TurretController : MonoBehaviour
             return;
         }
 
-        ResetTurret();
+        SetNewTurret();
     }
     public void ResetTurret()
     {
@@ -37,6 +37,14 @@ public class TurretController : MonoBehaviour
         currentSettings.shellDamage += upgradeStats.damageModifier;
         currentSettings.hitscanDamage += upgradeStats.damageModifier;
         currentSettings.shellSpeed *= upgradeStats.shellSpeedModifier;
+    }
+    private void SetNewTurret()
+    {
+        ApplyUpgrades();
+
+        SpriteRenderer sprender = gameObject.GetComponent<SpriteRenderer>();
+        sprender.sprite = currentSettings.sprite;
+        sprender.material.color = currentSettings.color;
     }
 
     public void ChangeTurret(float changeInput)
@@ -56,16 +64,21 @@ public class TurretController : MonoBehaviour
             turretIndex = (turretIndex - 1 + equippedTurrets.Count) % equippedTurrets.Count;
         }
 
-        SetNewTurret(currentSettings);
+        SetNewTurret();
     }
 
-    private void SetNewTurret(TurretSettings newSettings)
+    public void SetTurretByIndex(int index)
     {
-        SpriteRenderer sprender = gameObject.GetComponent<SpriteRenderer>();
-        sprender.sprite = newSettings.sprite;
+        if (index < 0 || index >= equippedTurrets.Count)
+        {
+            Debug.LogError("Invalid turret index!");
+            return;
+        }
 
-        ApplyUpgrades();
+        turretIndex = index;
+        SetNewTurret();
     }
+
 
     // methods to upgrade turret stats
     public void UpgradeFireRate(float multiplier)

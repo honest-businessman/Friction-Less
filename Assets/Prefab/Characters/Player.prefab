@@ -241,9 +241,9 @@ MonoBehaviour:
   targetRenderer2: {fileID: 0}
   targetRenderer3: {fileID: 0}
   targetRenderer4: {fileID: 0}
-  spriteAt3HP: {fileID: 0}
-  spriteAt2HP: {fileID: 0}
-  spriteAt1HP: {fileID: 0}
+  spriteAt3HP: {fileID: -2637150370873066781, guid: 075321232de94b043b95a48fe6d7a2c4, type: 3}
+  spriteAt2HP: {fileID: 6540464533205305539, guid: 2a036ea9712359e41ba965a49ed5bc5b, type: 3}
+  spriteAt1HP: {fileID: 2045994070260232039, guid: 7ff0dad3aae48db40b0077ca24f22e51, type: 3}
 --- !u!114 &2531162805804896880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +276,9 @@ MonoBehaviour:
   trackLeftAnimator: {fileID: 0}
   trailLeft: {fileID: 4768731536022952363}
   trailRight: {fileID: 2465624942689872115}
-  trailFadeOutTime: 0.5
+  trailFadeOutTime: 1.5
+  battery: {fileID: 1271005985674533720}
+  batterySR: {fileID: 0}
   driftPressed: 0
   turret: {fileID: 1596308201891408184}
   turretController: {fileID: 0}
@@ -299,6 +301,8 @@ MonoBehaviour:
   hitscanTrailPrefab: {fileID: 4426810399315598589, guid: c9c829268ecd94d49a34a658782cd962, type: 3}
   trailSpeed: 300
   bounceDelay: 0.03
+  chargeStartDelay: 2
+  muzzle: {fileID: 8775208010113824897}
 --- !u!114 &7546853941866593753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8172d0a1f6d3b741a5c14a2770e638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intialXpToLevelUp: 30
+  intialXpToLevelUp: 10
   xpCostScaling: 1.2
   currentXP: 0
   currentXpToLevelUp: 0
@@ -559,16 +563,8 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1133199572663830322, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1133199572663830322, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1133199572663830322, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2116086713410825488, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
       propertyPath: m_Name
@@ -624,6 +620,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1133199572663830322, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
   m_PrefabInstance: {fileID: 936287555635131976}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1271005985674533720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2116086713410825488, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
+  m_PrefabInstance: {fileID: 936287555635131976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7279389836513585763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7636920721850702891, guid: a9db410316ddfd949bd46d7714a61590, type: 3}
@@ -639,7 +640,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 974611342969459372, guid: 73faef9e518243649a96f4ad9763bf49, type: 3}
       propertyPath: m_Time
-      value: 1
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 974611342969459372, guid: 73faef9e518243649a96f4ad9763bf49, type: 3}
+      propertyPath: m_MinVertexDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2612573946428145005, guid: 73faef9e518243649a96f4ad9763bf49, type: 3}
       propertyPath: m_LocalPosition.x
@@ -799,6 +804,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6766343977067499528, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
   m_PrefabInstance: {fileID: 3605788503811163864}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &8775208010113824897 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5462189852133244505, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+  m_PrefabInstance: {fileID: 3605788503811163864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4286174857521715253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -871,7 +881,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 817155655507293592, guid: 1d8e697720ffd70489363a79f3f7b42d, type: 3}
       propertyPath: m_Time
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 817155655507293592, guid: 1d8e697720ffd70489363a79f3f7b42d, type: 3}
       propertyPath: m_MinVertexDistance

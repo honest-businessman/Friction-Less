@@ -25,13 +25,12 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         Instance = this;
-
-        turretController = player.turretController;
     }
 
     void Start()
     {
         player = FindFirstObjectByType<PlayerController>();
+        turretController = player.turretController;
 
         upgradeActions = new System.Action[]
         {
