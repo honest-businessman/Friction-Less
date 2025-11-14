@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
             }));
             Debug.Log("UI Scene Loaded.");
         }
-        
+        else { UIManager.Instance.HideAll(); }
         Time.timeScale = 1f;
         CleanupPlayer();
         CurrentState = GameState.InGame;

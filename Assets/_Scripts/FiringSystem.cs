@@ -20,7 +20,6 @@ public class FiringSystem : MonoBehaviour
     private bool canCharge = false;
     private GameObject turret;
     private TurretController turretController;
-    private TurretSettings settings;
     private Vector2 firePosition;
     private Rigidbody2D rb;
     private FactionController fc;
@@ -28,8 +27,6 @@ public class FiringSystem : MonoBehaviour
     public delegate void ImpactAction();
     public static event ImpactAction OnImpact;
     private TrailRenderer tr;
-
-    public TurretSettings Settings => settings;
 
     private void Awake()
     {
@@ -51,6 +48,7 @@ public class FiringSystem : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         fc = GetComponent<FactionController>();
+        turretController = turret.GetComponent<TurretController>();
     }
 
     private Transform FindTagInChildren(string tag)
@@ -79,12 +77,11 @@ public class FiringSystem : MonoBehaviour
 
         // Get current turret parameters, need to implement only getting new parameters on weapon change
         turretController = turret.GetComponent<TurretController>();
-        settings = turretController.settings;
 
-        if (Time.time - firingTimer >= 1 / settings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
+        if (Time.time - firingTimer >= 1 / turretController.CurrentSettings.fireRate) // Divide fire rate by 1 to convert fire rate to shells per second
         {
             firingTimer = Time.time;
-            firePosition = turret.transform.position + (turret.transform.up * settings.spawnOffset);
+            firePosition = turret.transform.position + (turret.transform.up * turretController.CurrentSettings.spawnOffset);
             if (cb.DriveCharge >= 100f)
             {
                 Debug.Log("Fire Charged!");
@@ -99,7 +96,7 @@ public class FiringSystem : MonoBehaviour
     // Fires a normal shot
     public void FireNormal()
     {
-        if (settings.isNormalHitscan)
+        if (turretController.CurrentSettings.isNormalHitscan)
             StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));
         else
             FireShell();
@@ -108,7 +105,7 @@ public class FiringSystem : MonoBehaviour
     // Fires a charged shot
     public void FireCharged()
     {
-        if (settings.isChargedHitscan)
+        if (turretController.CurrentSettings.isChargedHitscan)
             StartCoroutine(FireHitscan(firePosition, firePosition, Vector2.zero, 0, 0, 0));
         else
             FireShell();
@@ -117,44 +114,40 @@ public class FiringSystem : MonoBehaviour
     // Fires a physical projectile that can bounce.
     void FireShell()
     {
-        GameObject shell = Instantiate(settings.shellPrefab, firePosition, turret.transform.rotation);
-        shell.GetComponent<ProjectileController>().Initialize(settings.shellBounces, settings.shellDamage, settings.shellLifetime, fc.Faction);
-        shell.transform.localScale = new Vector2(settings.shellSize, settings.shellSize);
-        shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * settings.shellSpeed;
+        GameObject shell = Instantiate(turretController.CurrentSettings.shellPrefab, firePosition, turret.transform.rotation);
+        shell.GetComponent<ProjectileController>().Initialize(turretController.CurrentSettings.shellBounces, turretController.CurrentSettings.shellDamage, turretController.CurrentSettings.shellLifetime, fc.Faction);
+        shell.transform.localScale = new Vector2(turretController.CurrentSettings.shellSize, turretController.CurrentSettings.shellSize);
+        shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretController.CurrentSettings.shellSpeed;
     }
 
     // A recursive coroutine that handles hitscan firing, penetration, and bouncing.
     System.Collections.IEnumerator FireHitscan(Vector3 oldOrigin, Vector3 targetPosition, Vector2 hitNormal, int shotType, int currentBounces, int currentPens)
     {
         // Shot types: 0 - First shot, 1 - Penetration, 2 - Bounce
-        Debug.Log("DEBUG1");
         Vector2 rayOrigin;
         Vector3 rayDirection;
         Quaternion trailRotation;
-        int maxBounces = settings.hitscanBounces;
+        int maxBounces = turretController.CurrentSettings.hitscanBounces;
 
         if (shotType == 0) // Ready raycast for first shot
         {
-            Debug.Log("FIRST SHOT");
             rayOrigin = firePosition;
             rayDirection = turret.transform.up;
             trailRotation = turret.transform.rotation;
-            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * settings.hitscanRange;
+            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * turretController.CurrentSettings.hitscanRange;
             Debug.DrawLine(rayOrigin, debugRayEndpoint, Color.green, 3f);
         }
         else if (shotType == 1) // Ready next raycast for penetration
         {
-            Debug.Log("PENETRATION");
             rayDirection = (targetPosition - oldOrigin).normalized; // Use previous ray direction, unsure how this works.
             rayOrigin = oldOrigin; // Start from previous hit point
 
-            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * settings.hitscanRange;
+            Vector2 debugRayEndpoint = rayOrigin + (Vector2)rayDirection * turretController.CurrentSettings.hitscanRange;
             Debug.DrawLine(rayOrigin, debugRayEndpoint, Color.yellow, 3f);
             trailRotation = Quaternion.FromToRotation(Vector3.up, rayDirection); // Keep same rotation as previous trail, unsure how necessary this is
         }
         else // Ready next raycast for bounce
         {
-            Debug.Log("BOUNCE");
             yield return new WaitForSeconds(bounceDelay);
 
             // Use previous hit point and normal to calculate bounce direction
@@ -165,7 +158,7 @@ public class FiringSystem : MonoBehaviour
             Vector2 bounceOrigin = (Vector2)targetPosition + bounceDirection * 0.01f;
 
             // Visualize the bounce ray in the editor (full range)
-            Debug.DrawLine(bounceOrigin, bounceOrigin + bounceDirection * settings.hitscanRange, Color.red, 3f);
+            Debug.DrawLine(bounceOrigin, bounceOrigin + bounceDirection * turretController.CurrentSettings.hitscanRange, Color.red, 3f);
 
             rayOrigin = bounceOrigin;
             rayDirection = bounceDirection;
@@ -175,7 +168,7 @@ public class FiringSystem : MonoBehaviour
             trailRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, settings.hitscanRange, chargedHitList);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, turretController.CurrentSettings.hitscanRange, chargedHitList);
 
 
         if (hit.collider != null)
@@ -201,7 +194,7 @@ public class FiringSystem : MonoBehaviour
             hit.transform.TryGetComponent(out FactionController hitFc);
             hit.transform.gameObject.TryGetComponent(out HealthSystem hitHealthSystem);
             tryDamage();
-            if (hitHealthSystem != null && currentPens < settings.hitscanPenetrations)
+            if (hitHealthSystem != null && currentPens < turretController.CurrentSettings.hitscanPenetrations)
             {
                 int pensSpent;
                 if (hitFc.Faction == FactionController.Factions.Neutral)
@@ -210,7 +203,7 @@ public class FiringSystem : MonoBehaviour
                     pensSpent = 1;
 
                 Vector2 penetrationOrigin = hit.point + (Vector2)rayDirection * 0.01f;
-                Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * settings.hitscanRange;
+                Vector2 penetrationEnd = penetrationOrigin + (Vector2)rayDirection * turretController.CurrentSettings.hitscanRange;
                 yield return StartCoroutine(FireHitscan(penetrationOrigin, penetrationEnd, hit.normal, 1, currentBounces, currentPens + pensSpent));
                 yield break;
             }
@@ -221,7 +214,6 @@ public class FiringSystem : MonoBehaviour
                 {
                     yield break; // Stop bounce if damage was dealt to a non-neutral faction
                 }
-                Debug.Log("DEBUG4");
                 yield return new WaitForSeconds(bounceDelay);
                 yield return StartCoroutine(FireHitscan(rayOrigin, hit.point, hit.normal, 2, currentBounces + 1, currentPens));
             }
@@ -230,21 +222,9 @@ public class FiringSystem : MonoBehaviour
             {
                 if (hitFc != null && hitHealthSystem != null && !(fc.IsSameFaction(hitFc)))
                 {
-                    hitHealthSystem.TakeDamage(settings.hitscanDamage);
+                    hitHealthSystem.TakeDamage(turretController.CurrentSettings.hitscanDamage);
                 }
             }
         }
     }
-
-    // public method to change the speed
-    public void UpgradeTrailSpeed(float multiplier)
-    {
-        trailSpeed *= multiplier;
-    }
-    //pubic method to change the Rate
-    public void UpgradeFireRate(float multiplier)
-    {
-        settings.fireRate *= multiplier;
-    }
-
 }

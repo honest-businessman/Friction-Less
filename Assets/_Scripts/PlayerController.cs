@@ -15,7 +15,8 @@ public class PlayerController : CharacterBase
     public bool mouseAiming = false;
     public float moveSpeed = 25f; // Movement speed
     public float maxSpeed = 5f; // Maximum speed the player can reach
-    public float driftSpeed = 5f;
+    public float driftSpeed = 6f;
+    public float maxDriftSpeed = 6f;
     public float defaultDrag = 8f;
     public float turnSpeed = 20f; // Rotation speed
     public float driftTurnSpeed = 20f;
@@ -32,7 +33,7 @@ public class PlayerController : CharacterBase
     [SerializeField] private Animator trackRightAnimator;
     [SerializeField] private Animator trackLeftAnimator;
 
-    // ✅ Added Trail support
+
     [SerializeField] private TrailRenderer trailLeft;
     [SerializeField] private TrailRenderer trailRight;
     [SerializeField] private float trailFadeOutTime = 0.5f;
@@ -40,11 +41,8 @@ public class PlayerController : CharacterBase
 
     [HideInInspector] public bool driftPressed;
 
-    [SerializeField]
-    private List<TurretSettings> equippedTurrets;
-    private int turretIndex = 0;
     public GameObject turret;
-    private TurretController turretController;
+    public TurretController turretController;
 
     public float pickupRadius = 1.5f; //distance of XP starting homing
 
@@ -171,7 +169,11 @@ public class PlayerController : CharacterBase
 
 
         // Clamp the velocity to the maximum speed
-        if (rb.linearVelocity.magnitude > maxSpeed)
+        if (driftPressed && rb.linearVelocity.magnitude > maxDriftSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxDriftSpeed;
+        }
+        else if (!driftPressed && rb.linearVelocity.magnitude > maxSpeed)
         {
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
         }
@@ -244,7 +246,7 @@ public class PlayerController : CharacterBase
                 if (DriveCharge >= 100f)
                     DriveCharge = 100f; // Cap the charge at 100%
                 else
-                    DriveCharge += (chargePerSecond * Time.deltaTime) * (mag / maxSpeed) * Mathf.Abs(playerInput.y);
+                    DriveCharge += (chargePerSecond * Time.deltaTime) * (mag / maxDriftSpeed) * Mathf.Abs(playerInput.y);
                 timeLastCharge = Time.time; // Reset the charge fade timer
             }
         }
@@ -286,68 +288,23 @@ public class PlayerController : CharacterBase
         }
     }
 
-    public void ChangeWeapon(float changeInput)
-    {
-        if (equippedTurrets.Count <= 1) { return; }
-
-        if (changeInput > 0)
-        {
-            Debug.Log("Next Turret!");
-            // Uses modulo operator to get remainder after division. This is to wrap the index within the count.
-            turretIndex = (turretIndex + 1) % equippedTurrets.Count;
-        }
-        else if (changeInput < 0)
-        {
-            Debug.Log("Previous Turret!");
-            // Adds count to index to prevent negative index result when wrapping with modulo.
-            turretIndex = (turretIndex - 1 + equippedTurrets.Count) % equippedTurrets.Count;
-        }
-
-        TurretSettings newTurretSettings = equippedTurrets[turretIndex];
-        setNewTurret(newTurretSettings);
-    }
-
-    private void setNewTurret(TurretSettings newSettings)
-    {
-        SpriteRenderer sprender = turret.GetComponent<SpriteRenderer>();
-        sprender.sprite = newSettings.sprite;
-        sprender.color = newSettings.spriteColor;
-        TurretController tController = turret.GetComponent<TurretController>();
-        tController.settings = newSettings;
-    }
-
     public void Fire()
     {
         firingSystem.FireCommand();
     }
 
     //upgrade functions
-    public void UpgradeSpeed(float multiplier)
+    public void UpgradeMoveSpeed(float multiplier)
     {
         moveSpeed *= multiplier;
+        maxSpeed *= multiplier;
+        driftSpeed *= multiplier;
+        maxDriftSpeed *= multiplier;
+        turnSpeed *= multiplier;
+        driftTurnSpeed *= multiplier;
         Debug.Log($"Speed upgraded! New speed: {moveSpeed}");
     }
 
-    public void UpgradeProjectileSpeed(float multiplier)
-    {
-        firingSystem.UpgradeTrailSpeed(multiplier);
-        if (turretController != null && turretController.settings != null)
-        {
-            turretController.settings.shellSpeed *= multiplier;
-            Debug.Log($"Projectile speed upgraded! New shell speed: {turretController.settings.shellSpeed}");
-        }
-        else
-        {
-            Debug.LogWarning("turretController or settings is null!");
-        }
-    }
-    public void UpgradeFireRate(float multiplier)
-    {
-        firingSystem.UpgradeFireRate(multiplier);
-        Debug.Log($"Fire rate upgraded! New fire rate: {firingSystem.Settings.fireRate}");
-    }
-
-    // ✅ Updated trail handling
     private void HandleDriftTrails(bool drifting)
     {
         if (drifting)

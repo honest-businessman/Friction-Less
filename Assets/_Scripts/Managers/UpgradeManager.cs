@@ -7,9 +7,10 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager Instance { get; private set; }
 
     private PlayerController player;
+    private TurretController turretController;
     private System.Action[] upgradeActions;
 
-    [SerializeField] float speedMultiplier = 1.2f;
+    [SerializeField] float speedMultiplier = 1.1f;
     [SerializeField] float fireRateMultiplier = 1.2f;
     [SerializeField] float projectileSpeedMultiplier = 1.3f;
 
@@ -24,6 +25,8 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        turretController = player.turretController;
     }
 
     void Start()
@@ -32,15 +35,15 @@ public class UpgradeManager : MonoBehaviour
 
         upgradeActions = new System.Action[]
         {
-            UpgradeSpeed,
+            UpgradeMoveSpeed,
             UpgradeProjectileSpeed,
             UpgradeFireRate
         };
     }
 
-    private void UpgradeSpeed() => player.UpgradeSpeed(speedMultiplier);
-    private void UpgradeProjectileSpeed() => player.UpgradeProjectileSpeed(projectileSpeedMultiplier);
-    private void UpgradeFireRate() => player.UpgradeFireRate(fireRateMultiplier);
+    private void UpgradeMoveSpeed() => player.UpgradeMoveSpeed(speedMultiplier);
+    private void UpgradeProjectileSpeed() => turretController.UpgradeShellSpeed(projectileSpeedMultiplier);
+    private void UpgradeFireRate() => turretController.UpgradeFireRate(fireRateMultiplier);
 
     public void TriggerUpgrades()
     {

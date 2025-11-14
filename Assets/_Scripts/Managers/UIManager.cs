@@ -65,6 +65,8 @@ public class UIManager : MonoBehaviour
         uiCamera.targetTexture = target;
         uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         uiCanvas.worldCamera = uiCamera;
+        uiCanvas.planeDistance = 2;
+        uiCanvas.sortingOrder = 20;
     }
 
     public void ShowMainMenu()

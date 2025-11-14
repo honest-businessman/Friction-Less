@@ -9,6 +9,7 @@ public class RenderTextureUIInteractor : MonoBehaviour
     public RenderTexture renderTexture;
     public Canvas uiCanvas;  // The Canvas rendering into the RenderTexture
     public RectTransform clickIndicator;  // Optional visual indicator for clicks
+    [SerializeField] private bool useClickIndicator = false;
 
     [Header("Debug")]
     public bool isUIActive = true;
@@ -43,6 +44,8 @@ public class RenderTextureUIInteractor : MonoBehaviour
             if (eventSystem == null)
                 Debug.LogError("No EventSystem in scene");
         }
+        if(useClickIndicator) { clickIndicator.gameObject.SetActive(true); }
+        else { clickIndicator.gameObject.SetActive(false); }
     }
 
     void Update()
@@ -90,7 +93,7 @@ public class RenderTextureUIInteractor : MonoBehaviour
         );
 
         // Update the click indicator position if it exists
-        if (clickIndicator != null)
+        if (clickIndicator != null && useClickIndicator)
         {
             clickIndicator.gameObject.SetActive(true);
             clickIndicator.anchoredPosition = localPos;

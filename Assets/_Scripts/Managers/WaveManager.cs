@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using Pathfinding.Examples;
+using System;
 
 public class WaveManager : MonoBehaviour
 {
@@ -187,7 +188,7 @@ public class WaveManager : MonoBehaviour
         int safetyCounter = 0;
         while (waveBudget > minCost)
         {
-            int randEnemyID = Random.Range(0, eligibleEnemies.Count);
+            int randEnemyID = UnityEngine.Random.Range(0, eligibleEnemies.Count);
             Enemy enemy = eligibleEnemies[randEnemyID];
             if (waveBudget - enemy.cost >= 0)
             {
@@ -229,6 +230,8 @@ public class WaveManager : MonoBehaviour
         activeEnemies.Clear();
         enemiesToSpawn.Clear();
         ws.ClearAllWalls();
+        XPObject[] xpObjects = FindObjectsByType<XPObject>(FindObjectsSortMode.None);
+        foreach (XPObject xpObject in xpObjects) { Destroy(xpObject.gameObject); }
         waveActive = false;
         currentWave = 0;
         waveBudget = 0;

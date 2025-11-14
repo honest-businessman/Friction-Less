@@ -262,6 +262,7 @@ MonoBehaviour:
   moveSpeed: 25
   maxSpeed: 5
   driftSpeed: 6
+  maxDriftSpeed: 6
   defaultDrag: 8
   turnSpeed: 18
   driftTurnSpeed: 23
@@ -277,10 +278,8 @@ MonoBehaviour:
   trailRight: {fileID: 2465624942689872115}
   trailFadeOutTime: 0.5
   driftPressed: 0
-  equippedTurrets:
-  - {fileID: 11400000, guid: a7f289142fa2be641aac566456fd009d, type: 2}
-  - {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}
   turret: {fileID: 1596308201891408184}
+  turretController: {fileID: 0}
   pickupRadius: 1.5
 --- !u!114 &2489226470317238442
 MonoBehaviour:
@@ -325,10 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8172d0a1f6d3b741a5c14a2770e638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intialXpToLevelUp: 30
+  xpCostScaling: 1.2
   currentXP: 0
-  xpToLevelUp: 20
+  currentXpToLevelUp: 0
   level: 1
-  upgradeManager: {fileID: 0}
 --- !u!114 &6788852357354230055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +732,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: equippedTurrets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: 'equippedTurrets.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a7f289142fa2be641aac566456fd009d, type: 2}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: 'equippedTurrets.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}
     - target: {fileID: 6766343977067499528, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0004

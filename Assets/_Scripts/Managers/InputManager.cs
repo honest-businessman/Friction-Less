@@ -97,7 +97,7 @@ public class InputManager : MonoBehaviour
     private void OnAim(InputAction.CallbackContext ctx) => player.Aim(ctx.ReadValue<Vector2>());
     private void OnAimCancel(InputAction.CallbackContext ctx) => player.Aim(Vector2.zero);
     private void OnFire(InputAction.CallbackContext ctx) => player.Fire();
-    private void OnChangeWeapon(InputAction.CallbackContext ctx) => player.ChangeWeapon(ctx.ReadValue<float>());
+    private void OnChangeWeapon(InputAction.CallbackContext ctx) => player.turretController.ChangeTurret(ctx.ReadValue<float>());
 
     private void OnUIPause() => inputSystem.Player.Disable();
     private void OnUIUnpause() => inputSystem.Player.Enable();

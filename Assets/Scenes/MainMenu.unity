@@ -281,10 +281,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 529572802}
     m_Modifications:
-    - target: {fileID: 378424061738334995, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
-      propertyPath: m_TargetTexture
-      value: 
-      objectReference: {fileID: 8400000, guid: 502caf487b3afc3499f49f82d6298749, type: 2}
     - target: {fileID: 610392285980109230, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 60.777054
@@ -325,17 +321,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1301347571158461838, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2913776580617316615, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_Name
       value: Game2DCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5651816894943036473, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
-      propertyPath: forceRenderToTextureInEditor
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
