@@ -5,18 +5,9 @@ using System.Collections.Generic;
 
 public class UpgradeUI : MonoBehaviour
 {
-    [Header("Upgrade Buttons")]
-    [SerializeField] private Button optionAButton;
-    [SerializeField] private Button optionBButton;
-    [SerializeField] private Button optionCButton;
-    [Header("Upgrade Borders")]
-    [SerializeField] private GameObject optionABorder;
-    [SerializeField] private GameObject optionBBorder;
-    [SerializeField] private GameObject optionCBorder;
-
-    private Action optionAAction;
-    private Action optionBAction;
-    private Action optionCAction;
+    [Header("References")]
+    [SerializeField] GameObject upgradeCardPrefab;
+    [SerializeField] HorizontalLayoutGroup upgradeCardContainer;
 
     [Header("Navigation Settings")]
     [SerializeField] private float navigateThreshold = 0.5f;
@@ -26,48 +17,26 @@ public class UpgradeUI : MonoBehaviour
     private int selectedIndex = 0;
     private bool navigateHeld = false;
 
-    private List<Button> buttons = new List<Button>();
-    private List<GameObject> borders = new List<GameObject>();
+    private List<UpgradeCard> upgradeCards = new List<UpgradeCard>();
 
     private void Awake()
     {
-        buttons.Add(optionAButton);
-        buttons.Add(optionBButton);
-        buttons.Add(optionCButton);
-        borders.Add(optionABorder);
-        borders.Add(optionBBorder);
-        borders.Add(optionCBorder);
         gameObject.SetActive(false);
     }
 
     // Called when upgrades are offered
-    public void ShowUpgradeOptions(Action[] upgradeOptions)
+    public void ShowUpgradeOptions(UpgradeItem[] upgradeOptions)
     {
-        if (upgradeOptions.Length < 3)
+        GameManager.Instance.Player.GetComponent<PlayerController>().CancelDrift();
+
+        if (upgradeOptions.Length != 3)
         {
-            Debug.LogWarning("Not enough upgrades to show all 3.");
+            Debug.LogWarning("Upgrade options not equald to 3. This is an UpgradeUI limitation.");
             gameObject.SetActive(false);
             return;
         }
 
-        // Assign actions
-        optionAAction = upgradeOptions[0];
-        optionBAction = upgradeOptions[1];
-        optionCAction = upgradeOptions[2];
-
-        // Setup button listeners
-        optionAButton.onClick.RemoveAllListeners();
-        optionAButton.onClick.AddListener(() => ChooseUpgrade(optionAAction));
-
-        optionBButton.onClick.RemoveAllListeners();
-        optionBButton.onClick.AddListener(() => ChooseUpgrade(optionBAction));
-
-        optionCButton.onClick.RemoveAllListeners();
-        optionCButton.onClick.AddListener(() => ChooseUpgrade(optionCAction));
-
-        // Activate buttons
-        foreach (var btn in buttons)
-            btn.gameObject.SetActive(true);
+        GenerateCards(upgradeOptions);
 
         gameObject.SetActive(true);
         InputManager.Instance.EnableUIInput();
@@ -78,20 +47,42 @@ public class UpgradeUI : MonoBehaviour
         UpdateButtonSelection();
     }
 
-    private void ChooseUpgrade(Action chosenUpgrade)
+    private void GenerateCards(UpgradeItem[] uItems)
     {
-        chosenUpgrade?.Invoke();
+        for (int i = 0; i < uItems.Length; i++)
+        {
+            GameObject uCardObj = Instantiate(upgradeCardPrefab, upgradeCardContainer.transform);
+            UpgradeCard uCard = uCardObj.GetComponent<UpgradeCard>();
+            uCard.Init(uItems[i]);
+            uCard.button.onClick.AddListener(() => ChooseUpgrade(uCard.upgradeItem));
+            upgradeCards.Add(uCard);
+        }
+    }
+
+    private void ChooseUpgrade(UpgradeItem chosenUpgrade)
+    {
+        foreach (UpgradeCard uCard in upgradeCards)
+        {
+            uCard.button.onClick.RemoveAllListeners();
+            Destroy(uCard.gameObject);
+        }
+        upgradeCards.Clear();
+
+        GameManager.Instance.Player.GetComponent<PlayerController>().upgradeInventory.Add(chosenUpgrade);
+        chosenUpgrade.action?.Invoke();
+        UpgradeEvents.UpgradeSelected();
         gameObject.SetActive(false);
-        InputManager.Instance.EnablePlayerInput(GameManager.Instance.player.GetComponent<PlayerController>());
+        InputManager.Instance.EnablePlayerInput(GameManager.Instance.Player.GetComponent<PlayerController>());
         Time.timeScale = 1f;
     }
 
     // === Input Handlers ===
     public void HandleNavigate(Vector2 direction)
     {
-        if (inputLocked || buttons.Count == 0) return;
+        if (inputLocked) return;
 
         float x = direction.x;
+        Debug.Log("Navigate Input Detected: " + direction);
 
         if (Mathf.Abs(x) < deadzone)
         {
@@ -112,35 +103,36 @@ public class UpgradeUI : MonoBehaviour
 
     public void HandleSubmit()
     {
-        if (inputLocked || buttons.Count == 0) return;
+        if (inputLocked) return;
 
-        Button selectedButton = buttons[selectedIndex];
-        if (selectedButton != null)
+        UpgradeCard selectedCard = upgradeCards[selectedIndex];
+        if (selectedCard != null)
         {
-            selectedButton.onClick.Invoke(); // simulate click
+            selectedCard.button.onClick.Invoke(); // simulate click
         }
     }
 
     private void SelectNextButton()
     {
-        selectedIndex = (selectedIndex + 1) % buttons.Count;
+        selectedIndex = (selectedIndex + 1) % upgradeCards.Count;
         UpdateButtonSelection();
     }
 
     private void SelectPreviousButton()
     {
-        selectedIndex = (selectedIndex - 1 + buttons.Count) % buttons.Count;
+        selectedIndex = (selectedIndex - 1 + upgradeCards.Count) % upgradeCards.Count;
         UpdateButtonSelection();
     }
 
     private void UpdateButtonSelection()
     {
+        Debug.Log("Selected Upgrade Index: " + selectedIndex);
         // Deselect all, then highlight the current one
-        for (int i = 0; i < borders.Count; i++)
+        for (int i = 0; i < upgradeCards.Count; i++)
         {
-            borders[i].SetActive(false);
+            upgradeCards[i].border.gameObject.SetActive(false);
         }
 
-        borders[selectedIndex].SetActive(true); // ensures proper UI focus
+        upgradeCards[selectedIndex].border.gameObject.SetActive(true); // ensures proper UI focus
     }
 }

@@ -131,6 +131,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: turnSpeed
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: chargeAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: driftTurnSpeed
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 2759497254178083693, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.012871504
@@ -170,6 +182,14 @@ PrefabInstance:
     - target: {fileID: 2759497254178083693, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: xpCostScaling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007301603030296698, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: intialXpToLevelUp
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -343,7 +363,7 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
   m_PrefabInstance: {fileID: 3090318916966835265}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1117794089
+--- !u!84 &1317497235
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,18 +588,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
-      propertyPath: speedMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
-      propertyPath: fireRateMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1850647136407698778, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
-      propertyPath: projectileSpeedMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2356918587053590074, guid: 70f94160f51a8d24f8172849a7c6eb37, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -709,7 +717,7 @@ PrefabInstance:
     - target: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1117794089}
+      objectReference: {fileID: 1317497235}
     - target: {fileID: 2913776580617316615, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_Name
       value: Game2DCamera

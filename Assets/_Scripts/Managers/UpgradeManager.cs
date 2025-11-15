@@ -8,14 +8,11 @@ public class UpgradeManager : MonoBehaviour
 
     private PlayerController player;
     private TurretController turretController;
-    private System.Action[] upgradeActions;
-
-    [SerializeField] float speedMultiplier = 1.1f;
-    [SerializeField] float fireRateMultiplier = 1.2f;
-    [SerializeField] float projectileSpeedMultiplier = 1.3f;
 
     // Number of upgrades to offer
     [SerializeField] int upgradesToOffer = 3;
+
+    [SerializeField] List<UpgradeItem> availableUpgrades;
 
     private void Awake()
     {
@@ -31,29 +28,24 @@ public class UpgradeManager : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerController>();
         turretController = player.turretController;
-
-        upgradeActions = new System.Action[]
-        {
-            UpgradeMoveSpeed,
-            UpgradeProjectileSpeed,
-            UpgradeFireRate
-        };
     }
-
-    private void UpgradeMoveSpeed() => player.UpgradeMoveSpeed(speedMultiplier);
-    private void UpgradeProjectileSpeed() => turretController.UpgradeShellSpeed(projectileSpeedMultiplier);
-    private void UpgradeFireRate() => turretController.UpgradeFireRate(fireRateMultiplier);
 
     public void TriggerUpgrades()
     {
-        if (upgradesToOffer > upgradeActions.Length)
+        if (upgradesToOffer > availableUpgrades.Count)
         {
             Debug.LogWarning("Cannot offer more unique upgrades than available!");
             return;
         }
 
+        // Instantiate all ScriptableObject items
+        List<UpgradeItem> shuffled = new List<UpgradeItem>();
+        foreach (UpgradeItem item in availableUpgrades)
+        {
+            shuffled.Add(Instantiate(item));
+        }
+
         // Shuffle the array and take the first N options
-        List<System.Action> shuffled = new List<System.Action>(upgradeActions);
         for (int i = 0; i < shuffled.Count; i++)
         {
             int randIndex = UnityEngine.Random.Range(i, shuffled.Count);
@@ -62,14 +54,35 @@ public class UpgradeManager : MonoBehaviour
             shuffled[randIndex] = temp;
         }
 
-        System.Action[] chosenUpgrades = shuffled.GetRange(0, upgradesToOffer).ToArray();
+        UpgradeItem[] chosenUpgrades = shuffled.GetRange(0, upgradesToOffer).ToArray();
 
         Debug.Log("Chosen upgrades:");
         for (int i = 0; i < chosenUpgrades.Length; i++)
-            Debug.Log($"Option {i + 1}: {chosenUpgrades[i].Method.Name}");
+            Debug.Log($"Option {i + 1}: {chosenUpgrades[i].name}");
 
-        // Invoke the event with the chosen upgrades
-        // You can modify UpgradeEvents to accept a variable number of upgrades using params
+        // Assign actions to upgrades
+        foreach (UpgradeItem item in chosenUpgrades)
+        {
+            System.Action<float> action;
+            switch (item.upgradeType)
+            {
+                case UpgradeItem.UpgradeType.MoveSpeed: action = UpgradeMoveSpeed; break;
+                case UpgradeItem.UpgradeType.ShellSpeed: action = UpgradeShellSpeed; break;
+                case UpgradeItem.UpgradeType.FireRate: action = UpgradeFireRate; break;
+                case UpgradeItem.UpgradeType.DriveChargeSpeed: action = UpgradeDriveChargeSpeed; break;
+                case UpgradeItem.UpgradeType.AmmunitionPower: action = UpgradeAmmunitionPower; break;
+                default: action = (value) => Debug.Log($"No Upgrade action for upgrade type {item.upgradeType}"); break;
+            }
+            item.action = () => action(item.value);
+        }
+
+        // Invoke the UpgradesAvailable event with the chosen upgrades
         UpgradeEvents.UpgradesAvailable(chosenUpgrades);
     }
+
+    private void UpgradeMoveSpeed(float value) => player.UpgradeMoveSpeed(value);
+    private void UpgradeShellSpeed(float value) => turretController.UpgradeShellSpeed(value);
+    private void UpgradeFireRate(float value) => turretController.UpgradeFireRate(value);
+    private void UpgradeDriveChargeSpeed(float value) => player.UpgradeDriveChargeSpeed(value);
+    private void UpgradeAmmunitionPower(float value) => turretController.UpgradeAmmunitionPower(value);
 }

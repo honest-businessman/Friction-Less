@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5416c44f1673c54f870a8d5e3a77807, type: 3}
   m_Name: EnemyTankCannonSettings
   m_EditorClassIdentifier: 
-  sprite: {fileID: -7731671375419891142, guid: 512476d2893b6cb42bd952f666b513a5, type: 3}
-  spriteColor: {r: 1, g: 0, b: 0, a: 1}
+  sprite: {fileID: -3036036819145591855, guid: 2207c2c4b6112a54c9ee9b799d398ded, type: 3}
+  color: {r: 1, g: 0.3529412, b: 0.3529412, a: 1}
   isNormalHitscan: 0
   shellSpeed: 9
   shellSize: 0.3

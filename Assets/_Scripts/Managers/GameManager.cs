@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     public bool trainMode = false;
 
     public bool isMainScene;
-    public GameObject player;
+    private GameObject player;
+    public GameObject Player { get; private set; }
 
     private InputManager inputManager;
     private bool isUiSceneLoaded = false;
@@ -127,26 +128,26 @@ public class GameManager : MonoBehaviour
         SpawnPlayer();
         InitializeInGameManagers();
 
-        InputManager.Instance.EnablePlayerInput(player.GetComponent<PlayerController>());
+        InputManager.Instance.EnablePlayerInput(Player.GetComponent<PlayerController>());
         StartCoroutine(WaveLoop());
     }
 
     private void CleanupPlayer()
     {
-        if (player != null)
+        if (Player != null)
         {
-            HealthSystem healthSys = player.GetComponent<HealthSystem>();
+            HealthSystem healthSys = Player.GetComponent<HealthSystem>();
             if (healthSys != null)
                 healthSys.OnDie -= HandlePlayerDeath;
 
-            Destroy(player);
-            player = null;
+            Destroy(Player);
+            Player = null;
         }
     }
 
     private void SpawnPlayer()
     {
-        if (player = GameObject.FindWithTag("Player"))
+        if (Player = GameObject.FindWithTag("Player"))
         {
             Debug.Log("Player already exists in the scene.");
             
@@ -157,12 +158,12 @@ public class GameManager : MonoBehaviour
              .Select(sp => sp.transform.position)
              .ToArray();
             Vector3 spawnposition = spawnPositionArray[UnityEngine.Random.Range(0, spawnPositionArray.Length)];
-            player = Instantiate(playerPrefab, spawnposition, Quaternion.identity);
+            Player = Instantiate(playerPrefab, spawnposition, Quaternion.identity);
             Debug.Log("Player spawned.");
         }
 
-        PlayerEvents.OnPlayerSpawned?.Invoke(player);
-        HealthSystem playerHealthSys = player.GetComponent<HealthSystem>();
+        PlayerEvents.OnPlayerSpawned?.Invoke(Player);
+        HealthSystem playerHealthSys = Player.GetComponent<HealthSystem>();
         playerHealthSys.OnDie += HandlePlayerDeath;
     }
 

@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57dd0635ef70d7b478c6d329456af6ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMultiplier: 1.2
-  fireRateMultiplier: 1.2
-  projecttileSpeedMultiplier: 1.3
+  upgradesToOffer: 3
+  availableUpgrades:
+  - {fileID: 11400000, guid: 8ee87e0a886049b41940654b6d954a96, type: 2}
+  - {fileID: 11400000, guid: 9b393456f35794849bf788f38f7712a3, type: 2}
+  - {fileID: 11400000, guid: d96c8e3d370df66408e1b835b5f133a8, type: 2}
+  - {fileID: 11400000, guid: 245a8ffce9631834aa0124f65d015355, type: 2}
+  - {fileID: 11400000, guid: e15502942553dfb40a987404651c0741, type: 2}
+  - {fileID: 11400000, guid: 27c295b09ece25d46bfbbb2809a1aeff, type: 2}
+  - {fileID: 11400000, guid: 9674f6e417ccae64092d18e5163118cb, type: 2}

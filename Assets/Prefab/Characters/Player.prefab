@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2759497254178083693}
   - component: {fileID: 8313040622874573362}
   - component: {fileID: 740264438915838091}
-  - component: {fileID: 4482853964659563107}
   - component: {fileID: 6124276650724882605}
   - component: {fileID: 2727038939701339567}
   - component: {fileID: 2531162805804896880}
@@ -144,43 +143,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.02}
   m_Size: {x: 0.45, y: 0.72}
   m_Direction: 0
---- !u!70 &4482853964659563107
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213092101655995850}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.51, y: 0.72}
-  m_Direction: 0
 --- !u!50 &6124276650724882605
 Rigidbody2D:
   serializedVersion: 5
@@ -257,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   driveCharge: 0
-  fullChargeParticles: {fileID: 236354953109614970}
+  upgradeInventory: []
   mouseAiming: 0
   moveSpeed: 25
   maxSpeed: 5
@@ -267,10 +229,10 @@ MonoBehaviour:
   turnSpeed: 18
   driftTurnSpeed: 23
   treadOffset: 0.2
-  chargePerSecond: 60
+  chargePerSecond: 40
   dischargePerSecond: 70
   chargeFadeDelay: 2
-  chargeAngle: 45
+  chargeAngle: 60
   minChargeMoveSpeed: 3
   trackRightAnimator: {fileID: 0}
   trackLeftAnimator: {fileID: 0}
@@ -279,7 +241,7 @@ MonoBehaviour:
   trailFadeOutTime: 1.5
   battery: {fileID: 1271005985674533720}
   batterySR: {fileID: 0}
-  driftPressed: 0
+  fullChargeParticles: {fileID: 236354953109614970}
   turret: {fileID: 1596308201891408184}
   turretController: {fileID: 0}
   pickupRadius: 1.5
@@ -329,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intialXpToLevelUp: 10
-  xpCostScaling: 1.2
+  xpCostScaling: 1.3
   currentXP: 0
   currentXpToLevelUp: 0
   level: 1
