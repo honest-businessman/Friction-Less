@@ -32,6 +32,13 @@ public class PlayerController : CharacterBase
     // Reference to the TrackRight Animator
     [SerializeField] private Animator trackRightAnimator;
     [SerializeField] private Animator trackLeftAnimator;
+    [SerializeField] private TankDriftAudio driftAudio;
+
+
+    //FMOD
+    [SerializeField] private TankShellAudio shellAudio;
+    public TankShellAudio ShellAudio => shellAudio; // expose for FiringSystem
+
 
 
     [SerializeField] private TrailRenderer trailLeft;
@@ -123,10 +130,17 @@ public class PlayerController : CharacterBase
 
     // Modified to include trail control
     public void Drift(bool isPressed)
+{
+    if (isPressed && !driftPressed)
     {
-        driftPressed = isPressed;
-        HandleDriftTrails(isPressed); // Added
+        if (driftAudio != null)
+            driftAudio.PlayDriftStart(transform.position);
     }
+
+        driftPressed = isPressed;
+        HandleDriftTrails(isPressed);
+    }
+
 
     public void Aim(Vector2 aimVector)
     {
@@ -317,10 +331,13 @@ public class PlayerController : CharacterBase
         }
     }
 
+
     public void Fire()
     {
-        firingSystem.FireCommand();
+        firingSystem.FireCommand(); // Your existing firing logic
+
     }
+
 
     //upgrade functions
     public void UpgradeMoveSpeed(float multiplier)

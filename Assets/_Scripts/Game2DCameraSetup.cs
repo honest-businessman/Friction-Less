@@ -70,7 +70,7 @@ public class GameCameraSetup : MonoBehaviour
         if (loadedFromMainMenu)
         {
             cam.targetTexture = renderTexture;
-            GetComponent<AudioListener>().enabled = false; // Disable audio listener to avoid conflicts with main camera
+            //GetComponent<AudioListener>().enabled = false; // Disable audio listener to avoid conflicts with main camera
         }
         else
         {

@@ -13,6 +13,12 @@ public class FiringSystem : MonoBehaviour
     [SerializeField] private float chargeStartDelay = 2f;
     [SerializeField] private Transform muzzle;
 
+    //FMOD
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private TankChargedShotAudio tankTrailShotAudio;
+
+
+
     private float normalFiringTimer = 0f;
     private bool isPlayer = false;
     private bool canCharge = false;
@@ -68,6 +74,7 @@ public class FiringSystem : MonoBehaviour
     // For player input system
     public void FireCommand(InputValue value) { TryFire(); }
 
+
     // Attempts to fire a shot if the fire rate cooldown has elapsed.
     // Will fire a charged shot if drive is fully charged.
     void TryFire()
@@ -113,11 +120,32 @@ public class FiringSystem : MonoBehaviour
     // Fires a physical projectile that can bounce.
     void FireShell()
     {
+        // Spawn the shell prefab
         GameObject shell = Instantiate(turretController.CurrentSettings.shellPrefab, muzzle.position, muzzle.rotation);
-        shell.GetComponent<ProjectileController>().Initialize(turretController.CurrentSettings.shellBounces, turretController.CurrentSettings.shellDamage, turretController.CurrentSettings.shellLifetime, fc.Faction);
-        shell.transform.localScale = new Vector2(turretController.CurrentSettings.shellSize, turretController.CurrentSettings.shellSize);
+
+        // Initialize projectile
+        shell.GetComponent<ProjectileController>().Initialize(
+            turretController.CurrentSettings.shellBounces,
+            turretController.CurrentSettings.shellDamage,
+            turretController.CurrentSettings.shellLifetime,
+            fc.Faction
+        );
+
+        // Scale & velocity
+        shell.transform.localScale = new Vector2(
+            turretController.CurrentSettings.shellSize,
+            turretController.CurrentSettings.shellSize
+        );
         shell.GetComponent<Rigidbody2D>().linearVelocity = shell.transform.up * turretController.CurrentSettings.shellSpeed;
+
+        // Play shell sound at this shell's position
+        if (playerController != null && playerController.ShellAudio != null)
+        {
+            playerController.ShellAudio.PlayShell(shell.transform.position);
+        }
     }
+
+
 
     // A recursive coroutine that handles hitscan firing, penetration, and bouncing.
     System.Collections.IEnumerator FireHitscan(Vector3 oldOrigin, Vector3 targetPosition, Vector2 hitNormal, int shotType, int currentBounces, int currentPens)
@@ -177,6 +205,11 @@ public class FiringSystem : MonoBehaviour
             // Trail spawn and movement
             GameObject trail = Instantiate(hitscanTrailPrefab, rayOrigin, trailRotation);
             tr = trail.GetComponent<TrailRenderer>();
+            if (tankTrailShotAudio != null)
+            {
+                tankTrailShotAudio.PlayTrailShot(rayOrigin);
+            }
+
             Vector3 startPosition = tr.transform.position;
             float startingDistance = Vector3.Distance(startPosition, hit.point);
             float distance = startingDistance;

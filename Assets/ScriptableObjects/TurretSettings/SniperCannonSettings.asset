@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SniperCannonSettings
   m_EditorClassIdentifier: 
   sprite: {fileID: -4095391172050105586, guid: 1fb3d87df0c0b6e409435a073da0d1c0, type: 3}
-  color: {r: 1, g: 0.4152124, b: 0, a: 1}
+  color: {r: 1, g: 0.65882355, b: 0, a: 1}
   isNormalHitscan: 0
   shellSpeed: 16
   shellSize: 0.15

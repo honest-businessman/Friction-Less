@@ -726,6 +726,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312509101285848859, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_SortingOrder
       value: 15
       objectReference: {fileID: 0}
@@ -736,6 +740,10 @@ PrefabInstance:
     - target: {fileID: 2606858850793271264, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: currentSettings
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: equippedTurrets.Array.size
@@ -749,6 +757,10 @@ PrefabInstance:
       propertyPath: 'equippedTurrets.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 38c66406ec02d08498119e892aed7b95, type: 2}
+    - target: {fileID: 3503761678754282661, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
+      propertyPath: 'equippedTurrets.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6766343977067499528, guid: e1d38bbd946fd8d4e905074079a80d09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0004
