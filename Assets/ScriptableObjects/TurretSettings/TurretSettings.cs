@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TurretSettings", menuName = "Scriptable Objects/Turret Settings")]
 public class TurretSettings : ScriptableObject
 {
+    public TurretType turretType;
     public Sprite sprite;
     public Color color;
     public bool isNormalHitscan = false;
@@ -20,4 +21,10 @@ public class TurretSettings : ScriptableObject
     public float shellLifetime = 10f;
     public float spawnOffset = 1;
     public GameObject shellPrefab;
+
+    public enum TurretType
+    {
+        Ricochet,
+        Sniper,
+    }
 }

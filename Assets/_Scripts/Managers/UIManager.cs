@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     private UpgradeUI upgradeUI;
     private bool isSettingsOpen = false;
-    private Action<Action[]> upgradeHandler;
+    private Action<UpgradeItem[]> upgradeHandler;
 
     private void Awake()
     {
@@ -35,10 +35,10 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        upgradeHandler = (actions) =>
+        upgradeHandler = (uItems) =>
         {
             upgradeUI.gameObject.SetActive(true);
-            upgradeUI.ShowUpgradeOptions(actions);
+            upgradeUI.ShowUpgradeOptions(uItems);
         };
 
         UpgradeEvents.OnUpgradesAvailable += upgradeHandler;

@@ -37,6 +37,8 @@ public class TurretController : MonoBehaviour
         currentSettings.shellDamage += upgradeStats.damageModifier;
         currentSettings.hitscanDamage += upgradeStats.damageModifier;
         currentSettings.shellSpeed *= upgradeStats.shellSpeedModifier;
+        currentSettings.hitscanBounces += upgradeStats.extraHitscanBounces;
+        currentSettings.hitscanPenetrations += upgradeStats.extraHitscanPenetrations;
     }
     private void SetNewTurret()
     {
@@ -81,21 +83,33 @@ public class TurretController : MonoBehaviour
 
 
     // methods to upgrade turret stats
-    public void UpgradeFireRate(float multiplier)
+    public void UpgradeFireRate(float modifier)
     {
-        upgradeStats.fireRateModifier *= multiplier;
+        upgradeStats.fireRateModifier *= modifier;
         ApplyUpgrades();
     }
 
-    public void UpgradeDamage(int addDamage)
+    public void UpgradeDamage(float modifier)
     {
-        upgradeStats.damageModifier += addDamage;
+        upgradeStats.damageModifier += Mathf.RoundToInt(modifier);
         ApplyUpgrades();
     }
 
-    public void UpgradeShellSpeed(float multiplier)
+    public void UpgradeShellSpeed(float modifier)
     {
-        upgradeStats.shellSpeedModifier *= multiplier;
+        upgradeStats.shellSpeedModifier *= modifier;
+        ApplyUpgrades();
+    }
+    public void UpgradeAmmunitionPower(float modifier)
+    {
+        switch (equippedTurrets[turretIndex].turretType)
+        {
+            case TurretSettings.TurretType.Ricochet:
+                upgradeStats.extraHitscanBounces += Mathf.RoundToInt(modifier); break;
+            case TurretSettings.TurretType.Sniper:
+                upgradeStats.extraHitscanPenetrations += Mathf.RoundToInt(modifier); break;
+        }
+        upgradeStats.shellSpeedModifier *= modifier;
         ApplyUpgrades();
     }
 
@@ -105,5 +119,7 @@ public class TurretController : MonoBehaviour
         internal int damageModifier = 0;
         internal float fireRateModifier = 1f;
         internal float shellSpeedModifier = 1f;
+        internal int extraHitscanBounces = 0;
+        internal int extraHitscanPenetrations = 0;
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec6349611d104b42a2fe08a6ec6cd23, type: 3}
+  m_Name: FireRateRareUpgradeItem
+  m_EditorClassIdentifier: 
+  itemName: Auto Loader Servo Swap
+  icon: {fileID: -3036036819145591855, guid: 2207c2c4b6112a54c9ee9b799d398ded, type: 3}
+  description: Greatly increases firerate of normal shots.
+  upgradeType: 0
+  rarity: 1
+  value: 1.2
+  valueScaling: 2

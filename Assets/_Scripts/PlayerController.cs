@@ -8,10 +8,10 @@ using System.Collections;
 
 public class PlayerController : CharacterBase
 {
-    [SerializeField] private ParticleSystem fullChargeParticles;
-    private bool particlesPlaying = false;
+    [Header("Inventory")]
+    public List<UpgradeItem> upgradeInventory = new List<UpgradeItem>();
 
-    private CharacterController controller;
+    [Header("Movement Settings")]
     public bool mouseAiming = false;
     public float moveSpeed = 25f; // Movement speed
     public float maxSpeed = 5f; // Maximum speed the player can reach
@@ -19,39 +19,34 @@ public class PlayerController : CharacterBase
     public float maxDriftSpeed = 6f;
     public float defaultDrag = 8f;
     public float turnSpeed = 20f; // Rotation speed
-    public float driftTurnSpeed = 20f;
+    public float driftTurnSpeed = 10f;
     private float moveSpeedMultiplier = 100f; // Adjusted multiplier for movement speed
     public float treadOffset = 0.2f; // Offset for the rotation pivot point
-    public float chargePerSecond = 60f;
+    public float chargePerSecond = 40f;
     public float dischargePerSecond = 100f;
     public float chargeFadeDelay = 1f; // Delay before charge starts fading
-    public float chargeAngle = 45f; // degrees
+    public float chargeAngle = 30f; // degrees
     public float minChargeMoveSpeed = 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
 
+    [Header("Visuals")]
     // Reference to the TrackRight Animator
     [SerializeField] private Animator trackRightAnimator;
     [SerializeField] private Animator trackLeftAnimator;
-    [SerializeField] private TankDriftAudio driftAudio;
-
-
-    //FMOD
-    [SerializeField] private TankShellAudio shellAudio;
-    public TankShellAudio ShellAudio => shellAudio; // expose for FiringSystem
-
-
-
     [SerializeField] private TrailRenderer trailLeft;
     [SerializeField] private TrailRenderer trailRight;
     [SerializeField] private float trailFadeOutTime = 0.5f;
     [SerializeField] private GameObject battery;
     [SerializeField] private SpriteRenderer batterySR;
+    [SerializeField] private ParticleSystem fullChargeParticles;
+    private bool particlesPlaying = false;
     private Color originalBatteryColor;
     private Coroutine fadeRoutine;
-
-    [HideInInspector] public bool driftPressed;
-
     private float chargePauseEndTime = 0f;
+
+
+    private bool driftPressed;
+
     public GameObject turret;
     public TurretController turretController;
 
@@ -90,7 +85,6 @@ public class PlayerController : CharacterBase
         }
 
         DriveCharge = 0f;
-        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
         firingSystem = GetComponent<FiringSystem>();
         defaultDrag = rb.linearDamping;
@@ -130,17 +124,10 @@ public class PlayerController : CharacterBase
 
     // Modified to include trail control
     public void Drift(bool isPressed)
-{
-    if (isPressed && !driftPressed)
     {
-        if (driftAudio != null)
-            driftAudio.PlayDriftStart(transform.position);
-    }
-
         driftPressed = isPressed;
-        HandleDriftTrails(isPressed);
+        HandleDriftTrails(isPressed); // Added
     }
-
 
     public void Aim(Vector2 aimVector)
     {
@@ -331,24 +318,22 @@ public class PlayerController : CharacterBase
         }
     }
 
-
     public void Fire()
     {
-        firingSystem.FireCommand(); // Your existing firing logic
-
+        firingSystem.FireCommand();
     }
-
 
     //upgrade functions
     public void UpgradeMoveSpeed(float multiplier)
     {
-        moveSpeed *= multiplier;
         maxSpeed *= multiplier;
-        driftSpeed *= multiplier;
         maxDriftSpeed *= multiplier;
-        turnSpeed *= multiplier;
-        driftTurnSpeed *= multiplier;
         Debug.Log($"Speed upgraded! New speed: {moveSpeed}");
+    }
+    public void UpgradeDriveChargeSpeed(float multiplier)
+    {
+        chargePerSecond *= multiplier;
+        Debug.Log($"Drive charge speed upgraded! New charge speed: {chargePerSecond}");
     }
 
     private void HandleDriftTrails(bool drifting)
@@ -413,4 +398,12 @@ public class PlayerController : CharacterBase
         Destroy(trail.gameObject);
     }
 
+    public void CancelDrift()
+    {
+        if (driftPressed)
+        {
+            driftPressed = false;
+            HandleDriftTrails(false);
+        }
+    }
 }
