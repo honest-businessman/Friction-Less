@@ -131,10 +131,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2489226470317238442, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 690717703}
+    - target: {fileID: 2489226470317238442, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: tankTrailShotAudio
+      value: 
+      objectReference: {fileID: 690717709}
     - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: turnSpeed
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: driftAudio
+      value: 
+      objectReference: {fileID: 690717710}
+    - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      propertyPath: shellAudio
+      value: 
+      objectReference: {fileID: 977146771}
     - target: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
       propertyPath: chargeAngle
       value: 30
@@ -194,7 +210,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 213092101655995850, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690717710}
+    - targetCorrespondingSourceObject: {fileID: 213092101655995850, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690717709}
   m_SourcePrefab: {fileID: 100100000, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
 --- !u!1001 &526722177
 PrefabInstance:
@@ -358,12 +380,98 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2522624f2dbfba145acc80763068e540, type: 3}
+--- !u!1 &690717697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 213092101655995850, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+  m_PrefabInstance: {fileID: 199498342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &690717703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2531162805804896880, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+  m_PrefabInstance: {fileID: 199498342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690717697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34b3e209b6db62b4488d048ea39c46ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &690717704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2727038939701339567, guid: aa2f1057ba7e6374e9bb0998f1dc069a, type: 3}
+  m_PrefabInstance: {fileID: 199498342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690717697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be818b03d2104ef4b9f24356e61236ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &690717709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690717697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea975229be2e3e649875ee64eb256580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankTrailShotEvent:
+    Guid:
+      Data1: -1507408086
+      Data2: 1169714321
+      Data3: 1309568129
+      Data4: -906855665
+    Path: event:/ChargedShot
+--- !u!114 &690717710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690717697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1f3512548c79d4bbb817a8f2bc2bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  driftStartEvent:
+    Guid:
+      Data1: -1169687711
+      Data2: 1163617329
+      Data3: 1313204894
+      Data4: 2044759934
+    Path: event:/DriftStart
 --- !u!20 &792055538 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
   m_PrefabInstance: {fileID: 3090318916966835265}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1317497235
+--- !u!1 &977146769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8543413777007259747, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
+  m_PrefabInstance: {fileID: 1340235287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &977146771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977146769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d041bd7ce9c554f9c17832d15d42ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 690717704}
+  shell1Event: event:/TankShot1
+  shell2Event: event:/TankShot2
+  shell3Event: event:/TankShot3
+--- !u!84 &1051948317
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,7 +565,10 @@ PrefabInstance:
     - {fileID: 7996103577312350173, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
     - {fileID: 3354472636886189838, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8543413777007259747, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 977146771}
   m_SourcePrefab: {fileID: 100100000, guid: 99db90e40437b6e4a9649d3a94fe2c97, type: 3}
 --- !u!1001 &1607849421
 PrefabInstance:
@@ -717,7 +828,7 @@ PrefabInstance:
     - target: {fileID: 1634058560872992135, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1317497235}
+      objectReference: {fileID: 1051948317}
     - target: {fileID: 2913776580617316615, guid: 945b035385abbbd41a8efad22efefdc3, type: 3}
       propertyPath: m_Name
       value: Game2DCamera

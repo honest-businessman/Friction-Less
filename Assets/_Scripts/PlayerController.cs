@@ -29,6 +29,12 @@ public class PlayerController : CharacterBase
     public float minChargeMoveSpeed = 3f; // degrees
     private float turnSpeedMultiplier = 10f; // Adjusted multiplier for rotation speed
 
+    [SerializeField] private TankDriftAudio driftAudio;
+
+    //FMOD
+    [SerializeField] private TankShellAudio shellAudio;
+    public TankShellAudio ShellAudio => shellAudio; // expose for FiringSystem
+
     [Header("Visuals")]
     // Reference to the TrackRight Animator
     [SerializeField] private Animator trackRightAnimator;
@@ -125,9 +131,17 @@ public class PlayerController : CharacterBase
     // Modified to include trail control
     public void Drift(bool isPressed)
     {
+        if (isPressed && !driftPressed && rb.linearVelocity.magnitude > 0.1f) // only play if moving
+        {
+            if (driftAudio != null)
+                driftAudio.PlayDriftStart(transform.position);
+        }
+
         driftPressed = isPressed;
-        HandleDriftTrails(isPressed); // Added
+        HandleDriftTrails(isPressed);
     }
+
+
 
     public void Aim(Vector2 aimVector)
     {
